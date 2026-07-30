@@ -11,6 +11,7 @@ from .config import (
     FRONTEND_ORIGIN,
     GEMINI_ENABLED,
     GEMINI_MODEL,
+    KNOWLEDGE_FILES,
 )
 from .data_service import get_document_outline, list_documents
 from .models import (
@@ -57,12 +58,16 @@ app.add_middleware(
 @app.get("/api/health")
 def health() -> dict:
     missing = [key for key, path in DOCUMENTS.items() if not path.exists()]
+    missing_knowledge = [
+        key for key, path in KNOWLEDGE_FILES.items() if not path.exists()
+    ]
     return {
-        "status": "ok" if not missing else "degraded",
+        "status": "ok" if not missing and not missing_knowledge else "degraded",
         "gemini_enabled": GEMINI_ENABLED,
         "gemini_model": GEMINI_MODEL,
         "fallback_enabled": ALLOW_FALLBACK,
         "missing_documents": missing,
+        "missing_knowledge": missing_knowledge,
     }
 
 

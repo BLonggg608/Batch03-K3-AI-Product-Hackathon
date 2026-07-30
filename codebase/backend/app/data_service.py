@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+import json
 import re
 from functools import lru_cache
 
 from fastapi import HTTPException
-from pypdf import PdfReader
 
-from .config import DOCUMENTS
+from .config import DOCUMENTS, KNOWLEDGE_FILES
 from .models import DocumentOutline, DocumentSummary, PageSummary
 
 
@@ -27,45 +27,6 @@ DOCUMENT_META = {
     },
 }
 
-PDF_SYMBOL_MAP = str.maketrans(
-    {
-        "\ue081": "(",
-        "\ue082": ")",
-        "\ue088": "-",
-        "\ue089": "–",
-        "\ue08b": "—",
-        "\ue092": ":",
-        "\ue09b": "=",
-        "\ue09f": "×",
-        "\ue0a3": "≥",
-    }
-)
-
-NON_INSTRUCTIONAL_TITLES = {
-    "agenda",
-    "sáng",
-    "chiều",
-    "mục lục",
-    "nội dung chương trình",
-}
-
-PAGE_TITLE_OVERRIDES = {
-    ("day01", 16): "Nguyên tắc sắp xếp và quản lý context",
-    ("day01", 21): "Giới hạn của việc học mẫu từ dữ liệu",
-    ("day02", 10): "6 câu hỏi khai thác bài toán",
-    ("day02", 6): "Đặc điểm bài toán phù hợp để cải tiến bằng AI",
-    ("day02", 9): "Cấu trúc Problem Statement",
-    ("day02", 12): "Output Metric và Process Metric",
-    ("day02", 13): "Ba bước quyết định AI theo PAIR",
-    ("day02", 18): "Ba mức giải pháp: Rule / Workflow / Agent",
-    ("day02", 22): "Reward function và ma trận Precision / Recall",
-    ("day02", 24): "Ngưỡng vận hành và kill-switch",
-    ("day02", 25): "Khoảng cách giữa Demo và Production",
-    ("day02", 26): "Từ Problem Statement đến Eval Plan",
-    ("day02", 28): "Khung quyết định Go / Not Yet / No-Go",
-    ("day02", 29): "Các nguyên tắc xác định bài toán AI",
-}
-
 
 def _document_path(document_id: str):
     path = DOCUMENTS.get(document_id)
@@ -76,46 +37,99 @@ def _document_path(document_id: str):
     return path
 
 
-def _clean_lines(raw_text: str) -> list[str]:
-    raw_text = raw_text.translate(PDF_SYMBOL_MAP)
-    raw_text = re.sub(r"[\ue000-\uf8ff]", " ", raw_text)
-    return [
-        re.sub(r"\s+", " ", line).strip()
-        for line in raw_text.splitlines()
-        if line.strip()
-    ]
+def _knowledge_path(document_id: str):
+    path = KNOWLEDGE_FILES.get(document_id)
+    if path is None:
+        raise HTTPException(status_code=404, detail="Không tìm thấy knowledge base.")
+    if not path.exists():
+        raise HTTPException(
+            status_code=503,
+            detail=f"Thiếu knowledge base {path.name}.",
+        )
+    return path
 
 
-def _page_title(lines: list[str], page_number: int) -> str:
-    if not lines:
-        return f"Trang {page_number}"
-    title = lines[0]
-    if title.upper().startswith("AI IN ACTION") and len(lines) > 1:
-        title = lines[1]
-    return title[:110]
+@lru_cache(maxsize=4)
+def _knowledge_document(document_id: str) -> dict:
+    path = _knowledge_path(document_id)
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Knowledge base {path.name} không hợp lệ: {exc}",
+        ) from exc
+
+    if payload.get("document_id") != document_id:
+        raise HTTPException(
+            status_code=500,
+            detail=f"document_id trong {path.name} không khớp.",
+        )
+    pages = payload.get("pages")
+    if not isinstance(pages, list) or len(pages) != 29:
+        raise HTTPException(
+            status_code=500,
+            detail=f"{path.name} phải chứa đúng 29 trang.",
+        )
+    if [page.get("page_number") for page in pages] != list(range(1, 30)):
+        raise HTTPException(
+            status_code=500,
+            detail=f"Số trang trong {path.name} phải liên tục từ 1 đến 29.",
+        )
+    return payload
 
 
 @lru_cache(maxsize=4)
 def _document_pages(document_id: str) -> list[dict]:
-    path = _document_path(document_id)
-    reader = PdfReader(str(path))
     pages: list[dict] = []
-    for page_number, page in enumerate(reader.pages, 1):
-        lines = _clean_lines(page.extract_text() or "")
-        content = "\n".join(lines)
+    for raw in _knowledge_document(document_id)["pages"]:
+        content = str(raw.get("content", "")).strip()
+        evidence = [
+            str(item).strip()
+            for item in raw.get("evidence", [])
+            if str(item).strip()
+        ]
+        if evidence:
+            missing = [
+                item
+                for item in evidence
+                if _normalize(item) not in _normalize(content)
+            ]
+            if missing:
+                raise HTTPException(
+                    status_code=500,
+                    detail=(
+                        f"Evidence trang {raw['page_number']} của {document_id} "
+                        "không tồn tại trong content."
+                    ),
+                )
+        summary = str(raw.get("summary", "")).strip()
+        topics = [str(item).strip() for item in raw.get("topics", []) if str(item).strip()]
+        knowledge_points = [
+            str(item).strip()
+            for item in raw.get("knowledge_points", [])
+            if str(item).strip()
+        ]
         pages.append(
             {
-                "page_number": page_number,
-                "title": PAGE_TITLE_OVERRIDES.get(
-                    (document_id, page_number),
-                    _page_title(lines, page_number),
-                ),
-                "preview": " ".join(lines[1:])[:260] or content[:260],
+                "page_number": int(raw["page_number"]),
+                "title": str(raw.get("title") or f"Trang {raw['page_number']}"),
+                "preview": summary[:260] or content[:260],
                 "word_count": len(re.findall(r"\w+", content, flags=re.UNICODE)),
+                "is_instructional": bool(raw.get("is_instructional", False)),
+                "exclusion_reason": raw.get("exclusion_reason"),
+                "topics": topics,
+                "summary": summary,
+                "knowledge_points": knowledge_points,
+                "evidence": evidence,
                 "content": content,
             }
         )
     return pages
+
+
+def _normalize(value: str) -> str:
+    return re.sub(r"\s+", " ", value).strip().casefold()
 
 
 @lru_cache(maxsize=4)
@@ -154,12 +168,7 @@ def get_page_source(document_id: str, page_number: int) -> dict:
 
 
 def is_instructional_page(page: dict) -> bool:
-    title = re.sub(r"\s+", " ", page["title"]).strip().casefold()
-    return (
-        page["word_count"] >= 45
-        and title not in NON_INSTRUCTIONAL_TITLES
-        and "agenda" not in title
-    )
+    return bool(page.get("is_instructional"))
 
 
 def retrieve_document_pages(
@@ -167,14 +176,15 @@ def retrieve_document_pages(
     page_numbers: list[int],
 ) -> dict:
     unique_pages = list(dict.fromkeys(page_numbers))
-    if not unique_pages or len(unique_pages) > 14:
+    if not unique_pages or len(unique_pages) > 20:
         raise HTTPException(
             status_code=422,
-            detail="Cần retrieve từ 1 đến 14 trang mỗi lần.",
+            detail="Cần retrieve từ 1 đến 20 trang mỗi lần.",
         )
     return {
         "document_id": document_id,
         "document_name": _document_path(document_id).name,
+        "knowledge_source": _knowledge_path(document_id).name,
         "pages": [
             get_page_source(document_id, page_number)
             for page_number in unique_pages
@@ -182,6 +192,51 @@ def retrieve_document_pages(
     }
 
 
-@lru_cache(maxsize=4)
-def get_document_pdf_bytes(document_id: str) -> bytes:
-    return _document_path(document_id).read_bytes()
+def select_quiz_context(
+    document_id: str,
+    question_count: int,
+    preferred_pages: list[int] | None = None,
+) -> list[dict]:
+    eligible = [
+        page for page in _document_pages(document_id) if is_instructional_page(page)
+    ]
+    if len(eligible) < question_count:
+        raise HTTPException(
+            status_code=422,
+            detail="Knowledge base không đủ trang kiến thức để tạo quiz.",
+        )
+
+    selected_numbers = [
+        page_number
+        for page_number in dict.fromkeys(preferred_pages or [])
+        if 1 <= page_number <= 29
+        and is_instructional_page(get_page_source(document_id, page_number))
+    ]
+    remaining = question_count - len(selected_numbers)
+    candidates = [
+        page for page in eligible if page["page_number"] not in selected_numbers
+    ]
+    if remaining > 0:
+        if remaining == 1:
+            indexes = [len(candidates) // 2]
+        else:
+            indexes = [
+                round(index * (len(candidates) - 1) / (remaining - 1))
+                for index in range(remaining)
+            ]
+        selected_numbers.extend(candidates[index]["page_number"] for index in indexes)
+
+    return [
+        {
+            "page_number": page["page_number"],
+            "title": page["title"],
+            "topics": page["topics"],
+            "summary": page["summary"],
+            "knowledge_points": page["knowledge_points"],
+            "evidence": page["evidence"],
+        }
+        for page in (
+            get_page_source(document_id, page_number)
+            for page_number in selected_numbers[:question_count]
+        )
+    ]

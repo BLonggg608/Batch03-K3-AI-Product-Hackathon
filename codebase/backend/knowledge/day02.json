@@ -1,0 +1,755 @@
+{
+  "document_id": "day02",
+  "source_file": "d2-slide-hackathon.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "title": "Xác định bài toán cho AI",
+      "is_instructional": false,
+      "exclusion_reason": "Trang bìa, chỉ nêu tên buổi học và thông điệp mở đầu.",
+      "topics": [],
+      "summary": "Trang bìa của Day 02.",
+      "knowledge_points": [],
+      "evidence": [
+        "Xác định bài toán cho AI.",
+        "Từ yêu cầu mơ hồ đến Problem Statement rõ ràng."
+      ],
+      "content": "Xác định bài toán cho AI. Từ yêu cầu mơ hồ đến Problem Statement rõ ràng."
+    },
+    {
+      "page_number": 2,
+      "title": "Agenda Day 02",
+      "is_instructional": false,
+      "exclusion_reason": "Trang lịch trình sáng, chiều và danh sách bài nộp; không phải kiến thức dùng để tạo câu hỏi.",
+      "topics": [],
+      "summary": "Lịch trình và mục tiêu của Day 02.",
+      "knowledge_points": [],
+      "evidence": [
+        "Mục tiêu: Biến yêu cầu mơ hồ thành Problem Statement rõ ràng để ra quyết định",
+        "BÀI NỘP CUỐI BUỔI"
+      ],
+      "content": "Mục tiêu: Biến yêu cầu mơ hồ thành Problem Statement rõ ràng để ra quyết định. BÀI NỘP CUỐI BUỔI."
+    },
+    {
+      "page_number": 3,
+      "title": "Tìm đúng vấn đề trước khi tìm giải pháp",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Double Diamond",
+        "Problem Discovery",
+        "Problem Definition",
+        "Solution Discovery"
+      ],
+      "summary": "Double Diamond tách quá trình thiết kế thành hai pha mở rộng và thu hẹp: tìm đúng vấn đề trước, sau đó mới tìm và triển khai giải pháp.",
+      "knowledge_points": [
+        "Diamond 1 gồm Discover để khảo sát rộng vấn đề căn bản và Define để xác định bài toán gốc.",
+        "Diamond 2 gồm Develop để tạo nhiều giải pháp tiềm năng và Deliver để chọn, triển khai giải pháp.",
+        "Một giải pháp tốt không bù được việc lựa chọn sai vấn đề."
+      ],
+      "evidence": [
+        "Discover: Mở rộng — khảo sát vấn đề căn bản.",
+        "Define: Thu hẹp — xác định đúng bài toán gốc.",
+        "Giải pháp xuất sắc cho sai vấn đề có thể còn tệ hơn không có giải pháp."
+      ],
+      "content": "Mô hình Double Diamond gồm hai diamond. Discover: Mở rộng — khảo sát vấn đề căn bản. Define: Thu hẹp — xác định đúng bài toán gốc. Diamond 2 dùng Develop để mở rộng nhiều giải pháp tiềm năng, rồi Deliver để chọn và triển khai. Tìm đúng vấn đề trước khi tìm giải pháp. Giải pháp xuất sắc cho sai vấn đề có thể còn tệ hơn không có giải pháp."
+    },
+    {
+      "page_number": 4,
+      "title": "Diamond 1: phân kỳ để hiểu, hội tụ để chọn",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Discover",
+        "Define",
+        "User Research",
+        "Problem Statement"
+      ],
+      "summary": "Discover mở rộng góc nhìn bằng nghiên cứu thực tế; Define tổng hợp dữ liệu và chọn đúng vấn đề bằng các kỹ thuật hội tụ.",
+      "knowledge_points": [
+        "Discover có thể dùng quan sát, phỏng vấn, khảo sát, nhật ký hành vi, phân tích dữ liệu và stakeholder mapping.",
+        "Define có thể dùng affinity mapping, 5 Whys, ma trận Impact-Effort, dot voting, How Might We và Problem Statement.",
+        "Diamond 1 phân kỳ để thấu hiểu sâu và hội tụ để lựa chọn chính xác."
+      ],
+      "evidence": [
+        "DISCOVER · PHÂN KỲ",
+        "DEFINE · HỘI TỤ",
+        "Phân kỳ để thấu hiểu sâu sắc, hội tụ để lựa chọn chính xác"
+      ],
+      "content": "DISCOVER · PHÂN KỲ. Trong Diamond 1, Discover là pha phân kỳ để khám phá và mở rộng góc nhìn qua quan sát thực tế, phỏng vấn người dùng, khảo sát, nhật ký hành vi, phân tích dữ liệu và bản đồ bên liên quan. DEFINE · HỘI TỤ. Define là pha hội tụ để định nghĩa và chọn lọc dựa trên dữ liệu, dùng các công cụ như affinity mapping, 5 Whys, ma trận Impact-Effort, dot voting, How Might We và Problem Statement. Phân kỳ để thấu hiểu sâu sắc, hội tụ để lựa chọn chính xác."
+    },
+    {
+      "page_number": 5,
+      "title": "Khởi nguồn từ bài toán, không bắt đầu từ AI",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Case Study",
+        "Core Competency",
+        "Market Size",
+        "Problem Positioning"
+      ],
+      "summary": "Ba trường hợp Cursor, Artifact và NotebookLM minh họa tầm quan trọng của năng lực cốt lõi, quy mô thị trường và định vị đúng điểm đau.",
+      "knowledge_points": [
+        "Cursor từ bỏ AI thiết kế cơ khí để tập trung vào AI code editor, nơi đội ngũ hiểu sâu quy trình.",
+        "Artifact cho thấy sản phẩm tốt chưa chắc có thị trường đủ lớn.",
+        "NotebookLM tập trung hỏi đáp, tóm tắt tài liệu cá nhân và đối chiếu nguồn bằng trích dẫn.",
+        "Lộ trình bắt đầu từ bài toán, sau đó đến quy trình, chỉ số và cuối cùng mới đến giải pháp AI."
+      ],
+      "evidence": [
+        "Sản phẩm tốt ≠ Thị trường lớn",
+        "Tập trung giải quyết nhu cầu hỏi đáp, tóm tắt trên tài liệu cá nhân và đối chiếu nguồn gốc bằng trích dẫn.",
+        "Lộ trình: Bài toán → Quy trình vận hành → Chỉ số đo lường → Giải pháp AI"
+      ],
+      "content": "Các case study nhấn mạnh phải bắt đầu từ bài toán. Cursor tập trung vào AI code editor phù hợp năng lực cốt lõi của đội ngũ. Sản phẩm tốt ≠ Thị trường lớn. NotebookLM: Tập trung giải quyết nhu cầu hỏi đáp, tóm tắt trên tài liệu cá nhân và đối chiếu nguồn gốc bằng trích dẫn. Lộ trình: Bài toán → Quy trình vận hành → Chỉ số đo lường → Giải pháp AI"
+    },
+    {
+      "page_number": 6,
+      "title": "Bốn lăng kính tìm bài toán AI",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Problem Discovery",
+        "Repetitive Tasks",
+        "Time-consuming Tasks",
+        "AI Advantage",
+        "User Pain Points"
+      ],
+      "summary": "Có thể tìm bài toán AI từ tác vụ lặp lại, công việc tốn thời gian, lợi thế riêng của AI và điểm đau liên tục của người dùng.",
+      "knowledge_points": [
+        "Repetitive xem xét công việc thường xuyên và công đoạn có thể chuẩn hóa.",
+        "Time-consuming tìm bước hao phí do tìm kiếm, đọc hiểu, chờ đợi hoặc định dạng.",
+        "AI Advantage nhận diện tác vụ cần phân tích ngữ cảnh, ngôn ngữ tự nhiên hoặc tổng hợp đa nguồn.",
+        "User Pain Points xác định ai đang khó khăn, phàn nàn hoặc bị tắc nghẽn liên tục.",
+        "Ở bước này chỉ nhận diện vấn đề, chưa vội đề xuất giải pháp."
+      ],
+      "evidence": [
+        "Tập trung nhận diện vấn đề; chưa vội đề xuất giải pháp.",
+        "Tác vụ đòi hỏi phân tích ngữ cảnh, xử lý ngôn ngữ tự nhiên, tổng hợp đa nguồn.",
+        "Ai đang gặp khó khăn, phàn nàn hoặc bị tắc nghẽn liên tục?"
+      ],
+      "content": "Bốn lăng kính tìm bài toán AI là Repetitive, Time-consuming, AI Advantage và User Pain Points. Tác vụ đòi hỏi phân tích ngữ cảnh, xử lý ngôn ngữ tự nhiên, tổng hợp đa nguồn. Ai đang gặp khó khăn, phàn nàn hoặc bị tắc nghẽn liên tục? Tập trung nhận diện vấn đề; chưa vội đề xuất giải pháp."
+    },
+    {
+      "page_number": 7,
+      "title": "Các anti-pattern khi xác định bài toán AI",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Solution-first",
+        "Baseline",
+        "Evaluation",
+        "AI Boundary",
+        "Human-in-the-loop"
+      ],
+      "summary": "Bốn sai lầm là xây giải pháp trước khi hiểu vấn đề, không có baseline, không có đánh giá và không xác định ranh giới tự chủ của AI.",
+      "knowledge_points": [
+        "Solution-first là xây chatbot hoặc agent trước khi làm rõ quy trình và điểm nghẽn.",
+        "No baseline khiến không có căn cứ đánh giá hiệu quả cải tiến.",
+        "No evaluation là thiếu test case, metric hoặc phương án đối chứng.",
+        "No boundary là không rõ khi nào AI được tự chủ và khi nào con người phải duyệt.",
+        "Khi gặp các dấu hiệu này cần quay lại làm rõ Problem Statement."
+      ],
+      "evidence": [
+        "Không lượng hóa tổn thất hiện tại, dẫn đến mất căn cứ đánh giá hiệu quả cải tiến.",
+        "Không thiết lập kịch bản kiểm thử, chỉ số đo lường hoặc phương án đối chứng.",
+        "Không rõ phạm vi tự chủ của AI và thời điểm cần con người phê duyệt"
+      ],
+      "content": "Các anti-pattern gồm Solution-first, No baseline, No evaluation và No boundary. Không lượng hóa tổn thất hiện tại, dẫn đến mất căn cứ đánh giá hiệu quả cải tiến. Không thiết lập kịch bản kiểm thử, chỉ số đo lường hoặc phương án đối chứng. Không rõ phạm vi tự chủ của AI và thời điểm cần con người phê duyệt. Nếu thiếu các yếu tố này, phải quay lại Problem Statement trước khi chọn công nghệ."
+    },
+    {
+      "page_number": 8,
+      "title": "Reframe câu hỏi: hỏi về bài toán trước, AI sau",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "PAIR",
+        "Problem Reframing",
+        "How Might We"
+      ],
+      "summary": "PAIR khuyên thay câu hỏi bắt đầu bằng công nghệ bằng hai câu hỏi về cách giải vấn đề và lợi thế riêng của AI.",
+      "knowledge_points": [
+        "Không bắt đầu bằng câu hỏi Can we use AI to...?",
+        "Trước tiên hỏi How might we solve...?, rồi mới hỏi AI có giải vấn đề theo cách độc đáo hay không.",
+        "AI chỉ là một phương án trong nhiều phương án khả dĩ."
+      ],
+      "evidence": [
+        "\"Can we use AI to ______?\"",
+        "\"How might we solve ______?\"",
+        "Hỏi về bài toán trước, về AI sau — AI chỉ là một phương án trong nhiều phương án khả dĩ."
+      ],
+      "content": "PAIR reframe câu hỏi từ \"Can we use AI to ______?\" thành \"How might we solve ______?\" và \"Can AI solve this problem in a unique way?\". Hỏi về bài toán trước, về AI sau — AI chỉ là một phương án trong nhiều phương án khả dĩ."
+    },
+    {
+      "page_number": 9,
+      "title": "Quick Problem Card",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Problem Statement",
+        "Actor",
+        "Workflow",
+        "Bottleneck",
+        "Impact",
+        "Success Metric",
+        "Solution Direction"
+      ],
+      "summary": "Quick Problem Card định hình bài toán bằng vấn đề, đối tượng, quy trình, nút thắt và tác động, chỉ số thành công cùng định hướng giải pháp.",
+      "knowledge_points": [
+        "Problem phải mô tả vấn đề cụ thể và không chứa giải pháp.",
+        "Actor là cá nhân hoặc bộ phận chịu tác động trực tiếp.",
+        "Workflow mô tả quy trình hiện tại trong 3–7 bước.",
+        "Bottleneck và impact xác định chỗ chậm, sai, lặp cùng hệ quả cụ thể.",
+        "Success metric phải là chỉ số định lượng.",
+        "Direction có thể là No AI, Rule, Workflow, Agent hoặc Chưa xác định."
+      ],
+      "evidence": [
+        "Vấn đề cụ thể cần giải quyết (không bao gồm giải pháp).",
+        "Chỉ số định lượng cụ thể dùng để chứng minh hiệu quả cải tiến."
+      ],
+      "content": "Quick Problem Card gồm: problem — Vấn đề cụ thể cần giải quyết (không bao gồm giải pháp). actor là đối tượng chịu tác động. Quy trình hiện tại Các bước vận hành thủ công hoặc tự động hiện tại (gồm 3-7 bước). bottleneck + impact là chỗ chậm, sai hoặc lặp và tổn thất cụ thể. Chỉ số định lượng cụ thể dùng để chứng minh hiệu quả cải tiến. direction là No AI, Rule, Workflow, Agent hoặc Chưa xác định."
+    },
+    {
+      "page_number": 10,
+      "title": "Sáu câu hỏi khai thác bài toán",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Problem Interview",
+        "Workflow",
+        "Bottleneck",
+        "Baseline",
+        "Success Criteria",
+        "Risk",
+        "Non-AI Alternative"
+      ],
+      "summary": "Bộ sáu câu hỏi giúp làm rõ quy trình, nút thắt, hao phí, tiêu chí thành công, hậu quả sai sót và giải pháp phi AI.",
+      "knowledge_points": [
+        "Mô tả công cụ, các bước và cơ chế bàn giao của quy trình hiện tại.",
+        "Xác định bước chậm, dễ sai hoặc lặp lại.",
+        "Định lượng hao phí bằng thời gian, nhân sự, SLA hoặc cơ hội bỏ lỡ.",
+        "Xác định tiêu chí thành công có thể đo.",
+        "Làm rõ hậu quả sai, phạm vi AI tự quyết và điểm con người phê duyệt.",
+        "Kiểm tra xem rule, checklist, quy trình hoặc tài liệu có giải quyết đơn giản hơn không."
+      ],
+      "evidence": [
+        "Hao phí hiện tại là bao nhiêu?",
+        "Hậu quả khi xảy ra sai sót?",
+        "Có giải pháp phi AI đơn giản hơn?"
+      ],
+      "content": "Sáu câu hỏi khai thác bài toán: Quy trình hiện tại như thế nào? Nút thắt nằm ở đâu? Hao phí hiện tại là bao nhiêu? Tiêu chí thành công đo bằng gì? Hậu quả khi xảy ra sai sót? Có giải pháp phi AI đơn giản hơn? Cần làm rõ AI tự quyết ở đâu và con người phê duyệt ở đâu."
+    },
+    {
+      "page_number": 11,
+      "title": "Định lượng hóa bài toán bằng Baseline, Target và Measurement",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Baseline",
+        "Target",
+        "Measurement",
+        "Quantification"
+      ],
+      "summary": "Một điểm đau cần hiện trạng định lượng, mục tiêu có ngưỡng và chỉ số cùng cách thu thập để chứng minh hiệu quả.",
+      "knowledge_points": [
+        "Baseline trả lời hiện trạng và mức hao phí hiện tại bằng số cụ thể.",
+        "Target đặt mức cải thiện kỳ vọng và ngưỡng cụ thể.",
+        "Measurement xác định chỉ số chứng minh hiệu quả và cách thu thập.",
+        "Ví dụ có thể đo thời gian hoàn thành, tỷ lệ lỗi và tải trọng vận hành."
+      ],
+      "evidence": [
+        "Mức hao phí hiện tại là bao nhiêu? Bằng con số cụ thể.",
+        "Kỳ vọng cải thiện ở mức độ nào? Ngưỡng cụ thể là gì?",
+        "Điểm đau chưa được định lượng thì không thể xác định giá trị thực tế của AI"
+      ],
+      "content": "Định lượng hóa bài toán cần ba phần. Baseline: Mức hao phí hiện tại là bao nhiêu? Bằng con số cụ thể. Target: Kỳ vọng cải thiện ở mức độ nào? Ngưỡng cụ thể là gì? Measurement xác định chỉ số chứng minh hiệu quả và cách thu thập. Có thể đo thời gian hoàn thành, chất lượng/tỷ lệ lỗi và tải trọng vận hành. Điểm đau chưa được định lượng thì không thể xác định giá trị thực tế của AI."
+    },
+    {
+      "page_number": 12,
+      "title": "Thiết lập Output Metric và Input Metrics",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Output Metric",
+        "Input Metrics",
+        "North Star Metric"
+      ],
+      "summary": "Output Metric đo kết quả cuối cần tối ưu, còn Input Metrics là các đòn bẩy trực tiếp có thể tác động.",
+      "knowledge_points": [
+        "Output Metric phản ánh thời lượng, tỷ lệ sai sót, chất lượng đầu ra hoặc giá trị người dùng cuối.",
+        "Input Metrics có thể là độ chính xác phân loại, tỷ lệ chuyển tiếp kịp thời và thời gian hiệu chỉnh.",
+        "Một mô tả mơ hồ như nâng cao hiệu suất chưa phải chỉ số.",
+        "Chỉ số phải gắn với hiện trạng, mục tiêu và phương pháp đo."
+      ],
+      "evidence": [
+        "OUTPUT METRIC Kết quả cuối cùng / what we optimize",
+        "INPUT METRICS Các đòn bẩy / what we can move",
+        "\"Nâng cao hiệu suất\" không phải chỉ số — cần gắn với hiện trạng, mục tiêu và phương pháp đo."
+      ],
+      "content": "OUTPUT METRIC Kết quả cuối cùng / what we optimize: thời lượng quy trình, tỷ lệ sai sót, chất lượng đầu ra hoặc giá trị người dùng nhận được. INPUT METRICS Các đòn bẩy / what we can move: độ chính xác phân loại, tỷ lệ chuyển tiếp hỗ trợ kịp thời và thời gian hiệu chỉnh. \"Nâng cao hiệu suất\" không phải chỉ số — cần gắn với hiện trạng, mục tiêu và phương pháp đo."
+    },
+    {
+      "page_number": 13,
+      "title": "Ba bước quyết định AI theo PAIR",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "PAIR",
+        "AI Advantage",
+        "Automate",
+        "Augment",
+        "Reward Function",
+        "Go/Not Yet/No-Go"
+      ],
+      "summary": "PAIR lần lượt kiểm tra AI có tạo thêm giá trị, nên thay thế hay hỗ trợ con người, và định nghĩa đúng/sai cùng ngưỡng thành công.",
+      "knowledge_points": [
+        "Bước 1 tìm giao điểm giữa nhu cầu và thế mạnh của AI để xác định có thực sự cần AI.",
+        "Bước 2 chọn Automate hay Augment và mức tự động hóa theo độ tin cậy, rủi ro.",
+        "Bước 3 xác định reward function, đánh đổi precision/recall và tiêu chí thành công đo được.",
+        "Tổng hợp ba bước để ra quyết định Go, Not Yet hoặc No-Go."
+      ],
+      "evidence": [
+        "Giao điểm: nhu cầu × thế mạnh AI",
+        "Automate hay Augment?",
+        "Định nghĩa \"đúng/sai\" của hệ thống (precision ↔ recall) và ngưỡng thành công đo được."
+      ],
+      "content": "Ba bước PAIR. Bước 1 — Giao điểm: nhu cầu × thế mạnh AI — trả lời có thực sự cần AI. Bước 2 — Automate hay Augment? — chọn vai trò và mức tự động hóa theo độ tin cậy cùng rủi ro. Bước 3 — Định nghĩa \"đúng/sai\" của hệ thống (precision ↔ recall) và ngưỡng thành công đo được. Tổng hợp để quyết định Go, Not Yet hoặc No-Go."
+    },
+    {
+      "page_number": 14,
+      "title": "Tám trường hợp AI có lợi thế",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "AI Advantage",
+        "Recommendation",
+        "Prediction",
+        "Personalization",
+        "Natural Language",
+        "Anomaly Detection",
+        "Domain Agent",
+        "Dynamic Content"
+      ],
+      "summary": "PAIR liệt kê tám nhóm bài toán mà AI thường có lợi thế hơn giải pháp tĩnh hoặc rule.",
+      "knowledge_points": [
+        "AI có thể tạo gợi ý riêng, dự đoán tương lai và cá nhân hóa trải nghiệm.",
+        "AI có lợi thế khi hiểu ngôn ngữ tự nhiên hoặc nhận diện cả một lớp thực thể.",
+        "AI phù hợp để phát hiện sự kiện hiếm và biến đổi theo thời gian.",
+        "Agent chuyên biệt và nội dung động là hai trường hợp khác mà AI có thể tốt hơn."
+      ],
+      "evidence": [
+        "Mỗi người dùng nhận một nội dung gợi ý khác nhau.",
+        "Hiểu câu hỏi viết tự do bằng lời nói hằng ngày.",
+        "Bắt sự kiện hiếm, thay đổi theo thời gian — VD gian lận."
+      ],
+      "content": "Tám trường hợp “AI probably better” gồm recommendation: Mỗi người dùng nhận một nội dung gợi ý khác nhau. Prediction và personalization. Natural language: Hiểu câu hỏi viết tự do bằng lời nói hằng ngày. Nhận diện cả một lớp thực thể. Phát hiện cái hiếm và biến đổi: Bắt sự kiện hiếm, thay đổi theo thời gian — VD gian lận. Agent/bot chuyên biệt và nội dung động thay giao diện tĩnh."
+    },
+    {
+      "page_number": 15,
+      "title": "Sáu trường hợp AI không tốt hơn",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Predictability",
+        "Static Information",
+        "Cost of Error",
+        "Explainability",
+        "Latency and Cost",
+        "Human Agency"
+      ],
+      "summary": "AI không phải lựa chọn tốt khi cần tính dự đoán, nội dung tĩnh, lỗi quá đắt, minh bạch tuyệt đối, tốc độ và chi phí thấp, hoặc người dùng muốn tự làm tác vụ giá trị cao.",
+      "knowledge_points": [
+        "Thành phần giao diện quen thuộc cần dự đoán được, không nên để AI thay đổi.",
+        "Thông tin tĩnh nên hiển thị trực tiếp thay vì sinh lại.",
+        "Không dùng AI khi một lần sai gây chi phí vượt lợi ích của nhiều lần đúng.",
+        "Rule hoặc heuristic phù hợp hơn khi cần giải thích, debug, bảo trì và ra thị trường nhanh.",
+        "Không tự động hóa việc mang giá trị cá nhân mà người dùng muốn tự làm."
+      ],
+      "evidence": [
+        "Thông tin tĩnh, ít thay đổi",
+        "Chi phí của một lần sai lớn hơn lợi ích của nhiều lần đúng.",
+        "Rule/heuristic dễ build, dễ giải thích, dễ debug và bảo trì hơn — nếu nó giải quyết được, đó là lựa chọn tối ưu."
+      ],
+      "content": "Sáu trường hợp “AI probably NOT better”: cần duy trì tính dự đoán; Thông tin tĩnh, ít thay đổi; lỗi quá tốn kém vì Chi phí của một lần sai lớn hơn lợi ích của nhiều lần đúng.; yêu cầu minh bạch tuyệt đối; cần tốc độ và chi phí thấp; tác vụ giá trị cao mà người dùng muốn tự làm. Rule/heuristic dễ build, dễ giải thích, dễ debug và bảo trì hơn — nếu nó giải quyết được, đó là lựa chọn tối ưu."
+    },
+    {
+      "page_number": 16,
+      "title": "Hệ thống AI gồm Model, Context, Planning và Tools",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "AI System Architecture",
+        "Model",
+        "Context",
+        "Planning",
+        "Tools"
+      ],
+      "summary": "Một hệ thống AI thực tế kết hợp năng lực mô hình, tri thức bối cảnh, điều phối quy trình và kết nối các hệ thống ngoài.",
+      "knowledge_points": [
+        "Model đảm nhiệm đọc hiểu, soạn thảo, tổng hợp, phân loại và gợi ý.",
+        "Context cung cấp tài liệu, cơ sở dữ liệu và lịch sử nghiệp vụ để phản hồi đúng bối cảnh.",
+        "Planning phân rã tác vụ phức tạp và điều chỉnh kế hoạch.",
+        "Tools kết nối CRM, database, lịch hoặc API bên thứ ba.",
+        "Model chỉ là một thành phần của giải pháp AI."
+      ],
+      "evidence": [
+        "Hệ thống AI = Model + Context + Planning + Tools",
+        "Cơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo bối cảnh.",
+        "Giải pháp AI là một HỆ THỐNG — model chỉ là một thành phần."
+      ],
+      "content": "Hệ thống AI = Model + Context + Planning + Tools. Model xử lý đọc hiểu, soạn thảo, tổng hợp, phân loại và gợi ý. Context: Cơ sở dữ liệu, tài liệu nghiệp vụ, hồ sơ lịch sử giúp AI phản hồi chính xác theo bối cảnh. Planning phân rã và điều phối tác vụ phức tạp. Tools kết nối CRM, database, lịch hoặc API. Giải pháp AI là một HỆ THỐNG — model chỉ là một thành phần."
+    },
+    {
+      "page_number": 17,
+      "title": "Automation và Augmentation",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Automate",
+        "Augment",
+        "Human Oversight"
+      ],
+      "summary": "Chọn AI làm thay khi tác vụ phù hợp để tự động hóa; chọn AI hỗ trợ khi con người cần giữ quyền kiểm soát, trách nhiệm hoặc sự sáng tạo.",
+      "knowledge_points": [
+        "Automate phù hợp với việc khó, nhàm chán, nguy hiểm, cần scale hoặc có đáp án đúng được đồng thuận.",
+        "Augment phù hợp khi người dùng thích tự làm, stakes cao, cần trách nhiệm cá nhân hoặc sở thích khó diễn đạt.",
+        "Automate đo bằng hiệu quả, an toàn và giảm việc tẻ nhạt.",
+        "Augment đo bằng thích thú, cảm giác kiểm soát và sáng tạo.",
+        "Tác vụ đã automate vẫn thường cần preview, edit và undo."
+      ],
+      "evidence": [
+        "AI hỗ trợ con người",
+        "AI làm thay",
+        "Việc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo."
+      ],
+      "content": "Automate nghĩa là AI làm thay, phù hợp khi việc khó, nhàm chán, nguy hiểm, cần scale hoặc có đáp án đúng được đồng thuận. Augment nghĩa là AI hỗ trợ con người, phù hợp với stakes cao, trách nhiệm cá nhân, nhu cầu kiểm soát hoặc sáng tạo. Việc đã automate vẫn gần như luôn cần human oversight — preview, edit, undo."
+    },
+    {
+      "page_number": 18,
+      "title": "Ba mức giải pháp: Rule, Workflow và Agent",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Rule",
+        "LLM Workflow",
+        "Agent",
+        "Technical Complexity"
+      ],
+      "summary": "Ba cấp độ kỹ thuật tăng dần theo độ biến động của đầu vào, tính linh hoạt đầu ra, số bước và nhu cầu tự quyết.",
+      "knowledge_points": [
+        "Rule/Script phù hợp với đầu vào ổn định, logic if/else, kết quả phải đúng tuyệt đối hoặc tuân thủ chặt.",
+        "LLM Feature/Workflow phù hợp với đầu vào đa dạng, đầu ra linh hoạt, có cách đo và có người kiểm tra.",
+        "Agent phù hợp với nhiều bước, nhiều công cụ, trạng thái thay đổi và cần tự quyết giữa các bước.",
+        "Bắt đầu từ giải pháp đơn giản nhất và chỉ tăng độ phức tạp khi giá trị tăng vượt chi phí phức tạp.",
+        "Rule/Workflow/Agent là cấp độ kỹ thuật; Automate/Augment là vai trò con người."
+      ],
+      "evidence": [
+        "Logic viết được thành if/else",
+        "Nhiều bước, dùng nhiều công cụ",
+        "Thứ tự ưu tiên thực dụng: bắt đầu từ bên trái, chỉ đi sang bên phải khi giá trị tăng hơn độ phức tạp."
+      ],
+      "content": "Rule/Script dùng khi đầu vào ổn định và Logic viết được thành if/else. LLM Feature/Workflow dùng khi đầu vào đa dạng, đầu ra linh hoạt, có thể đo chất lượng và con người kiểm tra. Agent dùng khi Nhiều bước, dùng nhiều công cụ, trạng thái thay đổi và cần tự quyết. Thứ tự ưu tiên thực dụng: bắt đầu từ bên trái, chỉ đi sang bên phải khi giá trị tăng hơn độ phức tạp. Rule/Workflow/Agent là cấp độ kỹ thuật, còn Automate/Augment là vai trò con người."
+    },
+    {
+      "page_number": 19,
+      "title": "Một tình huống, ba cấp độ giải pháp",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Rule Example",
+        "Workflow Example",
+        "Agent Example",
+        "Minimum Sufficient Solution"
+      ],
+      "summary": "Cùng bài toán hỗ trợ học viên có thể dùng rule trả lời cố định, workflow duyệt Problem Card hoặc agent theo dõi và can thiệp chủ động.",
+      "knowledge_points": [
+        "Rule có thể trả lời FAQ, gửi link, tài liệu sửa lỗi hoặc checklist khi logic tường minh.",
+        "Workflow có thể kiểm tra Problem Card, yêu cầu bổ sung và chuyển tiếp cho trợ giảng.",
+        "Agent có thể theo dõi tiến độ, phát hiện nhóm bị kẹt và chuẩn bị đề xuất cho TA duyệt.",
+        "Không bắt buộc nâng cấp tuần tự; dừng ở cấp tối giản nếu đạt mục tiêu."
+      ],
+      "evidence": [
+        "Khi nào? Logic tường minh, kết quả cố định.",
+        "Khi nào? Có quy trình rõ, AI hỗ trợ từng bước.",
+        "Không bắt buộc nâng cấp tuần tự từ Rule lên Agent → dừng ở cấp tối giản nhất nếu đã đáp ứng mục tiêu đề ra."
+      ],
+      "content": "Rule trả lời FAQ hoặc gửi tài liệu cố định. Khi nào? Logic tường minh, kết quả cố định. Workflow kiểm tra Problem Card, yêu cầu bổ sung rồi chuyển trợ giảng. Khi nào? Có quy trình rõ, AI hỗ trợ từng bước. Agent theo dõi tiến độ và phát hiện nhóm bị kẹt trong tình huống động, đa công cụ. Không bắt buộc nâng cấp tuần tự từ Rule lên Agent → dừng ở cấp tối giản nhất nếu đã đáp ứng mục tiêu đề ra."
+    },
+    {
+      "page_number": 20,
+      "title": "Ba workflow pattern cơ bản",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Prompt Chaining",
+        "Routing",
+        "Parallelization",
+        "Workflow Patterns"
+      ],
+      "summary": "Prompt Chaining, Routing và Parallelization đáp ứng phần lớn bài toán workflow, với các đánh đổi khác nhau về độ trễ, chuyên môn hóa và rủi ro.",
+      "knowledge_points": [
+        "Prompt Chaining chia tác vụ thành chuỗi tuần tự và đặt gate kiểm tra giữa các bước.",
+        "Routing phân loại input rồi chuyển tới nhánh chuyên biệt; câu dễ có thể dùng model rẻ và câu khó dùng model mạnh.",
+        "Parallelization chạy nhiều nhánh đồng thời rồi tổng hợp hoặc bỏ phiếu.",
+        "Chaining đổi độ trễ lấy độ chính xác; voting giúp giảm rủi ro một đầu ra sai.",
+        "Luôn ưu tiên giải pháp đơn giản và chỉ tăng phức tạp khi thật sự cần."
+      ],
+      "evidence": [
+        "Chia task thành chuỗi bước tuần tự, có gate kiểm tra giữa các bước.",
+        "Phân loại input → đưa vào nhánh chuyên biệt, tối ưu từng loại riêng.",
+        "Chạy song song rồi tổng hợp (sectioning), hoặc chạy nhiều lần lấy vote."
+      ],
+      "content": "Prompt Chaining: Chia task thành chuỗi bước tuần tự, có gate kiểm tra giữa các bước. Routing: Phân loại input → đưa vào nhánh chuyên biệt, tối ưu từng loại riêng. Parallelization: Chạy song song rồi tổng hợp (sectioning), hoặc chạy nhiều lần lấy vote. Chaining đổi độ trễ lấy độ chính xác; routing có thể đưa câu dễ sang model rẻ và câu khó sang model mạnh; vote giúp giảm rủi ro một đầu ra sai."
+    },
+    {
+      "page_number": 21,
+      "title": "Cây quyết định chọn cấp độ giải pháp",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Decision Tree",
+        "No AI",
+        "Rule",
+        "LLM Feature",
+        "Agent",
+        "HITL"
+      ],
+      "summary": "Cây quyết định đi từ giá trị đầu tư đến tính ổn định của logic và độ phức tạp nhiều bước để chọn không dùng AI, Rule, LLM Feature hoặc Agent.",
+      "knowledge_points": [
+        "Nếu volume không đủ lớn hoặc tác vụ không lặp thường xuyên, chưa đáng đầu tư AI và nên giải thủ công trước.",
+        "Nếu logic rõ ràng và input ổn định, chọn Rule/Script.",
+        "Nếu logic không tĩnh nhưng không cần nhiều bước, nhiều tool và state thay đổi, chọn LLM Feature có con người review.",
+        "Nếu cần nhiều bước, nhiều tool và state thay đổi, chọn Agent kèm controls.",
+        "Khi rủi ro cao, bổ sung HITL, rollback và approval."
+      ],
+      "evidence": [
+        "Cây quyết định: Lựa chọn cấp độ giải pháp",
+        "Từ bài toán cốt lõi đến lựa chọn Rule, Workflow hay Agent",
+        "Đi từ trên xuống — mỗi nhánh \"KHÔNG\" là một lần tránh được độ phức tạp không cần thiết."
+      ],
+      "content": "Cây quyết định: Lựa chọn cấp độ giải pháp. Từ bài toán cốt lõi đến lựa chọn Rule, Workflow hay Agent. Đi từ trên xuống — mỗi nhánh \"KHÔNG\" là một lần tránh được độ phức tạp không cần thiết. Nội dung sơ đồ: nếu volume không đủ lớn hoặc không lặp thường xuyên thì chưa đáng đầu tư AI; nếu logic rõ và input ổn định thì dùng Rule/Script; nếu bài toán không cần nhiều bước, nhiều tool và state thay đổi thì dùng LLM Feature + Human Review; nếu có thì dùng Agent + Controls; rủi ro cao cần thêm HITL, rollback và approval."
+    },
+    {
+      "page_number": 22,
+      "title": "Reward function và bốn kết quả dự đoán",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Reward Function",
+        "True Positive",
+        "True Negative",
+        "False Positive",
+        "False Negative"
+      ],
+      "summary": "Reward function định nghĩa đúng/sai của hệ thống qua TP, TN, FP và FN; chi phí FP và FN có thể không đối xứng.",
+      "knowledge_points": [
+        "TP là trường hợp cần hỗ trợ và AI gợi ý đúng.",
+        "TN là trường hợp không cần can thiệp và AI không can thiệp.",
+        "FP là AI gợi ý sai trong trường hợp không nên, có thể làm học viên đi sai hướng.",
+        "FN là bỏ sót học viên thật sự đang kẹt.",
+        "Reward function cần UX, Product và Engineering cùng thiết kế.",
+        "Đánh đổi FP/FN là quyết định then chốt vì chi phí hai loại lỗi không đối xứng."
+      ],
+      "evidence": [
+        "Reward function là công thức quyết định đâu là dự đoán \"đúng\", đâu là \"sai\"",
+        "FP — FALSE POSITIVE · BÁO ĐỘNG GIẢ",
+        "Chi phí của FP và FN KHÔNG đối xứng — báo cháy giả ≠ bỏ sót đám cháy."
+      ],
+      "content": "Reward function là công thức quyết định đâu là dự đoán \"đúng\", đâu là \"sai\" và định hình trải nghiệm người dùng. TP: học viên kẹt và AI gợi ý đúng. TN: đã có tài liệu và AI không can thiệp. FP — FALSE POSITIVE · BÁO ĐỘNG GIẢ: AI gợi ý sai, khiến học viên đi sai hướng. FN: học viên đang kẹt nhưng AI bỏ sót. Chi phí của FP và FN KHÔNG đối xứng — báo cháy giả ≠ bỏ sót đám cháy."
+    },
+    {
+      "page_number": 23,
+      "title": "Đánh đổi Precision và Recall",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Precision",
+        "Recall",
+        "False Positive",
+        "False Negative",
+        "Threshold Trade-off"
+      ],
+      "summary": "Precision cao giảm gợi ý sai nhưng tăng bỏ sót; Recall cao bao phủ trường hợp cần giúp nhưng tăng báo động giả.",
+      "knowledge_points": [
+        "Precision = TP / (TP + FP), thể hiện mức chắc đúng trong các gợi ý đã đưa ra.",
+        "Precision cao thường dẫn đến nhiều False Negative.",
+        "Recall = TP / (TP + FN), thể hiện mức bao phủ các trường hợp cần giúp.",
+        "Recall cao thường dẫn đến nhiều False Positive và tăng việc lọc thủ công.",
+        "Không có cấu hình đúng tuyệt đối; phải kiểm thử điểm cân bằng với người dùng."
+      ],
+      "evidence": [
+        "TP / (TP + FP)",
+        "TP / (TP + FN)",
+        "Không có cấu hình đúng tuyệt đối — phải test điểm cân bằng với chính người dùng."
+      ],
+      "content": "Precision: TP / (TP + FP). Precision cao cho ít gợi ý nhưng gợi ý chắc đúng, đổi lại dễ có nhiều FN. Recall: TP / (TP + FN). Recall cao bao phủ người cần giúp, đổi lại có thể tăng FP và bắt TA lọc thủ công. Không có cấu hình đúng tuyệt đối — phải test điểm cân bằng với chính người dùng."
+    },
+    {
+      "page_number": 24,
+      "title": "Viết tiêu chí thành công có thể hành động",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Success Criteria",
+        "Operational Threshold",
+        "Metric Review",
+        "Rollback"
+      ],
+      "summary": "Metric tốt phải chỉ ra chỉ số cụ thể, ngưỡng có ý nghĩa và hành động cụ thể khi vượt ngưỡng, đồng thời cần được rà soát định kỳ.",
+      "knowledge_points": [
+        "Template PAIR là: nếu chỉ số của tính năng AI vượt hoặc xuống dưới ngưỡng, hệ thống sẽ thực hiện hành động cụ thể.",
+        "Ví dụ: nếu tỷ lệ gợi ý bị TA sửa vượt 30% trong hai tuần thì hạ mức tự động.",
+        "Cần kiểm tra metric có ý nghĩa với mọi người dùng và có nhóm bị ảnh hưởng tiêu cực không.",
+        "Cần xét thành công dài hạn, không chỉ ngày đầu.",
+        "Tiêu chí thành công phải được review và bảo trì định kỳ."
+      ],
+      "evidence": [
+        "Metric tốt = chỉ số cụ thể + ngưỡng có nghĩa + hành động cụ thể",
+        "Nếu tỷ lệ câu trả lời AI gợi ý bị TA sửa > 30% trong 2 tuần, ta sẽ hạ mức tự động về pha 1",
+        "lên lịch review metric định kỳ — tiêu chí thành công cũng cần được bảo trì theo thời gian."
+      ],
+      "content": "Metric tốt = chỉ số cụ thể + ngưỡng có nghĩa + hành động cụ thể. Nếu tỷ lệ câu trả lời AI gợi ý bị TA sửa > 30% trong 2 tuần, ta sẽ hạ mức tự động về pha 1 (chỉ gợi ý, không gửi thẳng cho học viên). Metric phải xét tác động tới mọi nhóm và hiệu quả dài hạn. Cần lên lịch review metric định kỳ — tiêu chí thành công cũng cần được bảo trì theo thời gian."
+    },
+    {
+      "page_number": 25,
+      "title": "Khoảng cách giữa Demo và Production",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Baseline",
+        "Evaluation",
+        "Controls",
+        "Operations",
+        "Production Readiness"
+      ],
+      "summary": "Một demo phản hồi đúng vài lần chưa đủ để triển khai; cần baseline, kiểm thử, cơ chế kiểm soát và kế hoạch vận hành liên tục.",
+      "knowledge_points": [
+        "Baseline so sánh AI với rule, nhân sự hoặc quy trình hiện tại.",
+        "Evaluation cần test dataset, edge cases và tiêu chí nghiệm thu.",
+        "Controls gồm logging, fallback, rollback và người chịu trách nhiệm.",
+        "Operations xác định người giám sát lỗi, cập nhật tri thức và tối ưu hệ thống.",
+        "Day 02 chỉ đánh giá khả thi để nghiên cứu tiếp, chưa quyết định production."
+      ],
+      "evidence": [
+        "Phản hồi chính xác trong vài lần thử chưa đủ cơ sở để triển khai hệ thống thực tế",
+        "Logging, fallback, rollback và nhân sự chịu trách nhiệm?",
+        "Mục tiêu Day 02 là xác định tính khả thi để tiếp tục nghiên cứu — chưa phải quyết định triển khai ngay."
+      ],
+      "content": "Khoảng cách Demo–Production cần bốn nhóm: Baseline đối chiếu với rule, con người hoặc quy trình hiện tại; Evaluation bằng test set, edge cases và tiêu chí nghiệm thu; Controls trả lời Logging, fallback, rollback và nhân sự chịu trách nhiệm?; Operations gồm giám sát lỗi, cập nhật tri thức và tối ưu liên tục. Phản hồi chính xác trong vài lần thử chưa đủ cơ sở để triển khai hệ thống thực tế. Mục tiêu Day 02 là xác định tính khả thi để tiếp tục nghiên cứu — chưa phải quyết định triển khai ngay."
+    },
+    {
+      "page_number": 26,
+      "title": "Từ Problem Statement đến Eval Plan",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Problem Statement",
+        "Test Cases",
+        "Success Criteria",
+        "Task Evaluation",
+        "Process Evaluation",
+        "Safety Evaluation"
+      ],
+      "summary": "Problem Statement hoàn chỉnh dẫn tới test case thực tế và tiêu chí pass, fail hoặc chuyển HITL ở cấp tác vụ, quy trình và rủi ro.",
+      "knowledge_points": [
+        "Đầu vào của Eval Plan là Problem Statement đủ chín trường.",
+        "Test cases phải dùng dữ liệu thực tế và edge cases.",
+        "Kết quả đánh giá có thể pass, fail hoặc chuyển kiểm duyệt thủ công.",
+        "Đánh giá tác vụ xem phân loại đầu vào có chính xác không.",
+        "Đánh giá quy trình xem học viên hoàn thành nhanh hơn và ít kẹt hơn không.",
+        "Đánh giá rủi ro xem phản hồi sai có được chuyển Lab Coach phê duyệt không."
+      ],
+      "evidence": [
+        "Dữ liệu thực tế và các trường hợp biên (edge cases).",
+        "Problem Statement rõ ràng giúp định hình cụ thể các tiêu chí kiểm thử",
+        "Hệ thống có phân loại chính xác các câu hỏi đầu vào không?"
+      ],
+      "content": "Problem Statement rõ ràng giúp định hình cụ thể các tiêu chí kiểm thử. Eval Plan bắt đầu từ Problem Statement đủ chín trường. Test cases dùng Dữ liệu thực tế và các trường hợp biên (edge cases). Kết quả đánh giá có thể pass, fail hoặc chuyển kiểm duyệt thủ công. Hệ thống có phân loại chính xác các câu hỏi đầu vào không? Đánh giá còn bao phủ hiệu năng quy trình và rủi ro phản hồi sai."
+    },
+    {
+      "page_number": 27,
+      "title": "Chín trường của Problem Statement cho hệ thống AI",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Actor",
+        "Workflow",
+        "Bottleneck",
+        "Impact",
+        "Success Metric",
+        "Boundary",
+        "AI Entry Point",
+        "Solution Level",
+        "Risk and HITL"
+      ],
+      "summary": "Problem Statement cho hệ thống AI gồm sáu yếu tố bài toán cốt lõi và ba quyết định về điểm AI can thiệp, cấp giải pháp cùng rủi ro/HITL.",
+      "knowledge_points": [
+        "Sáu yếu tố cốt lõi là Actor, Workflow, Bottleneck, Impact, Success Metric và Boundary.",
+        "Impact cần lượng hóa qua thời gian, chi phí, SLA hoặc chất lượng.",
+        "Boundary xác định AI không được làm gì và bước nào bắt buộc con người tham gia.",
+        "Ba quyết định AI là điểm can thiệp, mức Rule/Workflow/Agent và cơ chế xử lý rủi ro/HITL."
+      ],
+      "evidence": [
+        "6 YẾU TỐ BÀI TOÁN CỐT LÕI",
+        "Boundary ranh giới AI không được làm gì; khâu nào bắt buộc có con người.",
+        "3 YẾU TỐ QUYẾT ĐỊNH AI"
+      ],
+      "content": "6 YẾU TỐ BÀI TOÁN CỐT LÕI: Actor, Workflow, Bottleneck, Impact, Success Metric và Boundary. Boundary ranh giới AI không được làm gì; khâu nào bắt buộc có con người. 3 YẾU TỐ QUYẾT ĐỊNH AI: điểm AI can thiệp, mức Rule/Workflow/Agent, rủi ro và HITL. Impact phải được lượng hóa."
+    },
+    {
+      "page_number": 28,
+      "title": "Khung quyết định Go, Not Yet và No-Go",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Go",
+        "Not Yet",
+        "No-Go",
+        "AI Feasibility Decision"
+      ],
+      "summary": "Quyết định dựa trên độ rõ bài toán, khả năng đo, mức phù hợp của AI và rủi ro, thay vì thiên kiến muốn dùng công nghệ.",
+      "knowledge_points": [
+        "Go khi bài toán rõ, metric khả thi, điểm AI can thiệp phù hợp và rủi ro kiểm soát được.",
+        "Not Yet khi có triển vọng nhưng còn thiếu dữ liệu, quy trình chuẩn, chỉ số hoặc ranh giới.",
+        "No-Go khi AI không tạo giá trị vượt trội, rủi ro quá cao hoặc giải pháp phi AI tốt hơn.",
+        "Not Yet là quyết định chín chắn, không phải thất bại."
+      ],
+      "evidence": [
+        "Bài toán rõ ràng",
+        "Cần bổ sung dữ liệu thực tế",
+        "AI không mang giá trị vượt trội",
+        "Quyết định \"Not Yet\" thể hiện sự chín chắn trong tư duy thiết kế sản phẩm, không phải sự thất bại."
+      ],
+      "content": "Khung quyết định: Go nếu Bài toán rõ ràng, metric khả thi, điểm AI can thiệp phù hợp và rủi ro kiểm soát được. Not Yet nếu có triển vọng nhưng Cần bổ sung dữ liệu thực tế, chuẩn hóa quy trình, thiết lập chỉ số hoặc ranh giới. No-Go nếu AI không mang giá trị vượt trội, rủi ro vận hành quá cao hoặc giải pháp phi AI tối ưu hơn. Quyết định \"Not Yet\" thể hiện sự chín chắn trong tư duy thiết kế sản phẩm, không phải sự thất bại."
+    },
+    {
+      "page_number": 29,
+      "title": "Sáu nguyên tắc cốt lõi sau Day 02",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Problem Statement",
+        "Workflow Modeling",
+        "Quantified Pain Point",
+        "Solution Complexity",
+        "Evidence-based Decision",
+        "User-centered Reward"
+      ],
+      "summary": "Sáu nguyên tắc tổng kết yêu cầu bài toán rõ, workflow có mô hình, pain point định lượng, độ phức tạp vừa đủ, quyết định có bằng chứng và reward hướng tới trải nghiệm người dùng.",
+      "knowledge_points": [
+        "Brief mơ hồ không thay thế Problem Statement hoàn chỉnh.",
+        "Phải mô hình hóa workflow trước khi tích hợp AI.",
+        "Pain point phải có baseline và metric.",
+        "Phức tạp kỹ thuật không đồng nghĩa hiệu quả; Rule, Workflow và Agent là các cấp khác nhau.",
+        "Go/Not Yet/No-Go phải dựa trên lập luận và số liệu kiểm thử.",
+        "Reward function cần tối ưu lợi ích người dùng, không chỉ accuracy."
+      ],
+      "evidence": [
+        "Brief mơ hồ không thay thế Problem Statement.",
+        "Mô hình hóa workflow trước khi tích hợp AI.",
+        "Đo reward function bằng trải nghiệm người dùng, không chỉ accuracy."
+      ],
+      "content": "Sáu nguyên tắc Day 02. Brief mơ hồ không thay thế Problem Statement. Mô hình hóa workflow trước khi tích hợp AI. Pain point phải được lượng hóa bằng baseline và metric. Độ phức tạp Rule/Workflow/Agent không đồng nghĩa hiệu quả. Quyết định Go/Not Yet/No-Go dựa trên lập luận và dữ liệu kiểm thử. Đo reward function bằng trải nghiệm người dùng, không chỉ accuracy."
+    }
+  ]
+}

@@ -5,17 +5,19 @@
 - **Ngày 1** — toàn bộ `d1-slide-hackathon.pdf` gồm 29 trang.
 - **Ngày 2** — toàn bộ `d2-slide-hackathon.pdf` gồm 29 trang.
 
-Khi học viên chọn một ngày, hệ thống đọc toàn bộ file PDF, tạo quiz tổng hợp trên
-nhiều phần của bài, phân tích câu sai, tạo gói ôn tập và sinh quiz củng cố.
+Nội dung hai PDF đã được nhóm chuẩn hóa trước thành knowledge JSON theo từng
+trang. Khi học viên chọn một ngày, backend chỉ lấy các phần kiến thức cần thiết
+cho Gemini tạo quiz, sau đó phân tích câu sai và sinh gói ôn tập.
 
 ## Flow
 
 1. Chọn bộ slide ngày 1 hoặc ngày 2.
-2. Gemini nhận toàn bộ file PDF và gọi `get_document_outline`.
-3. Model chọn các phần đại diện từ đầu, giữa và cuối tài liệu.
-4. `retrieve_document_pages` lấy nội dung đầy đủ của các trang cần dùng.
-5. Học viên chọn 5, 10 hoặc 20 câu; Gemini tạo đúng số câu đã chọn.
-6. `validate_quiz` kiểm tra coverage, evidence nguyên văn và citation.
+2. Backend đọc `knowledge/day01.json` hoặc `knowledge/day02.json`.
+3. Backend chọn các trang kiến thức phân bố từ đầu đến cuối bài; agenda và trang
+   hành chính đã được đánh dấu loại bỏ.
+4. Học viên chọn 5, 10 hoặc 20 câu; Gemini chỉ nhận knowledge context tương ứng.
+5. Gemini tạo đúng số câu và gọi `validate_quiz`.
+6. Backend kiểm tra lại coverage, evidence nguyên văn và citation.
 7. Học viên làm quiz, xem đáp án và evidence theo từng trang.
 8. Gói ôn tập tập trung vào các trang liên quan đến câu sai.
 9. Quiz củng cố gồm 4 câu; kết quả được so sánh với lần đầu.
@@ -26,24 +28,23 @@ nhiều phần của bài, phân tích câu sai, tạo gói ôn tập và sinh q
 Next.js + TypeScript
         │ REST
 FastAPI + Pydantic
-        ├── pypdf: outline và text của 29 trang
+        ├── knowledge/*.json: nội dung đã chuẩn hóa theo trang
+        ├── PDF gốc: chỉ dùng để học viên mở citation
         ├── SQLite: quiz, attempt, review
         └── Gemini API
-              ├── toàn bộ PDF (multimodal)
-              ├── get_document_outline
-              ├── retrieve_document_pages
-              ├── get_attempt_result
+              ├── knowledge context đã retrieve
               └── validate_quiz
 ```
 
 ### Retrieval và grounding
 
-Retrieval được thực hiện ở cấp tài liệu:
+Mỗi knowledge page lưu `title`, `topics`, `summary`, `knowledge_points`,
+`evidence`, `content` và cờ `is_instructional`.
 
-1. Gemini xem outline của toàn bộ 29 trang.
-2. Chọn các trang đại diện cho những chủ đề chính.
-3. Retrieve text đầy đủ của các trang đó.
-4. Mỗi câu phải có:
+1. Backend loại các trang có `is_instructional=false`.
+2. Chọn đều các trang còn lại trên toàn bộ bài.
+3. Chỉ gửi các knowledge chunks đã chọn cho Gemini, không upload lại PDF.
+4. Mỗi câu phải dùng một evidence có sẵn:
 
 ```json
 {
@@ -61,8 +62,8 @@ Backend từ chối quiz nếu:
 - Câu hỏi meta như “nội dung nào được nêu/đề cập” thay vì hỏi kiến thức.
 - Citation sai trang hoặc schema đáp án không hợp lệ.
 
-Nếu Gemini lỗi, fallback vẫn chọn các trang phân bố xuyên suốt tài liệu và hiển thị
-rõ `generated_by: fallback`.
+Với `ALLOW_FALLBACK=false`, nếu Gemini lỗi thì API báo lỗi minh bạch; ứng dụng
+không thay quiz AI bằng quiz mẫu.
 
 ## Chạy backend
 
@@ -102,16 +103,16 @@ Mở `http://localhost:3000`.
 
 ## API chính
 
-| Method | Endpoint | Công dụng |
-|---|---|---|
-| GET | `/api/documents` | Trả đúng hai lựa chọn ngày 1/ngày 2 |
-| GET | `/api/documents/{id}/outline` | Outline 29 trang |
-| POST | `/api/quizzes/generate` | Tạo quiz tổng hợp 5, 10 hoặc 20 câu |
-| POST | `/api/attempts/grade` | Chấm bài |
-| POST | `/api/reviews/generate` | Tạo gói ôn tập từ câu sai |
-| POST | `/api/reinforcement/generate` | Tạo 4 câu củng cố |
-| GET | `/api/progress/{attempt_id}` | So sánh trước–sau |
-| GET | `/api/documents/{id}` | Mở PDF nguồn |
+| Method | Endpoint                      | Công dụng                           |
+| ------ | ----------------------------- | ----------------------------------- |
+| GET    | `/api/documents`              | Trả đúng hai lựa chọn ngày 1/ngày 2 |
+| GET    | `/api/documents/{id}/outline` | Outline 29 trang                    |
+| POST   | `/api/quizzes/generate`       | Tạo quiz tổng hợp 5, 10 hoặc 20 câu |
+| POST   | `/api/attempts/grade`         | Chấm bài                            |
+| POST   | `/api/reviews/generate`       | Tạo gói ôn tập từ câu sai           |
+| POST   | `/api/reinforcement/generate` | Tạo 4 câu củng cố                   |
+| GET    | `/api/progress/{attempt_id}`  | So sánh trước–sau                   |
+| GET    | `/api/documents/{id}`         | Mở PDF nguồn                        |
 
 Payload tạo quiz:
 
@@ -139,5 +140,3 @@ Khi hai server đang chạy:
 ```powershell
 npm.cmd run smoke
 ```
-
-Smoke test xác nhận trang chủ có hai tài liệu, chọn quiz 10 câu và đi hết flow ngày 2.

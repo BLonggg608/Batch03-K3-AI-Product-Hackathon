@@ -104,6 +104,15 @@ def validate_quiz(
                     "question_id": question.question_id,
                 }
             )
+        if set(choice_ids) != {"A", "B", "C", "D"}:
+            errors.append(
+                {
+                    "code": "INVALID_CHOICE_IDS",
+                    "question_id": question.question_id,
+                    "expected": ["A", "B", "C", "D"],
+                    "actual": choice_ids,
+                }
+            )
         if question.correct_answer not in choice_ids:
             errors.append(
                 {

@@ -1,0 +1,680 @@
+{
+  "document_id": "day01",
+  "source_file": "d1-slide-hackathon.pdf",
+  "pages": [
+    {
+      "page_number": 1,
+      "title": "AI & LLM Foundation",
+      "is_instructional": false,
+      "exclusion_reason": "Trang bìa chỉ giới thiệu tên buổi học, không chứa kiến thức dùng để đánh giá.",
+      "topics": [],
+      "summary": "Trang bìa của buổi 1 về nền tảng AI và LLM.",
+      "knowledge_points": [],
+      "evidence": [
+        "Bạn đang dùng AI mỗi ngày",
+        "AI & LLM Foundation"
+      ],
+      "content": "AI IN ACTION — Day 1. AI & LLM Foundation. Bạn đang dùng AI mỗi ngày — nhưng thực sự bên trong nó đang làm gì?"
+    },
+    {
+      "page_number": 2,
+      "title": "Agenda",
+      "is_instructional": false,
+      "exclusion_reason": "Trang agenda chỉ liệt kê lịch trình và các phần của buổi học, không phải nội dung kiến thức để đặt câu hỏi.",
+      "topics": [],
+      "summary": "Mục lục buổi học gồm bức tranh AI, lịch sử AI, cơ chế LLM, agent, chọn model, token và API.",
+      "knowledge_points": [],
+      "evidence": [
+        "Bức tranh AI & các tầng của AI",
+        "Từ LLM đến AI Agent"
+      ],
+      "content": "Agenda: Bức tranh AI & các tầng của AI; lịch sử AI 70 năm; bên trong LLM và cơ chế vận hành; Từ LLM đến AI Agent; landscape model; chọn model và chi phí token; gọi API; tổng kết."
+    },
+    {
+      "page_number": 3,
+      "title": "AI, ML, Deep Learning, GenAI và LLM nằm ở đâu?",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Phân cấp AI",
+        "Machine Learning",
+        "Deep Learning",
+        "Generative AI",
+        "LLM"
+      ],
+      "summary": "AI là chiếc ô lớn nhất; bên trong lần lượt có Machine Learning, Deep Learning, Generative AI và LLM theo phạm vi từ rộng đến hẹp.",
+      "knowledge_points": [
+        "AI bao gồm mọi hệ thống có yếu tố thông minh, kể cả hệ luật tay và robot.",
+        "Machine Learning học từ dữ liệu thay vì viết luật thủ công.",
+        "Deep Learning dùng mạng nơ-ron nhiều tầng để tự học đặc trưng.",
+        "Generative AI sinh nội dung mới như văn bản, ảnh và code.",
+        "LLM là model nền chuyên ngôn ngữ, không phải toàn bộ AI."
+      ],
+      "evidence": [
+        "Machine learning — học từ dữ liệu thay vì viết luật tay.",
+        "LLM không phải toàn bộ AI — nhưng nó là tầng nền của gần hết trải nghiệm AI bạn dùng hôm nay"
+      ],
+      "content": "Các khái niệm được xếp từ rộng đến hẹp: Artificial Intelligence, Machine Learning, Deep Learning, Generative AI rồi LLM. AI là chiếc ô lớn nhất cho mọi hệ thống có yếu tố thông minh. Machine learning — học từ dữ liệu thay vì viết luật tay. Deep Learning dùng mạng nơ-ron nhiều tầng tự học đặc trưng. Generative AI sinh nội dung mới như văn bản, ảnh và code. LLM không phải toàn bộ AI — nhưng nó là tầng nền của gần hết trải nghiệm AI bạn dùng hôm nay"
+    },
+    {
+      "page_number": 4,
+      "title": "Ba nhóm AI chính",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Discriminative AI",
+        "Generative AI",
+        "Agentic AI"
+      ],
+      "summary": "Ba nhóm AI được phân biệt theo đầu ra: phân loại hoặc dự đoán, sinh nội dung mới, và lập kế hoạch để hành động theo mục tiêu.",
+      "knowledge_points": [
+        "Discriminative AI nhận input và trả về một nhãn hoặc một con số.",
+        "Generative AI nhận prompt và sinh nội dung mới.",
+        "Agentic AI nhận mục tiêu, lập kế hoạch và thực hiện hành động qua nhiều bước.",
+        "LLM có thể là engine cho cả Generative AI và Agentic AI."
+      ],
+      "evidence": [
+        "Input → một nhãn, một con số",
+        "Goal → Plan → Action"
+      ],
+      "content": "Discriminative AI giỏi phân loại và dự đoán, ví dụ lọc spam, phát hiện gian lận, nhận diện ảnh. Input → một nhãn, một con số. Generative AI sinh văn bản, ảnh hoặc code mới từ prompt. Agentic AI nhận mục tiêu rồi tự làm nhiều bước theo chuỗi Goal → Plan → Action. LLM là engine chung của cả Generative AI lẫn Agentic AI."
+    },
+    {
+      "page_number": 5,
+      "title": "Lịch sử AI 70 năm",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Lịch sử AI",
+        "Mùa đông AI",
+        "AI Agent"
+      ],
+      "summary": "Lịch sử AI đi từ lời hứa ban đầu, qua hai mùa đông khi các cách tiếp cận chạm trần, tới các hệ thống có khả năng hành động như agent.",
+      "knowledge_points": [
+        "AI trải qua giai đoạn khai sinh với những lời hứa đầu tiên.",
+        "Ngành AI có hai lần mùa đông khi các cách tiếp cận đương thời chạm trần.",
+        "Xu hướng sau đó chuyển từ model đơn lẻ sang hệ thống có khả năng hành động như agent."
+      ],
+      "evidence": [
+        "2 lần mùa đông, cách tiếp cận chạm trần",
+        "Từ model đơn lẻ sang system có khả năng hành động như agent"
+      ],
+      "content": "Dòng lịch sử AI 70 năm gồm giai đoạn khai sinh và lời hứa đầu tiên. 2 lần mùa đông, cách tiếp cận chạm trần. Từ model đơn lẻ sang system có khả năng hành động như agent."
+    },
+    {
+      "page_number": 6,
+      "title": "1980: Hệ chuyên gia",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Expert System",
+        "AI dựa trên luật",
+        "AI miền hẹp"
+      ],
+      "summary": "Hệ chuyên gia chuyển trọng tâm từ trí tuệ tổng quát sang giải một miền chuyên môn hẹp bằng tri thức chuyên gia được mã hóa thành luật.",
+      "knowledge_points": [
+        "Expert system tập trung giải tốt một loại bài toán chuyên môn hẹp.",
+        "Tri thức của chuyên gia được mã hóa thành các luật.",
+        "Chiến lược này tạm rời mục tiêu trí tuệ tổng quát để tập trung vào một miền cụ thể."
+      ],
+      "evidence": [
+        "Nếu AI chỉ giải thật tốt một loại bài toán chuyên môn hẹp thì sao?",
+        "mã hóa tri thức chuyên gia thành luật"
+      ],
+      "content": "Khoảng năm 1980, hệ chuyên gia xuất hiện từ câu hỏi: \"Nếu AI chỉ giải thật tốt một loại bài toán chuyên môn hẹp thì sao?\" AI đổi chiến lược: thay vì theo đuổi trí tuệ tổng quát, hệ thống tập trung một miền hẹp và mã hóa tri thức chuyên gia thành luật."
+    },
+    {
+      "page_number": 7,
+      "title": "2009: ImageNet và cuộc cách mạng dữ liệu",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "ImageNet",
+        "Dữ liệu huấn luyện",
+        "AlexNet"
+      ],
+      "summary": "ImageNet cho thấy một bộ dữ liệu lớn, được gán nhãn tốt có thể tạo bước ngoặt, đôi khi quan trọng hơn việc chỉ cải tiến thuật toán.",
+      "knowledge_points": [
+        "Fei-Fei Li xây ImageNet với khoảng 14 triệu ảnh được gán nhãn tay và hơn 20.000 loại vật.",
+        "ImageNet trở thành nền tảng cho cú nổ AlexNet năm 2012.",
+        "Bài học của giai đoạn này là dữ liệu tốt hơn đôi khi đánh bại thuật toán khôn hơn."
+      ],
+      "evidence": [
+        "14 triệu ảnh được gán nhãn tay, hơn 20.000 loại vật.",
+        "đôi khi dữ liệu tốt hơn đánh bại thuật toán khôn hơn."
+      ],
+      "content": "Năm 2009, Fei-Fei Li chọn xây bộ dữ liệu ImageNet lớn hơn thay vì chỉ theo đuổi thuật toán thông minh hơn: 14 triệu ảnh được gán nhãn tay, hơn 20.000 loại vật. Ba năm sau, bộ dữ liệu này là sân khấu cho AlexNet 2012, minh họa bài học: đôi khi dữ liệu tốt hơn đánh bại thuật toán khôn hơn."
+    },
+    {
+      "page_number": 8,
+      "title": "2017: Transformer",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Transformer",
+        "Ngữ cảnh",
+        "Nền tảng LLM"
+      ],
+      "summary": "Transformer cho phép mỗi từ nhìn tới các từ quan trọng khác trong cả câu thay vì chỉ xử lý tuần tự, từ đó đặt nền móng cho các LLM hiện đại.",
+      "knowledge_points": [
+        "Transformer giúp mô hình hiểu ngôn ngữ linh hoạt hơn.",
+        "Mỗi từ có thể nhìn sang những từ quan trọng khác trong cả câu.",
+        "Transformer là nền móng kỹ thuật cho GPT, BERT và làn sóng LLM."
+      ],
+      "evidence": [
+        "mỗi từ có thể nhìn sang những từ quan trọng khác trong cả câu, thay vì chỉ đi tuần tự từng bước",
+        "trở thành nền móng kỹ thuật cho GPT, BERT và toàn bộ làn sóng LLM sau đó."
+      ],
+      "content": "Transformer là bước ngoặt năm 2017 vì mỗi từ có thể nhìn sang những từ quan trọng khác trong cả câu, thay vì chỉ đi tuần tự từng bước. Kiến trúc này trở thành nền móng kỹ thuật cho GPT, BERT và toàn bộ làn sóng LLM sau đó."
+    },
+    {
+      "page_number": 9,
+      "title": "2022: ChatGPT",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "ChatGPT",
+        "Phổ cập LLM",
+        "Giao diện hội thoại"
+      ],
+      "summary": "ChatGPT biến mô hình ngôn ngữ mạnh thành trải nghiệm đại chúng thông qua giao diện đơn giản mà người dùng phổ thông có thể sử dụng trực tiếp.",
+      "knowledge_points": [
+        "ChatGPT đưa mô hình ngôn ngữ mạnh tới số đông người dùng phổ thông.",
+        "Giao diện đơn giản là yếu tố giúp trải nghiệm AI trở nên dễ tiếp cận."
+      ],
+      "evidence": [
+        "ChatGPT xuất hiện như một trải nghiệm đại chúng",
+        "thông qua một giao diện đơn giản đến mức ai cũng hiểu cách dùng"
+      ],
+      "content": "Năm 2022, ChatGPT xuất hiện như một trải nghiệm đại chúng. Lần đầu tiên, đông đảo người dùng phổ thông có thể trực tiếp sử dụng một mô hình ngôn ngữ mạnh thông qua một giao diện đơn giản đến mức ai cũng hiểu cách dùng."
+    },
+    {
+      "page_number": 10,
+      "title": "LLM là bộ não nền, không phải chatbot",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Định nghĩa LLM",
+        "Foundation Model",
+        "Chatbot",
+        "Decoder-only",
+        "MoE"
+      ],
+      "summary": "LLM là mô hình ngôn ngữ nền được huấn luyện để dự đoán token tiếp theo và có thể phục vụ nhiều sản phẩm; chatbot chỉ là một lớp sản phẩm bao quanh model.",
+      "knowledge_points": [
+        "LLM thường dựa trên Transformer và học cách dự đoán mảnh chữ tiếp theo trong ngữ cảnh.",
+        "Một model nền có thể dùng cho chatbot, tóm tắt, viết code, dịch và phân tích.",
+        "Chatbot là một dạng sản phẩm đóng gói quanh LLM, không đồng nghĩa với LLM.",
+        "Nhiều model hiện đại dùng kiến trúc decoder-only và có thể dùng MoE.",
+        "Sau pre-training còn có các bước căn chỉnh như SFT, RLHF hoặc DPO."
+      ],
+      "evidence": [
+        "Chatbot chỉ là một dạng sản phẩm đóng gói quanh bộ não đó — lớp áo bên ngoài.",
+        "được luyện trên hàng nghìn tỷ mảnh chữ để học cách đoán mảnh chữ tiếp theo trong ngữ cảnh."
+      ],
+      "content": "LLM, hay Large Language Model, là một mô hình ngôn ngữ rất lớn, thường dựa trên Transformer và được luyện trên hàng nghìn tỷ mảnh chữ để học cách đoán mảnh chữ tiếp theo trong ngữ cảnh. Nhờ học đủ rộng, cùng một model nền có thể dùng cho chatbot, tóm tắt tài liệu, viết code, dịch và phân tích. Chatbot chỉ là một dạng sản phẩm đóng gói quanh bộ não đó — lớp áo bên ngoài. Nhiều model hiện nay là decoder-only, có thể dùng MoE, và được căn chỉnh sau pre-training bằng SFT, RLHF hoặc DPO."
+    },
+    {
+      "page_number": 11,
+      "title": "Đầu ra Transformer là phân bố xác suất",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Phân bố xác suất",
+        "Dự đoán token",
+        "Transformer"
+      ],
+      "summary": "Với mỗi ngữ cảnh, model chấm điểm mọi token trong từ vựng và chọn token tiếp theo dựa trên phân bố xác suất.",
+      "knowledge_points": [
+        "Đầu ra của Transformer là một phân bố xác suất trên toàn bộ từ vựng.",
+        "Model chấm điểm mọi từ hoặc token có thể xuất hiện tiếp theo.",
+        "Token tiếp theo được chọn theo các xác suất mà model đã tính."
+      ],
+      "evidence": [
+        "Bên trong Transformer: đầu ra luôn là một phân bố xác suất",
+        "model chấm điểm MỌI từ trong từ vựng"
+      ],
+      "content": "Bên trong Transformer: đầu ra luôn là một phân bố xác suất. Với mọi ngữ cảnh, model chấm điểm MỌI từ trong từ vựng, chẳng hạn “land” 22% và “forest” 9%, rồi chọn token tiếp theo theo phân bố xác suất đó."
+    },
+    {
+      "page_number": 12,
+      "title": "Sinh văn bản bằng vòng lặp dự đoán",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Sinh văn bản",
+        "Autoregressive Generation",
+        "Dự đoán token"
+      ],
+      "summary": "Model sinh văn bản tự hồi quy: dự đoán một token, nối token đó vào ngữ cảnh, rồi chạy lại để dự đoán token tiếp theo.",
+      "knowledge_points": [
+        "Sinh văn bản diễn ra theo vòng lặp predict → append → rerun.",
+        "Mỗi token mới được thêm vào ngữ cảnh trước lần dự đoán tiếp theo.",
+        "Model tạo đầu ra tuần tự từng token."
+      ],
+      "evidence": [
+        "Sinh văn bản = đoán → nối vào câu → đoán tiếp",
+        "vòng lặp predict → append → rerun"
+      ],
+      "content": "Sinh văn bản = đoán → nối vào câu → đoán tiếp. Model dự đoán một token, nối token mới vào câu và ngữ cảnh, rồi chạy lại để đoán token tiếp theo theo vòng lặp predict → append → rerun."
+    },
+    {
+      "page_number": 13,
+      "title": "Token: model đọc mảnh chữ",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Token",
+        "Tokenizer",
+        "Chi phí token"
+      ],
+      "summary": "Model không đọc nguyên vẹn từng từ mà xử lý các mảnh chữ gọi là token; cách cắt token phụ thuộc ngôn ngữ và tokenizer, đồng thời ảnh hưởng trực tiếp tới chi phí.",
+      "knowledge_points": [
+        "Token có thể là một từ, một phần của từ, dấu câu hoặc khoảng trắng.",
+        "Số token chính xác phụ thuộc tokenizer của từng model.",
+        "Tiếng Việt, code và JSON thường tốn nhiều token hơn tiếng Anh do cách bị chia nhỏ.",
+        "Mọi hoạt động của model đều được quy ra token và mỗi token đều có giá."
+      ],
+      "evidence": [
+        "Model không nhìn từ nguyên vẹn. Nó cắt văn bản thành các mảnh nhỏ gọi là token",
+        "Tiếng Việt, code, JSON tốn token hơn tiếng Anh thường"
+      ],
+      "content": "Model không nhìn từ nguyên vẹn. Nó cắt văn bản thành các mảnh nhỏ gọi là token. Một từ có thể là một token hoặc bị chia thành nhiều token; dấu câu và khoảng trắng cũng có thể là token. Tiếng Việt, code, JSON tốn token hơn tiếng Anh thường vì dấu thanh, ký tự đặc biệt và cấu trúc bị cắt nhỏ. Số token phụ thuộc tokenizer của từng model, và mỗi token đều ảnh hưởng tới chi phí."
+    },
+    {
+      "page_number": 14,
+      "title": "Context: bàn làm việc có hạn của model",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Context Window",
+        "Lost in the Middle",
+        "Độ trễ",
+        "Chi phí"
+      ],
+      "summary": "Context là lượng nội dung hữu hạn model có thể nhìn trong một lần trả lời; context quá dài làm tăng chi phí, độ trễ và nguy cơ bỏ sót thông tin ở giữa.",
+      "knowledge_points": [
+        "Mọi nội dung muốn model thấy phải nằm trong context.",
+        "Context có giới hạn dù cửa sổ context có thể rất lớn.",
+        "Thông tin ở giữa một prompt dài có thể bị bỏ sót, gọi là hiện tượng Lost in the Middle.",
+        "Context càng dài càng tốn tiền và càng chậm."
+      ],
+      "evidence": [
+        "Mỗi lần trả lời, model chỉ nhìn được một lượng chữ có hạn — gọi là context.",
+        "Context càng dài càng tốn tiền và càng chậm — bàn rộng không có nghĩa là dùng tốt"
+      ],
+      "content": "Mỗi lần trả lời, model chỉ nhìn được một lượng chữ có hạn — gọi là context. Context giống một bàn làm việc nơi mọi thứ cần thấy phải được bày lên. Ví dụ quy đổi trên slide: 128K token xấp xỉ một cuốn sách 300 trang và 1M token xấp xỉ 4–5 cuốn. Khi context quá dài, nội dung ở giữa dễ bị bỏ sót theo hiện tượng Lost in the Middle. Context càng dài càng tốn tiền và càng chậm — bàn rộng không có nghĩa là dùng tốt."
+    },
+    {
+      "page_number": 15,
+      "title": "Attention: mỗi token nhìn tới token liên quan",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Attention",
+        "Ngữ cảnh",
+        "Transformer"
+      ],
+      "summary": "Attention cho phép mỗi token nhìn lại các token khác, chấm điểm mức liên quan và xác định nghĩa phù hợp theo ngữ cảnh.",
+      "knowledge_points": [
+        "Attention không chỉ xử lý tuần tự từng chữ mà cho token nhìn lại các token trước.",
+        "Mỗi token chấm điểm mức độ liên quan của các token khác.",
+        "Attention giúp khóa nghĩa của từ theo ngữ cảnh.",
+        "Cơ chế attention là nền tảng giúp Transformer hiểu ngữ cảnh tốt hơn các thế hệ trước."
+      ],
+      "evidence": [
+        "Chấm điểm mức độ liên quan của từng token đối với nghĩa của mình",
+        "Khóa nghĩa theo ngữ cảnh"
+      ],
+      "content": "Cơ chế attention cho phép mỗi token chủ động nhìn lại các token trước đó. Chấm điểm mức độ liên quan của từng token đối với nghĩa của mình. Khóa nghĩa theo ngữ cảnh. Chẳng hạn đại từ “nó” được hiểu là quyển sách hay cái túi tùy vào từ mà token chú ý. Attention là lý do Transformer hiểu ngữ cảnh tốt hơn các thế hệ trước."
+    },
+    {
+      "page_number": 16,
+      "title": "Quản lý context để quản sự chú ý",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Quản lý context",
+        "RAG",
+        "Attention",
+        "Prompt"
+      ],
+      "summary": "Để dùng attention hiệu quả, cần đặt yêu cầu quan trọng ở đầu hoặc cuối, giữ context sạch và dùng RAG để lấy đúng đoạn thay vì nhét toàn bộ tài liệu.",
+      "knowledge_points": [
+        "Đầu và cuối prompt thường được chú ý nhiều hơn phần giữa.",
+        "Context rác dẫn tới attention rác; nên tóm tắt hội thoại dài và chỉ đưa file liên quan.",
+        "Với tài liệu dài, RAG lấy đoạn liên quan vào context thay vì nhét cả tài liệu hoặc trông chờ model nhớ.",
+        "Agent mạnh nhờ dùng tool lấy đúng thông tin vào context đúng lúc, không chỉ nhờ context lớn."
+      ],
+      "evidence": [
+        "Context rác = attention rác.",
+        "Đầu và cuối prompt được chú ý nhiều"
+      ],
+      "content": "Quản context chính là quản sự chú ý của model. Đầu và cuối prompt được chú ý nhiều, nên đặt nội dung quan trọng ở đầu hoặc cuối thay vì chôn ở giữa. Context rác = attention rác. Cần tóm tắt chat dài và chỉ đưa đúng file liên quan. Với tài liệu dài, dùng RAG để lấy đoạn liên quan vào context thay vì nhét cả cuốn. Agent mạnh nhờ tool lấy đúng thứ vào context đúng lúc, không phải chỉ vì có context khổng lồ."
+    },
+    {
+      "page_number": 17,
+      "title": "Tham số, scaling law và MoE",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Parameter",
+        "Scaling Law",
+        "Dense Model",
+        "Mixture of Experts"
+      ],
+      "summary": "Tham số là các giá trị model học được và được đóng gói trong weights; scaling law mô tả việc tăng compute và dữ liệu giúp giảm loss, còn MoE chỉ kích hoạt một số chuyên gia cho mỗi token.",
+      "knowledge_points": [
+        "Những gì model học được được lưu trong các con số cố định gọi là tham số.",
+        "Người dùng không chỉnh tham số khi gọi model mà chỉ chỉnh context và các thiết lập như temperature.",
+        "Dense model cho mọi token đi qua toàn bộ khớp nối.",
+        "MoE chỉ gọi một vài chuyên gia cho mỗi token, nên tổng tham số lớn không làm chi phí tăng tuyến tính.",
+        "Scaling law giai đoạn 2020–2024 cho thấy tăng compute và dữ liệu có thể làm model tốt lên theo cách dự đoán được."
+      ],
+      "evidence": [
+        "Tham số không phải thứ bạn chỉnh khi dùng model — nó được đóng gói sẵn trong \"bộ não\" (file weights).",
+        "Nhiều tham số ≠ tốn hơn tuyến tính — nhờ MoE"
+      ],
+      "content": "Tham số là các khớp nối model học được và được lưu cố định sau huấn luyện. Tham số không phải thứ bạn chỉnh khi dùng model — nó được đóng gói sẵn trong \"bộ não\" (file weights). Khi sử dụng, người dùng chỉnh context hoặc núm vặn như temperature. Dense model cho mỗi token đi qua toàn bộ khớp nối, còn Mixture of Experts chỉ kích hoạt một số chuyên gia cho mỗi token. Nhiều tham số ≠ tốn hơn tuyến tính — nhờ MoE. Scaling law mô tả giai đoạn tăng compute và dữ liệu giúp test loss giảm theo cách có thể dự đoán."
+    },
+    {
+      "page_number": 18,
+      "title": "Bốn giai đoạn tạo ra LLM",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Pre-training",
+        "SFT",
+        "RLHF",
+        "DPO",
+        "Reasoning Training"
+      ],
+      "summary": "LLM được tạo qua bốn lớp huấn luyện: học ngôn ngữ và kiến thức, học cách trả lời, được căn chỉnh theo phản hồi, rồi luyện suy luận trên bài có thể kiểm chứng.",
+      "knowledge_points": [
+        "Pre-training giúp model học ngôn ngữ và kiến thức từ lượng token rất lớn.",
+        "SFT dùng ví dụ mẫu để dạy model cách trả lời như một trợ lý.",
+        "RLHF hoặc DPO căn chỉnh model theo phản hồi con người để an toàn và dễ dùng hơn.",
+        "Reasoning training luyện toán hoặc code có đáp án kiểm chứng để model biết làm nháp trước khi trả lời."
+      ],
+      "evidence": [
+        "Pre-training — \"đọc cả thư viện\": học tiếng nói và kiến thức từ hàng nghìn tỷ token.",
+        "Đọc vạn cuốn sách chưa chắc biết trả lời phỏng vấn — đó là lý do cần bước ②, ③, ④"
+      ],
+      "content": "Quy trình tạo LLM gồm bốn giai đoạn. Pre-training — \"đọc cả thư viện\": học tiếng nói và kiến thức từ hàng nghìn tỷ token. SFT cho model học từ các câu trả lời mẫu để trở thành trợ lý. RLHF hoặc DPO uốn nắn model theo phản hồi con người nhằm tăng tính hữu ích và an toàn. Reasoning training dùng bài toán hoặc code có đáp án kiểm chứng để luyện cách làm nháp trước khi trả lời. Đọc vạn cuốn sách chưa chắc biết trả lời phỏng vấn — đó là lý do cần bước ②, ③, ④."
+    },
+    {
+      "page_number": 19,
+      "title": "RLHF: uốn model thành trợ lý biết nghe lời",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "RLHF",
+        "Reward Model",
+        "Human Feedback",
+        "Alignment"
+      ],
+      "summary": "RLHF thu thập nhiều câu trả lời, nhờ con người xếp hạng, huấn luyện reward model rồi tối ưu LLM để tăng xác suất của câu trả lời được đánh giá cao.",
+      "knowledge_points": [
+        "Đầu tiên LLM sinh nhiều câu trả lời cho cùng một câu hỏi.",
+        "Người chấm xếp hạng các câu trả lời.",
+        "Các xếp hạng được dùng để tạo reward model chấm điểm thay người.",
+        "LLM được huấn luyện theo điểm để tăng xác suất của câu trả lời đạt điểm cao.",
+        "Quá trình lặp lại giúp model trở nên helpful, harmless và honest."
+      ],
+      "evidence": [
+        "Người chấm xếp hạng",
+        "máy chấm điểm thay người"
+      ],
+      "content": "RLHF gồm ba bước. LLM viết nhiều câu trả lời cho cùng một câu hỏi. Người chấm xếp hạng các phương án và dữ liệu này huấn luyện reward model, tức máy chấm điểm thay người. Sau đó LLM được tối ưu theo điểm để tăng xác suất tạo câu trả lời được đánh giá cao. Quá trình lặp lại nhiều lần giúp model dần biết nghe lời, trở thành trợ lý helpful, harmless và honest."
+    },
+    {
+      "page_number": 20,
+      "title": "Giới hạn bẩm sinh của LLM",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Knowledge Cutoff",
+        "Hallucination",
+        "Context Limit",
+        "RAG",
+        "Tools"
+      ],
+      "summary": "LLM có ba giới hạn chính: kiến thức bị đóng băng tại cutoff, có thể tự tin đưa thông tin sai, và chỉ có context hữu hạn; vì vậy cần retrieval, tools và kiểm chứng.",
+      "knowledge_points": [
+        "Model không tự biết các sự kiện sau knowledge cutoff nếu không được cung cấp thêm.",
+        "LLM tối ưu cho câu nghe hợp lý chứ không phải cơ chế tra cứu sự thật, nên có thể hallucinate.",
+        "Context hữu hạn và nội dung quá dài làm tăng chi phí cũng như nguy cơ bỏ sót.",
+        "Prompt tốt, context sạch, RAG, tools và kiểm chứng giúp giảm tác động của các giới hạn.",
+        "Dữ liệu mới và hành động trong thế giới thật cần tools, retrieval hoặc workflow."
+      ],
+      "evidence": [
+        "có thể tự tin mà sai",
+        "dữ liệu mới và hành động thật cần tools/retrieval/workflow"
+      ],
+      "content": "LLM giống một học giả trong bong bóng. Kiến thức bị đóng băng tại knowledge cutoff, nên không biết chuyện xảy ra sau đó nếu không có dữ liệu bổ sung. Model tối ưu cho câu nghe hợp lý, không phải tra sự thật — nên có thể tự tin mà sai (hallucination). Context cũng có giới hạn và dễ bỏ sót thông tin khi quá dài. Do đó cần prompt tốt, context sạch, RAG, tools và bước kiểm chứng. “Biết nhiều” khác “làm được”: dữ liệu mới và hành động thật cần tools/retrieval/workflow."
+    },
+    {
+      "page_number": 21,
+      "title": "Model có thể học đường tắt giả",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Spurious Cues",
+        "Shortcut Learning",
+        "Benchmark",
+        "Dữ liệu kiểm thử"
+      ],
+      "summary": "Model có thể đạt benchmark cao nhờ học dấu hiệu đường tắt thay vì hiểu đúng nhiệm vụ, nên phải kiểm thử trên dữ liệu thực tế của chính use case.",
+      "knowledge_points": [
+        "Trong lọc spam, model có thể học đếm số hyperlink thay vì hiểu nội dung spam.",
+        "Trong phân loại chủ quan và khách quan, model có thể dựa vào nguồn gốc câu.",
+        "Trong suy luận ngôn ngữ, model có thể dựa vào sự xuất hiện của động từ phủ định.",
+        "Khi cấu trúc dữ liệu test thay đổi, hiệu năng có thể giảm mạnh.",
+        "Benchmark cao không chứng minh model hiểu đúng điều người phát triển kỳ vọng."
+      ],
+      "evidence": [
+        "Vì sao model vẫn sai: nó rất giỏi học vẹt đường tắt",
+        "Benchmark cao ≠ model hiểu đúng thứ bạn tưởng — luôn test trên dữ liệu của chính mình"
+      ],
+      "content": "Vì sao model vẫn sai: nó rất giỏi học vẹt đường tắt. Ví dụ, model lọc spam có thể chỉ đếm hyperlink; model phân loại câu chủ quan có thể nhận diện nguồn film review; model suy luận ngôn ngữ có thể bám vào động từ phủ định. Khi phân phối hoặc cấu trúc dữ liệu test thay đổi, điểm có thể tụt. Benchmark cao ≠ model hiểu đúng thứ bạn tưởng — luôn test trên dữ liệu của chính mình."
+    },
+    {
+      "page_number": 22,
+      "title": "Chain-of-Thought: cho model giấy nháp",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Chain-of-Thought",
+        "Reasoning",
+        "Test-time Compute"
+      ],
+      "summary": "Cho model trình bày từng bước có thể cải thiện bài toán suy luận so với việc yêu cầu đáp án ngay; đây là tiền đề của reasoning model và test-time compute.",
+      "knowledge_points": [
+        "Cùng một model có thể trả lời sai nếu bật ra đáp án ngay nhưng đúng khi được suy luận từng bước.",
+        "Chain-of-Thought đóng vai trò như giấy nháp cho model.",
+        "Ví dụ trên slide: 5 quả cộng 2 hộp, mỗi hộp 3 quả, cho kết quả đúng là 11.",
+        "Chain-of-Thought là mầm của reasoning model và test-time compute."
+      ],
+      "evidence": [
+        "Chain-of-Thought: chỉ thêm \"giấy nháp\", từ sai thành đúng",
+        "Cùng một model, cùng một câu hỏi — cho nó được viết nháp từng bước"
+      ],
+      "content": "Chain-of-Thought: chỉ thêm \"giấy nháp\", từ sai thành đúng. Trong ví dụ, trả lời ngay dẫn đến đáp án sai 27; khi tính từng bước, model xác định 2 hộp × 3 quả = 6 rồi cộng với 5 để được 11. Cùng một model, cùng một câu hỏi — cho nó được viết nháp từng bước. Ý tưởng này là tiền đề của reasoning model và test-time compute."
+    },
+    {
+      "page_number": 23,
+      "title": "Từ LLM đến agent qua bốn cấp độ",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "LLM",
+        "Tool Use",
+        "Planning",
+        "Multi-agent"
+      ],
+      "summary": "Bốn cấp độ tăng dần từ LLM thuần, LLM có tools, agent biết lập kế hoạch, tới nhiều agent chuyên biệt phối hợp.",
+      "knowledge_points": [
+        "Level 0 là LLM thuần, không có công cụ và dữ liệu mới.",
+        "Level 1 thêm tools như web search, database và API để vượt giới hạn dữ liệu.",
+        "Level 2 thêm khả năng tự chia mục tiêu, dùng nhiều tool và kiểm tra từng bước.",
+        "Level 3 dùng nhiều agent chuyên biệt phối hợp như một đội.",
+        "Agent không phải loại model khác mà là LLM được đặt trong vòng làm việc có mục tiêu và hành động."
+      ],
+      "evidence": [
+        "đó là LLM được đặt vào vòng làm việc có mục tiêu",
+        "dùng nhiều tool nối tiếp"
+      ],
+      "content": "Năng lực tăng qua bốn mức. Level 0 là LLM trần không công cụ và dữ liệu mới. Level 1 có tools để search web, đọc database hoặc gọi API. Level 2: + tự chia mục tiêu thành nhiều bước, dùng nhiều tool nối tiếp, tự kiểm tra kết quả từng bước. Level 3 có nhiều agent chuyên biệt phối hợp. Agent không phải “một loại model khác” — đó là LLM được đặt vào vòng làm việc có mục tiêu và hành động."
+    },
+    {
+      "page_number": 24,
+      "title": "Giải phẫu một agent",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Agent Loop",
+        "Goal",
+        "Reasoning",
+        "Tools",
+        "Memory",
+        "Action"
+      ],
+      "summary": "Agent là một vòng lặp kết hợp mục tiêu, suy luận, công cụ, bộ nhớ và hành động; kết quả hành động được quan sát để tiếp tục lặp tới khi hoàn thành.",
+      "knowledge_points": [
+        "Goal xác định mục tiêu agent cần đạt.",
+        "Reasoning dùng LLM để chia mục tiêu thành các bước.",
+        "Tools kết nối agent với search, API, database hoặc code.",
+        "Memory ghi và đọc lại thông tin của các bước.",
+        "Action tạo tác động ra bên ngoài; kết quả được quan sát để lặp lại."
+      ],
+      "evidence": [
+        "Agent = Goal + Reasoning + Tools + Memory + Action",
+        "chạy thành vòng lặp cho tới khi xong việc"
+      ],
+      "content": "Agent = Goal + Reasoning + Tools + Memory + Action. Goal là mục tiêu, Reasoning là bộ não LLM chia bước, Tools gồm search, API, database và code, Memory là sổ tay ghi nhớ, Action là hành động ra đời thật. Các bộ phận chạy thành vòng lặp cho tới khi xong việc: hành động, quan sát kết quả, ghi hoặc đọc memory và tiếp tục."
+    },
+    {
+      "page_number": 25,
+      "title": "Chi phí model giảm theo thời gian",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Chi phí model",
+        "Hiệu quả giá"
+      ],
+      "summary": "Theo tổng hợp trên slide, cùng một mức năng lực thì giá model giảm khoảng mười lần mỗi năm, nên công việc từng cần model đắt có thể được model rẻ hơn đảm nhiệm.",
+      "knowledge_points": [
+        "Cùng một mức năng lực, giá model được mô tả là giảm khoảng 10 lần mỗi năm.",
+        "Việc năm trước cần model đắt nhất có thể được model rẻ thực hiện ở năm sau."
+      ],
+      "evidence": [
+        "Cùng một mức năng lực, giá rơi khoảng 10 lần mỗi năm",
+        "Việc năm ngoái phải dùng model đắt nhất — năm nay model rẻ đã làm được"
+      ],
+      "content": "Theo bảng tổng hợp giá các nhà cung cấp giai đoạn 2023–2026 trên slide: Cùng một mức năng lực, giá rơi khoảng 10 lần mỗi năm. Việc năm ngoái phải dùng model đắt nhất — năm nay model rẻ đã làm được."
+    },
+    {
+      "page_number": 26,
+      "title": "Chọn model theo tầng",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Model Selection",
+        "Frontier Model",
+        "Self-host",
+        "Chi phí"
+      ],
+      "summary": "Nên chọn tầng model theo độ khó, khối lượng và yêu cầu kiểm soát thay vì theo tên; mặc định thử tầng rẻ mà mạnh trước và chỉ nâng cấp khi chất lượng chặn use case.",
+      "knowledge_points": [
+        "Việc đơn giản khối lượng lớn phù hợp với model rẻ cho phân loại, trích xuất và tóm tắt ngắn.",
+        "Tầng rẻ mà mạnh giải quyết đa số việc hằng ngày và nên được thử trước.",
+        "Frontier model đắt nhất chỉ nên dùng cho suy luận nhiều bước, code phức tạp, tài liệu dài hoặc yêu cầu tin cậy cao.",
+        "Self-host hoặc model siêu rẻ phù hợp khi cần kiểm soát dữ liệu hay chi phí quy mô lớn.",
+        "Hai lỗi đối xứng là dùng model quá đắt cho việc đơn giản hoặc dùng model quá yếu cho việc khó."
+      ],
+      "evidence": [
+        "★ MẶC ĐỊNH THỬ TẦNG NÀY TRƯỚC",
+        "Bắt đầu từ model đủ tốt và đủ rẻ — chỉ nâng tầng khi kết quả thực sự chặn use case"
+      ],
+      "content": "Chọn model theo tầng dựa trên công việc, không theo tên. Tầng rẻ mà mạnh nên là lựa chọn mặc định cho viết, code, phân tích và automation hằng ngày: ★ MẶC ĐỊNH THỬ TẦNG NÀY TRƯỚC. Frontier đóng, đắt nhất chỉ đáng dùng cho việc thật sự khó như suy luận nhiều bước, code phức tạp, tài liệu dài hoặc độ tin cậy cao. Self-host hoặc model siêu rẻ phù hợp khi cần kiểm soát dữ liệu hoặc chi phí quy mô lớn. Bắt đầu từ model đủ tốt và đủ rẻ — chỉ nâng tầng khi kết quả thực sự chặn use case."
+    },
+    {
+      "page_number": 27,
+      "title": "Chi phí input và output token",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Input Token",
+        "Output Token",
+        "API Cost",
+        "Usage"
+      ],
+      "summary": "Chi phí mỗi API call gồm input và output token; output thường đắt hơn vì model phải sinh tuần tự, nên kiểm soát độ dài output là đòn bẩy quan trọng.",
+      "knowledge_points": [
+        "Input token gồm prompt, system instruction, context và lịch sử chat.",
+        "Output token là nội dung model tự sinh từng mảnh.",
+        "Theo slide, vé ra thường đắt gấp 3–5 lần vé vào.",
+        "Tổng chi phí một lần gọi bằng chi phí input cộng chi phí output.",
+        "Trường usage trong response là nguồn theo dõi token và chi phí.",
+        "Kiểm soát output là núm vặn lớn để giảm chi phí."
+      ],
+      "evidence": [
+        "Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần",
+        "Input tokens + Output tokens = Chi phí mỗi lần gọi — kiểm soát output là núm vặn lớn nhất"
+      ],
+      "content": "Token có giá: vé vào rẻ, vé ra đắt gấp 3–5 lần. Input token là chữ người dùng gửi gồm prompt, system instruction, context và lịch sử chat; model chủ yếu phải đọc nên rẻ hơn. Output token là chữ model tự sinh từng mảnh, chậm và đắt hơn. Input tokens + Output tokens = Chi phí mỗi lần gọi — kiểm soát output là núm vặn lớn nhất. Cần đọc mục usage trong response để quản chi phí."
+    },
+    {
+      "page_number": 28,
+      "title": "Bốn lớp của một prompt",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "System Instruction",
+        "User Input",
+        "Context",
+        "Output Format",
+        "Prompt Engineering"
+      ],
+      "summary": "Một prompt đầy đủ gồm system instruction, user input, context bổ sung và mô tả output mong muốn.",
+      "knowledge_points": [
+        "System instruction quy định vai trò, cách cư xử và điều model không được làm.",
+        "User input là câu hỏi hoặc yêu cầu trong lượt hiện tại.",
+        "Context bổ sung gồm tài liệu, lịch sử chat hoặc dữ liệu retrieval đưa lên bàn làm việc.",
+        "Output mong muốn mô tả định dạng, ngôn ngữ và độ dài kết quả.",
+        "Viết rõ cả bốn lớp là nền tảng quan trọng của prompt engineering."
+      ],
+      "evidence": [
+        "Câu hỏi / yêu cầu của người dùng",
+        "Dạng kết quả: gạch đầu dòng? bảng?"
+      ],
+      "content": "Một prompt có bốn phần. System instruction là lời dặn về vai trò, hành vi và giới hạn. User input là Câu hỏi / yêu cầu của người dùng ở lượt hiện tại. Context bổ sung là tài liệu, lịch sử chat hoặc đoạn dữ liệu retrieval được đưa vào bàn làm việc. Output mong muốn xác định Dạng kết quả: gạch đầu dòng? bảng? JSON, ngôn ngữ và độ dài."
+    },
+    {
+      "page_number": 29,
+      "title": "Temperature và top_p",
+      "is_instructional": true,
+      "exclusion_reason": null,
+      "topics": [
+        "Temperature",
+        "Top-p",
+        "Sampling",
+        "Độ ổn định"
+      ],
+      "summary": "Temperature điều chỉnh độ phẳng của phân bố xác suất, còn top_p giới hạn lựa chọn vào nhóm token có xác suất cộng dồn cao; hai tham số chỉ thay đổi cách chọn từ, không tăng tri thức.",
+      "knowledge_points": [
+        "Temperature thấp ưu tiên từ chắc nhất, tạo kết quả ổn định và lặp lại.",
+        "Temperature cao làm phân bố phẳng hơn, tăng đa dạng nhưng dễ lạc đề.",
+        "Top_p giữ nhóm token có xác suất cộng dồn đạt ngưỡng rồi chuẩn hóa lại.",
+        "Thường chỉ nên điều chỉnh một trong hai tham số temperature hoặc top_p.",
+        "Temperature và top_p không làm model thông minh hơn hoặc thêm tri thức.",
+        "Mặc định an toàn cho công việc cần ổn định là temperature bằng 0."
+      ],
+      "evidence": [
+        "hai núm này không làm model thông minh hơn — chỉ đổi cách chọn từ, không thêm tri thức.",
+        "Mặc định an toàn: temperature = 0 cho việc cần ổn định"
+      ],
+      "content": "Temperature là núm chỉnh độ liều khi chọn token. Temperature bằng 0 luôn ưu tiên từ chắc nhất, phù hợp code và phân tích cần ổn định; tăng temperature làm phân bố xác suất phẳng hơn, đa dạng hơn nhưng dễ lạc đề. Top_p chỉ giữ nhóm token có xác suất cộng dồn đạt ngưỡng, loại đuôi xác suất thấp rồi chuẩn hóa lại. Thường chỉ vặn một trong hai. Lưu ý quan trọng: hai núm này không làm model thông minh hơn — chỉ đổi cách chọn từ, không thêm tri thức. Mặc định an toàn: temperature = 0 cho việc cần ổn định."
+    }
+  ]
+}

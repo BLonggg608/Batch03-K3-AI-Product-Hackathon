@@ -9,7 +9,7 @@ from google import genai
 from google.genai import types
 
 from .config import GEMINI_API_KEY, GEMINI_ENABLED, GEMINI_MODEL
-from .data_service import get_document_pdf_bytes
+from .data_service import select_quiz_context
 from .store import store
 from .tools import TOOL_DECLARATIONS, TOOL_FUNCTIONS
 
@@ -34,7 +34,6 @@ class GeminiOrchestrator:
         self,
         prompt: str,
         allowed_tools: set[str],
-        source_pdf: bytes | None = None,
     ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         declarations = [
             types.FunctionDeclaration(
@@ -46,19 +45,6 @@ class GeminiOrchestrator:
             if item["name"] in allowed_tools
         ]
         trace: list[dict[str, Any]] = []
-        message: str | list[str | types.Part] = prompt
-        if source_pdf:
-            message = [
-                prompt,
-                types.Part.from_bytes(data=source_pdf, mime_type="application/pdf"),
-            ]
-            trace.append(
-                {
-                    "event": "full_document_pdf_attached",
-                    "mime_type": "application/pdf",
-                    "byte_count": len(source_pdf),
-                }
-            )
 
         client = genai.Client(
             api_key=GEMINI_API_KEY,
@@ -76,7 +62,7 @@ class GeminiOrchestrator:
                     tools=[types.Tool(functionDeclarations=declarations)],
                 ),
             )
-            response = chat.send_message(message)
+            response = chat.send_message(prompt)
             for _ in range(6):
                 calls = response.function_calls or []
                 if not calls:
@@ -122,28 +108,46 @@ class GeminiOrchestrator:
         minimum_unique_pages: int,
         previous_attempt_id: str | None = None,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+        preferred_pages: list[int] = []
+        if previous_attempt_id:
+            previous = store.get_attempt(previous_attempt_id)
+            if previous:
+                preferred_pages = [
+                    answer.source_page
+                    for answer in previous.answers
+                    if not answer.is_correct
+                ]
+        context = select_quiz_context(
+            document_id,
+            question_count,
+            preferred_pages,
+        )
+        context_json = json.dumps(context, ensure_ascii=False)
         personalization = (
-            f"Gọi get_attempt_result({previous_attempt_id}) và tập trung vào các "
-            "trang/evidence của câu sai; không cần bao quát lại toàn bộ deck."
+            "Đây là quiz củng cố; context đã ưu tiên các trang của câu trả lời sai."
             if previous_attempt_id
             else (
-                "Quiz chẩn đoán phải bao quát các phần chính từ đầu, giữa và cuối "
-                "deck; không tập trung quá nhiều câu vào một chủ đề."
+                "Context đã được backend chọn phân bố từ đầu đến cuối bài để tránh "
+                "bias vào một chủ đề."
             )
         )
         prompt = f"""
-Bạn tạo quiz tiếng Việt từ TOÀN BỘ file slide {document_id}.
+Bạn tạo quiz tiếng Việt từ KNOWLEDGE CONTEXT đã được nhóm chuẩn bị trước cho
+tài liệu {document_id}. Không có file PDF trong request này.
 Loại: {mode}. Số câu: {question_count}. Tối thiểu {minimum_unique_pages} trang nguồn.
 
+{personalization}
+
+KNOWLEDGE CONTEXT — đây là nguồn duy nhất được phép sử dụng:
+{context_json}
+
 QUY TRÌNH BẮT BUỘC:
-1. Gọi get_document_outline("{document_id}") để xem toàn bộ 29 trang.
-2. {personalization}
-3. Chọn các trang đại diện cho những chủ đề chính rồi gọi retrieve_document_pages.
-4. Tạo đúng {question_count} câu, mỗi câu 4 lựa chọn A-D.
-5. Mỗi câu phải có evidence_quote nguyên văn từ trang được retrieve.
-6. Gọi validate_quiz với minimum_unique_pages={minimum_unique_pages}. Nếu invalid,
+1. Tạo đúng {question_count} câu, mỗi câu 4 lựa chọn A-D.
+2. Mỗi câu dùng một knowledge point và evidence của đúng source_page trong context.
+3. evidence_quote phải sao chép NGUYÊN VĂN một phần tử trong mảng evidence.
+4. Gọi validate_quiz với minimum_unique_pages={minimum_unique_pages}. Nếu invalid,
    sửa và gọi lại.
-7. Chỉ khi valid=true mới trả JSON thuần:
+5. Chỉ khi valid=true mới trả JSON thuần:
 {{"questions":[{{
   "question_id":"{document_id.upper()}-Q01",
   "question":"...",
@@ -157,8 +161,6 @@ QUY TRÌNH BẮT BUỘC:
 RÀNG BUỘC:
 - Không tự tạo tình huống, số liệu hoặc kiến thức ngoài tài liệu.
 - Đáp án đúng phải suy ra trực tiếp từ evidence_quote.
-- Tuyệt đối không dùng trang bìa, agenda, lịch trình, footer, thông tin hành chính
-  hoặc hướng dẫn hoạt động làm nguồn câu hỏi.
 - Chỉ hỏi kiến thức: khái niệm, cơ chế, nguyên nhân, hệ quả, so sánh, quy trình,
   tiêu chí lựa chọn hoặc cách áp dụng.
 - Không hỏi kiểu meta như “nội dung nào được nêu/đề cập”, “theo slide”, “ở đầu
@@ -166,21 +168,15 @@ RÀNG BUỘC:
 - Các câu chẩn đoán phải phân bố trên nhiều chủ đề và nhiều trang.
 - Distractor phải hợp lý nhưng chỉ có một đáp án đúng.
 """
-        payload, trace = self._run(
-            prompt,
+        payload, trace = self._run(prompt, {"validate_quiz"})
+        trace.insert(
+            0,
             {
-                "get_document_outline",
-                "retrieve_document_pages",
-                "get_attempt_result",
-                "validate_quiz",
-            }
-            if previous_attempt_id
-            else {
-                "get_document_outline",
-                "retrieve_document_pages",
-                "validate_quiz",
+                "event": "curated_knowledge_context",
+                "document_id": document_id,
+                "source_pages": [page["page_number"] for page in context],
+                "context_characters": len(context_json),
             },
-            get_document_pdf_bytes(document_id),
         )
         questions = payload.get("questions")
         if not isinstance(questions, list):

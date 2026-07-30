@@ -26,8 +26,8 @@ TOOL_DECLARATIONS = [
     {
         "name": "get_document_outline",
         "description": (
-            "Lấy outline toàn bộ deck gồm tiêu đề, preview và số từ của từng trang. "
-            "Dùng để lập coverage plan trước khi tạo quiz."
+            "Lấy outline đã được chuẩn hóa sẵn từ knowledge JSON, gồm chủ đề, "
+            "preview và trạng thái instructional của từng trang."
         ),
         "parameters": {
             "type": "object",
@@ -43,8 +43,8 @@ TOOL_DECLARATIONS = [
     {
         "name": "retrieve_document_pages",
         "description": (
-            "Retrieve text đầy đủ của các trang đã chọn từ outline. Đây là evidence "
-            "để tạo câu hỏi và citation."
+            "Retrieve knowledge points và evidence đã được chuẩn hóa sẵn trong "
+            "knowledge JSON của các trang được chọn."
         ),
         "parameters": {
             "type": "object",
@@ -57,7 +57,7 @@ TOOL_DECLARATIONS = [
                     "type": "array",
                     "items": {"type": "integer"},
                     "minItems": 1,
-                    "maxItems": 14,
+                    "maxItems": 20,
                 },
             },
             "required": ["document_id", "page_numbers"],

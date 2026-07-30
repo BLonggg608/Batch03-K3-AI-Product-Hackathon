@@ -1,17 +1,15 @@
 from __future__ import annotations
 
 import math
-import re
 from uuid import uuid4
 
 from fastapi import HTTPException
 
 from .config import ALLOW_FALLBACK
 from .data_service import (
-    get_document_outline,
     get_document_summary,
     get_page_source,
-    is_instructional_page,
+    select_quiz_context,
 )
 from .gemini_service import gemini
 from .models import (
@@ -26,42 +24,11 @@ from .store import store
 from .validation import validate_quiz
 
 
-def _usable_lines(content: str) -> list[str]:
-    blocked = ("AI IN ACTION", "DAY 0", "NGUỒN ", "BỘ THẺ ")
-    lines: list[str] = []
-    for raw in content.splitlines()[1:]:
-        line = re.sub(r"\s+", " ", raw).strip(" ·•—")
-        if (
-            28 <= len(line) <= 240
-            and not any(line.upper().startswith(prefix) for prefix in blocked)
-            and " DAY 0" not in line.upper()
-            and not line.endswith("?")
-            and line not in lines
-        ):
-            lines.append(line)
-    return lines
-
-
 def _spread_pages(document_id: str, count: int) -> list[int]:
-    outline = get_document_outline(document_id)
-    eligible = [
+    return [
         page["page_number"]
-        for page in outline["pages"]
-        if is_instructional_page(page)
-        and _usable_lines(get_page_source(document_id, page["page_number"])["content"])
+        for page in select_quiz_context(document_id, count)
     ]
-    if len(eligible) < count:
-        raise HTTPException(
-            status_code=422,
-            detail="Tài liệu không đủ trang nội dung để tạo quiz bao quát.",
-        )
-    if count == 1:
-        return [eligible[len(eligible) // 2]]
-    indexes = [
-        round(index * (len(eligible) - 1) / (count - 1))
-        for index in range(count)
-    ]
-    return [eligible[index] for index in indexes]
 
 
 def _fallback_questions(
@@ -82,10 +49,9 @@ def _fallback_questions(
     titles: dict[int, str] = {}
     for page_number in pages:
         page = get_page_source(document_id, page_number)
-        lines = _usable_lines(page["content"])
-        if not lines:
+        if not page["evidence"]:
             continue
-        evidence_by_page[page_number] = lines[0]
+        evidence_by_page[page_number] = page["evidence"][0]
         titles[page_number] = page["title"]
 
     if len(evidence_by_page) < question_count:
@@ -184,13 +150,7 @@ def create_quiz(
                 previous_attempt_id=previous_attempt_id,
             )
             called = {item.get("tool") for item in trace if isinstance(item, dict)}
-            required = {
-                "get_document_outline",
-                "retrieve_document_pages",
-                "validate_quiz",
-            }
-            if previous_attempt_id:
-                required.add("get_attempt_result")
+            required = {"validate_quiz"}
             if not required.issubset(called):
                 raise ValueError(
                     f"Gemini chưa gọi tool bắt buộc: {sorted(required - called)}"

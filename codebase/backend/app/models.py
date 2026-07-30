@@ -22,6 +22,8 @@ class PageSummary(BaseModel):
     title: str
     preview: str
     word_count: int
+    is_instructional: bool
+    topics: list[str] = Field(default_factory=list)
 
 
 class DocumentOutline(DocumentSummary):

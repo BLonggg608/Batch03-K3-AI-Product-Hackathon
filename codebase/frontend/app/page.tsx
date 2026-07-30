@@ -88,8 +88,8 @@ export default function HomePage() {
           <span className="eyebrow">Quiz bao quát toàn bộ nội dung buổi học</span>
           <h1>Chọn bộ slide muốn tạo quiz</h1>
           <p>
-            Hệ thống đọc toàn bộ 29 trang của buổi được chọn, lấy evidence từ nhiều
-            phần khác nhau và tạo một quiz tổng hợp.
+            Nội dung của toàn bộ 29 trang đã được chuẩn hóa sẵn theo chủ đề và
+            evidence. Gemini chỉ đọc các phần kiến thức được chọn để tạo quiz.
           </p>
         </div>
         {health && (
@@ -160,7 +160,7 @@ export default function HomePage() {
                   <div>
                     <strong>Đang tạo quiz {creatingCount} câu</strong>
                     <small>
-                      Gemini đang phân tích toàn bộ 29 trang. Có thể mất 30–180 giây.
+                      Gemini đang tạo câu hỏi từ knowledge context đã chuẩn hóa.
                     </small>
                   </div>
                 </div>

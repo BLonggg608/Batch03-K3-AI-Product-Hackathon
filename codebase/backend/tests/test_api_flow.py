@@ -16,7 +16,12 @@ os.environ["DATABASE_PATH"] = os.path.join(
 
 from fastapi.testclient import TestClient
 
-from app.data_service import get_page_source, is_instructional_page
+from app.data_service import (
+    get_document_outline,
+    get_page_source,
+    is_instructional_page,
+    select_quiz_context,
+)
 from app.main import app
 from app.store import store
 from app.validation import validate_quiz
@@ -43,6 +48,43 @@ def test_health_and_two_document_options() -> None:
     outline = client.get("/api/documents/day02/outline")
     assert outline.status_code == 200
     assert len(outline.json()["pages"]) == 29
+
+
+@pytest.mark.parametrize(
+    ("document_id", "non_instructional_page"),
+    [("day01", 2), ("day02", 2)],
+)
+def test_curated_knowledge_base_is_complete_and_stratified(
+    document_id: str,
+    non_instructional_page: int,
+) -> None:
+    outline = get_document_outline(document_id)
+    assert len(outline["pages"]) == 29
+    assert not is_instructional_page(
+        get_page_source(document_id, non_instructional_page)
+    )
+
+    instructional = [
+        page for page in outline["pages"] if page["is_instructional"]
+    ]
+    assert len(instructional) >= 20
+    for page in instructional:
+        source = get_page_source(document_id, page["page_number"])
+        assert source["topics"]
+        assert source["summary"]
+        assert source["knowledge_points"]
+        assert source["evidence"]
+        assert all(
+            normalize(evidence) in normalize(source["content"])
+            for evidence in source["evidence"]
+        )
+
+    context = select_quiz_context(document_id, 20)
+    context_pages = [page["page_number"] for page in context]
+    assert len(context_pages) == 20
+    assert len(set(context_pages)) == 20
+    assert max(context_pages) - min(context_pages) >= 20
+    assert non_instructional_page not in context_pages
 
 
 @pytest.mark.parametrize(
@@ -171,6 +213,18 @@ def test_validator_rejects_fabricated_evidence_and_low_coverage() -> None:
     assert any(
         error["code"] == "INSUFFICIENT_DOCUMENT_COVERAGE"
         for error in coverage["errors"]
+    )
+
+    invalid_choice_ids = [question.copy() for question in questions]
+    invalid_choice_ids[0] = invalid_choice_ids[0].copy()
+    invalid_choice_ids[0]["choices"] = [
+        choice.copy() for choice in invalid_choice_ids[0]["choices"]
+    ]
+    invalid_choice_ids[0]["choices"][3]["id"] = "D splinter"
+    choice_validation = validate_quiz("day01", invalid_choice_ids, 10, 8)
+    assert any(
+        error["code"] == "INVALID_CHOICE_IDS"
+        for error in choice_validation["errors"]
     )
 
 
