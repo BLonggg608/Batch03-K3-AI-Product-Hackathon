@@ -1,4 +1,4 @@
-# AI SPEC — VLearn Focus: Quiz chẩn đoán có căn cứ · Nhóm [ĐIỀN SỐ NHÓM] · Zone [ĐIỀN ZONE]
+# AI SPEC — No Name: Quiz chẩn đoán có 
 
 Hướng: [x] A — VLearn  [ ] B — Trợ lý Học viên  [ ] C — Làn mở  
 Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
