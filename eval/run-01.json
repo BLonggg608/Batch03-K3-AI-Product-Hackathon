@@ -1,0 +1,691 @@
+{
+  "run_at": "2026-07-30T23:35:52",
+  "model": "gemini-3.1-flash-lite",
+  "gemini_enabled": true,
+  "fallback_enabled": false,
+  "health": {
+    "status": "ok",
+    "gemini_enabled": true,
+    "gemini_model": "gemini-3.1-flash-lite",
+    "fallback_enabled": false,
+    "missing_documents": [],
+    "missing_knowledge": []
+  },
+  "golden_set": "eval\\golden-set.json",
+  "document_id": "day01",
+  "total_cases": 20,
+  "batch_size": 5,
+  "score": "13/20",
+  "batches": [
+    {
+      "batch_number": 1,
+      "quiz_id": "5c7fe2a1-fdde-4d6d-9404-837452587b5b",
+      "attempt_id": "5c9e6dfe-4a62-4524-a2e9-bed98e27c8fe",
+      "review_id": "a1628adb-cf42-44ba-bfdd-ac6c61d2b327",
+      "review_generated_by": "gemini"
+    },
+    {
+      "batch_number": 2,
+      "quiz_id": "537158eb-3d7a-4bd5-8812-86e56bc7c86f",
+      "attempt_id": "08ac6de4-3d22-4a4d-9e78-e4b0c70d97ec",
+      "review_id": "6e9f9430-61ee-4489-992a-3be2783be0d3",
+      "review_generated_by": "gemini"
+    },
+    {
+      "batch_number": 3,
+      "quiz_id": "28a986cb-eada-4aae-8ab6-34795eadaac3",
+      "attempt_id": "fec49b41-04c7-473a-a0ed-a8575eb9ae48",
+      "review_id": "5c43fa37-ff36-4ff5-a1da-e4e89e1fad8b",
+      "review_generated_by": "fallback"
+    },
+    {
+      "batch_number": 4,
+      "quiz_id": "32e71982-5b28-4c07-8fde-00b885689b73",
+      "attempt_id": "f11a5763-3c1a-470d-8153-946f21765884",
+      "review_id": "242151c2-9538-4e10-a921-92b7b44bb0bb",
+      "review_generated_by": "gemini"
+    }
+  ],
+  "rows": [
+    {
+      "case_id": "EVAL-01",
+      "situation_type": "missing_information",
+      "source": "self_test",
+      "source_page": 3,
+      "question": "LLM nằm ở đâu trong bức tranh tổng thể về AI?",
+      "correct_answer": "LLM là model nền chuyên ngôn ngữ và không phải toàn bộ AI.",
+      "student_answer": "LLM bao gồm toàn bộ AI, Machine Learning và robot.",
+      "misconception": "Nhầm LLM là toàn bộ lĩnh vực AI.",
+      "expected_terms": [
+        "LLM",
+        "AI"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững phân cấp các khái niệm AI, sự khác biệt giữa các loại hình AI (Discriminative, Generative, Agentic), lịch sử phát triển của AI, cơ chế hoạt động của hệ chuyên gia và vai trò của dữ liệu trong các bước ngoặt công nghệ.",
+        "review_pages": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-02",
+      "situation_type": "ambiguous_context",
+      "source": "self_test",
+      "source_page": 4,
+      "question": "Loại AI nào nhận mục tiêu rồi lập kế hoạch và hành động?",
+      "correct_answer": "Agentic AI.",
+      "student_answer": "AI sinh nội dung.",
+      "misconception": "Chưa phân biệt Agentic AI với Generative AI.",
+      "expected_terms": [
+        "Agentic AI",
+        "Generative AI"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": false,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững phân cấp các khái niệm AI, sự khác biệt giữa các loại hình AI (Discriminative, Generative, Agentic), lịch sử phát triển của AI, cơ chế hoạt động của hệ chuyên gia và vai trò của dữ liệu trong các bước ngoặt công nghệ.",
+        "review_pages": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-03",
+      "situation_type": "high_impact",
+      "source": "self_test",
+      "source_page": 5,
+      "question": "Lịch sử AI đã trải qua điều gì khi các cách tiếp cận chạm trần?",
+      "correct_answer": "Hai lần mùa đông AI.",
+      "student_answer": "AI tăng trưởng liên tục và chưa từng suy giảm.",
+      "misconception": "Hiểu sai lịch sử các mùa đông AI.",
+      "expected_terms": [
+        "mùa đông",
+        "AI"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững phân cấp các khái niệm AI, sự khác biệt giữa các loại hình AI (Discriminative, Generative, Agentic), lịch sử phát triển của AI, cơ chế hoạt động của hệ chuyên gia và vai trò của dữ liệu trong các bước ngoặt công nghệ.",
+        "review_pages": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-04",
+      "situation_type": "out_of_scope",
+      "source": "self_test",
+      "source_page": 6,
+      "question": "Hệ chuyên gia biểu diễn tri thức chuyên gia bằng cách nào?",
+      "correct_answer": "Mã hóa tri thức chuyên gia thành các luật.",
+      "student_answer": "Tự truy cập Internet để tìm đáp án mới.",
+      "misconception": "Gán khả năng ngoài phạm vi cho hệ chuyên gia dựa trên luật.",
+      "expected_terms": [
+        "hệ chuyên gia",
+        "luật"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững phân cấp các khái niệm AI, sự khác biệt giữa các loại hình AI (Discriminative, Generative, Agentic), lịch sử phát triển của AI, cơ chế hoạt động của hệ chuyên gia và vai trò của dữ liệu trong các bước ngoặt công nghệ.",
+        "review_pages": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-05",
+      "situation_type": "missing_information",
+      "source": "self_test",
+      "source_page": 7,
+      "question": "Bài học chính từ ImageNet là gì?",
+      "correct_answer": "Dữ liệu tốt hơn đôi khi đánh bại thuật toán khôn hơn.",
+      "student_answer": "ImageNet phát minh ra kiến trúc Transformer.",
+      "misconception": "Nhầm vai trò của bộ dữ liệu ImageNet với kiến trúc Transformer.",
+      "expected_terms": [
+        "ImageNet",
+        "dữ liệu"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững phân cấp các khái niệm AI, sự khác biệt giữa các loại hình AI (Discriminative, Generative, Agentic), lịch sử phát triển của AI, cơ chế hoạt động của hệ chuyên gia và vai trò của dữ liệu trong các bước ngoặt công nghệ.",
+        "review_pages": [
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-06",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 8,
+      "question": "Điểm quan trọng của Transformer năm 2017 là gì?",
+      "correct_answer": "Mỗi từ có thể nhìn sang các từ quan trọng khác trong cả câu.",
+      "student_answer": "Mỗi từ chỉ được xử lý độc lập, không dùng ngữ cảnh.",
+      "misconception": "Chưa hiểu cách Transformer sử dụng quan hệ trong ngữ cảnh.",
+      "expected_terms": [
+        "Transformer",
+        "ngữ cảnh"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững các khái niệm nền tảng về kiến trúc Transformer, cách thức hoạt động của LLM (đầu ra xác suất, vòng lặp sinh văn bản) và sự khác biệt giữa mô hình nền (LLM) với sản phẩm ứng dụng (chatbot).",
+        "review_pages": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-07",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 9,
+      "question": "Điều gì giúp ChatGPT đưa mô hình ngôn ngữ tới số đông?",
+      "correct_answer": "Một giao diện đơn giản, dễ sử dụng.",
+      "student_answer": "ChatGPT là mô hình ngôn ngữ đầu tiên từng tồn tại.",
+      "misconception": "Nhầm đóng góp về trải nghiệm đại chúng với việc phát minh mô hình ngôn ngữ.",
+      "expected_terms": [
+        "ChatGPT",
+        "giao diện"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững các khái niệm nền tảng về kiến trúc Transformer, cách thức hoạt động của LLM (đầu ra xác suất, vòng lặp sinh văn bản) và sự khác biệt giữa mô hình nền (LLM) với sản phẩm ứng dụng (chatbot).",
+        "review_pages": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-08",
+      "situation_type": "ambiguous_context",
+      "source": "self_test",
+      "source_page": 10,
+      "question": "LLM và chatbot có quan hệ như thế nào?",
+      "correct_answer": "Chatbot là một dạng sản phẩm được đóng gói quanh LLM.",
+      "student_answer": "Hai thứ đó giống nhau.",
+      "misconception": "Chưa phân biệt model nền LLM với sản phẩm chatbot.",
+      "expected_terms": [
+        "LLM",
+        "chatbot"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững các khái niệm nền tảng về kiến trúc Transformer, cách thức hoạt động của LLM (đầu ra xác suất, vòng lặp sinh văn bản) và sự khác biệt giữa mô hình nền (LLM) với sản phẩm ứng dụng (chatbot).",
+        "review_pages": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-09",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 11,
+      "question": "Đầu ra của Transformer trước khi chọn token tiếp theo là gì?",
+      "correct_answer": "Một phân bố xác suất trên toàn bộ từ vựng.",
+      "student_answer": "Một câu trả lời đúng duy nhất đã được lưu sẵn.",
+      "misconception": "Chưa hiểu đầu ra xác suất của Transformer.",
+      "expected_terms": [
+        "xác suất",
+        "token"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững các khái niệm nền tảng về kiến trúc Transformer, cách thức hoạt động của LLM (đầu ra xác suất, vòng lặp sinh văn bản) và sự khác biệt giữa mô hình nền (LLM) với sản phẩm ứng dụng (chatbot).",
+        "review_pages": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-10",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 12,
+      "question": "Model sinh văn bản theo vòng lặp nào?",
+      "correct_answer": "Dự đoán token, nối token vào ngữ cảnh rồi dự đoán tiếp.",
+      "student_answer": "Viết toàn bộ câu trả lời trong một bước duy nhất.",
+      "misconception": "Chưa hiểu quá trình sinh văn bản tuần tự theo token.",
+      "expected_terms": [
+        "token",
+        "dự đoán"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững các khái niệm nền tảng về kiến trúc Transformer, cách thức hoạt động của LLM (đầu ra xác suất, vòng lặp sinh văn bản) và sự khác biệt giữa mô hình nền (LLM) với sản phẩm ứng dụng (chatbot).",
+        "review_pages": [
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-11",
+      "situation_type": "high_impact",
+      "source": "self_test",
+      "source_page": 13,
+      "question": "Token là gì?",
+      "correct_answer": "Một mảnh văn bản có thể là từ, phần của từ, dấu câu hoặc khoảng trắng.",
+      "student_answer": "Một token luôn luôn bằng đúng một từ.",
+      "misconception": "Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.",
+      "expected_terms": [
+        "token",
+        "mảnh"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": false
+      },
+      "observed": {
+        "possible_gap": "Người học có thể đang nhầm: Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.; Hiểu sai giới hạn và chi phí của context.; Chưa hiểu attention liên kết token với ngữ cảnh.; Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.; Nhầm context trong prompt với tham số đã huấn luyện.",
+        "review_pages": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "generated_by": "fallback"
+      }
+    },
+    {
+      "case_id": "EVAL-12",
+      "situation_type": "high_impact",
+      "source": "self_test",
+      "source_page": 14,
+      "question": "Context của model có đặc điểm gì?",
+      "correct_answer": "Context có giới hạn; context dài làm tăng chi phí và độ trễ.",
+      "student_answer": "Context là bộ nhớ vô hạn và không ảnh hưởng chi phí.",
+      "misconception": "Hiểu sai giới hạn và chi phí của context.",
+      "expected_terms": [
+        "context",
+        "giới hạn"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": false
+      },
+      "observed": {
+        "possible_gap": "Người học có thể đang nhầm: Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.; Hiểu sai giới hạn và chi phí của context.; Chưa hiểu attention liên kết token với ngữ cảnh.; Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.; Nhầm context trong prompt với tham số đã huấn luyện.",
+        "review_pages": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "generated_by": "fallback"
+      }
+    },
+    {
+      "case_id": "EVAL-13",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 15,
+      "question": "Attention giúp model làm gì?",
+      "correct_answer": "Chấm mức liên quan giữa các token để khóa nghĩa theo ngữ cảnh.",
+      "student_answer": "Xóa toàn bộ các token xuất hiện trước token hiện tại.",
+      "misconception": "Chưa hiểu attention liên kết token với ngữ cảnh.",
+      "expected_terms": [
+        "attention",
+        "token"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": false
+      },
+      "observed": {
+        "possible_gap": "Người học có thể đang nhầm: Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.; Hiểu sai giới hạn và chi phí của context.; Chưa hiểu attention liên kết token với ngữ cảnh.; Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.; Nhầm context trong prompt với tham số đã huấn luyện.",
+        "review_pages": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "generated_by": "fallback"
+      }
+    },
+    {
+      "case_id": "EVAL-14",
+      "situation_type": "out_of_scope",
+      "source": "self_test",
+      "source_page": 16,
+      "question": "Với tài liệu dài, nên quản lý context như thế nào?",
+      "correct_answer": "Lấy phần liên quan bằng RAG và chỉ đưa context cần thiết.",
+      "student_answer": "Yêu cầu model tự nhớ tài liệu chưa từng được cung cấp.",
+      "misconception": "Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.",
+      "expected_terms": [
+        "context",
+        "RAG"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": false
+      },
+      "observed": {
+        "possible_gap": "Người học có thể đang nhầm: Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.; Hiểu sai giới hạn và chi phí của context.; Chưa hiểu attention liên kết token với ngữ cảnh.; Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.; Nhầm context trong prompt với tham số đã huấn luyện.",
+        "review_pages": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "generated_by": "fallback"
+      }
+    },
+    {
+      "case_id": "EVAL-15",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 17,
+      "question": "Tham số của model có phải thứ người dùng chỉnh trong mỗi lần gọi không?",
+      "correct_answer": "Không, tham số đã được đóng gói trong weights của model.",
+      "student_answer": "Có, prompt trực tiếp thay đổi toàn bộ weights của model.",
+      "misconception": "Nhầm context trong prompt với tham số đã huấn luyện.",
+      "expected_terms": [
+        "tham số",
+        "context"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": false
+      },
+      "observed": {
+        "possible_gap": "Người học có thể đang nhầm: Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.; Hiểu sai giới hạn và chi phí của context.; Chưa hiểu attention liên kết token với ngữ cảnh.; Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.; Nhầm context trong prompt với tham số đã huấn luyện.",
+        "review_pages": [
+          13,
+          14,
+          15,
+          16,
+          17
+        ],
+        "generated_by": "fallback"
+      }
+    },
+    {
+      "case_id": "EVAL-16",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 18,
+      "question": "SFT có vai trò gì trong quá trình tạo LLM?",
+      "correct_answer": "Dùng ví dụ mẫu để dạy model trả lời như một trợ lý.",
+      "student_answer": "SFT chỉ dùng để chia văn bản thành token.",
+      "misconception": "Chưa phân biệt SFT với tokenization và pre-training.",
+      "expected_terms": [
+        "SFT",
+        "trợ lý"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững quy trình huấn luyện LLM, các giới hạn bẩm sinh của mô hình (như knowledge cutoff, hallucination), vai trò của các kỹ thuật căn chỉnh (RLHF), cũng như cách đánh giá hiệu năng thực tế thông qua kiểm thử thay vì chỉ dựa vào benchmark.",
+        "review_pages": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-17",
+      "situation_type": "normal",
+      "source": "self_test",
+      "source_page": 19,
+      "question": "Trong RLHF, dữ liệu xếp hạng của con người được dùng để làm gì?",
+      "correct_answer": "Tạo tín hiệu thưởng để ưu tiên câu trả lời tốt hơn.",
+      "student_answer": "Dùng để tăng kích thước cửa sổ context.",
+      "misconception": "Nhầm mục đích của RLHF với việc mở rộng context.",
+      "expected_terms": [
+        "RLHF",
+        "xếp hạng"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững quy trình huấn luyện LLM, các giới hạn bẩm sinh của mô hình (như knowledge cutoff, hallucination), vai trò của các kỹ thuật căn chỉnh (RLHF), cũng như cách đánh giá hiệu năng thực tế thông qua kiểm thử thay vì chỉ dựa vào benchmark.",
+        "review_pages": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-18",
+      "situation_type": "missing_information",
+      "source": "self_test",
+      "source_page": 20,
+      "question": "Model xử lý dữ liệu mới sau knowledge cutoff bằng cách nào?",
+      "correct_answer": "Cần tools, retrieval hoặc workflow cung cấp dữ liệu mới.",
+      "student_answer": "Model tự động biết mọi sự kiện mới mà không cần nguồn nào.",
+      "misconception": "Tin rằng model tự biết dữ liệu mới sau knowledge cutoff.",
+      "expected_terms": [
+        "knowledge cutoff",
+        "retrieval"
+      ],
+      "pass": false,
+      "checks": {
+        "expected_terms_found": false,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững quy trình huấn luyện LLM, các giới hạn bẩm sinh của mô hình (như knowledge cutoff, hallucination), vai trò của các kỹ thuật căn chỉnh (RLHF), cũng như cách đánh giá hiệu năng thực tế thông qua kiểm thử thay vì chỉ dựa vào benchmark.",
+        "review_pages": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-19",
+      "situation_type": "high_impact",
+      "source": "self_test",
+      "source_page": 21,
+      "question": "Benchmark cao có chứng minh model hiểu đúng điều ta kỳ vọng không?",
+      "correct_answer": "Không; model có thể học đường tắt và cần test trên dữ liệu thực tế.",
+      "student_answer": "Có; điểm benchmark cao bảo đảm model không bao giờ sai.",
+      "misconception": "Tin rằng benchmark cao loại bỏ nhu cầu kiểm thử thực tế.",
+      "expected_terms": [
+        "benchmark",
+        "đường tắt"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững quy trình huấn luyện LLM, các giới hạn bẩm sinh của mô hình (như knowledge cutoff, hallucination), vai trò của các kỹ thuật căn chỉnh (RLHF), cũng như cách đánh giá hiệu năng thực tế thông qua kiểm thử thay vì chỉ dựa vào benchmark.",
+        "review_pages": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "generated_by": "gemini"
+      }
+    },
+    {
+      "case_id": "EVAL-20",
+      "situation_type": "ambiguous_context",
+      "source": "self_test",
+      "source_page": 22,
+      "question": "Chain-of-Thought hỗ trợ model như thế nào?",
+      "correct_answer": "Cho model không gian suy luận từng bước giống như giấy nháp.",
+      "student_answer": "Nó chỉ làm model dài dòng hơn.",
+      "misconception": "Chưa hiểu vai trò của suy luận từng bước.",
+      "expected_terms": [
+        "Chain-of-Thought",
+        "suy luận"
+      ],
+      "pass": true,
+      "checks": {
+        "expected_terms_found": true,
+        "source_page_covered": true,
+        "review_evidence_grounded": true,
+        "review_generated_by_gemini": true
+      },
+      "observed": {
+        "possible_gap": "Người học chưa nắm vững quy trình huấn luyện LLM, các giới hạn bẩm sinh của mô hình (như knowledge cutoff, hallucination), vai trò của các kỹ thuật căn chỉnh (RLHF), cũng như cách đánh giá hiệu năng thực tế thông qua kiểm thử thay vì chỉ dựa vào benchmark.",
+        "review_pages": [
+          18,
+          19,
+          20,
+          21,
+          22
+        ],
+        "generated_by": "gemini"
+      }
+    }
+  ]
+}

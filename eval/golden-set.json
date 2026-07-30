@@ -1,0 +1,227 @@
+{
+  "name": "VLearn Focus - Day 1 fixed evaluation set",
+  "document_id": "day01",
+  "description": "20 tình huống cố định: người học chọn một đáp án sai và AI phải chẩn đoán lỗ hổng kiến thức dựa trên đúng trang nguồn.",
+  "cases": [
+    {
+      "case_id": "EVAL-01",
+      "situation_type": "missing_information",
+      "source": "team_authored",
+      "source_page": 3,
+      "question": "LLM nằm ở đâu trong bức tranh tổng thể về AI?",
+      "correct_answer": "LLM là model nền chuyên ngôn ngữ và không phải toàn bộ AI.",
+      "student_answer": "LLM bao gồm toàn bộ AI, Machine Learning và robot.",
+      "misconception": "Nhầm LLM là toàn bộ lĩnh vực AI.",
+      "expected_terms": ["LLM", "AI"]
+    },
+    {
+      "case_id": "EVAL-02",
+      "situation_type": "ambiguous_context",
+      "source": "team_authored",
+      "source_page": 4,
+      "question": "Loại AI nào nhận mục tiêu rồi lập kế hoạch và hành động?",
+      "correct_answer": "Agentic AI.",
+      "student_answer": "AI sinh nội dung.",
+      "misconception": "Chưa phân biệt Agentic AI với Generative AI.",
+      "expected_terms": ["Agentic AI", "Generative AI"]
+    },
+    {
+      "case_id": "EVAL-03",
+      "situation_type": "high_impact",
+      "source": "team_authored",
+      "source_page": 5,
+      "question": "Lịch sử AI đã trải qua điều gì khi các cách tiếp cận chạm trần?",
+      "correct_answer": "Hai lần mùa đông AI.",
+      "student_answer": "AI tăng trưởng liên tục và chưa từng suy giảm.",
+      "misconception": "Hiểu sai lịch sử các mùa đông AI.",
+      "expected_terms": ["mùa đông", "AI"]
+    },
+    {
+      "case_id": "EVAL-04",
+      "situation_type": "out_of_scope",
+      "source": "team_authored",
+      "source_page": 6,
+      "question": "Hệ chuyên gia biểu diễn tri thức chuyên gia bằng cách nào?",
+      "correct_answer": "Mã hóa tri thức chuyên gia thành các luật.",
+      "student_answer": "Tự truy cập Internet để tìm đáp án mới.",
+      "misconception": "Gán khả năng ngoài phạm vi cho hệ chuyên gia dựa trên luật.",
+      "expected_terms": ["hệ chuyên gia", "luật"]
+    },
+    {
+      "case_id": "EVAL-05",
+      "situation_type": "missing_information",
+      "source": "team_authored",
+      "source_page": 7,
+      "question": "Bài học chính từ ImageNet là gì?",
+      "correct_answer": "Dữ liệu tốt hơn đôi khi đánh bại thuật toán khôn hơn.",
+      "student_answer": "ImageNet phát minh ra kiến trúc Transformer.",
+      "misconception": "Nhầm vai trò của bộ dữ liệu ImageNet với kiến trúc Transformer.",
+      "expected_terms": ["ImageNet", "dữ liệu"]
+    },
+    {
+      "case_id": "EVAL-06",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 8,
+      "question": "Điểm quan trọng của Transformer năm 2017 là gì?",
+      "correct_answer": "Mỗi từ có thể nhìn sang các từ quan trọng khác trong cả câu.",
+      "student_answer": "Mỗi từ chỉ được xử lý độc lập, không dùng ngữ cảnh.",
+      "misconception": "Chưa hiểu cách Transformer sử dụng quan hệ trong ngữ cảnh.",
+      "expected_terms": ["Transformer", "ngữ cảnh"]
+    },
+    {
+      "case_id": "EVAL-07",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 9,
+      "question": "Điều gì giúp ChatGPT đưa mô hình ngôn ngữ tới số đông?",
+      "correct_answer": "Một giao diện đơn giản, dễ sử dụng.",
+      "student_answer": "ChatGPT là mô hình ngôn ngữ đầu tiên từng tồn tại.",
+      "misconception": "Nhầm đóng góp về trải nghiệm đại chúng với việc phát minh mô hình ngôn ngữ.",
+      "expected_terms": ["ChatGPT", "giao diện"]
+    },
+    {
+      "case_id": "EVAL-08",
+      "situation_type": "ambiguous_context",
+      "source": "team_authored",
+      "source_page": 10,
+      "question": "LLM và chatbot có quan hệ như thế nào?",
+      "correct_answer": "Chatbot là một dạng sản phẩm được đóng gói quanh LLM.",
+      "student_answer": "Hai thứ đó giống nhau.",
+      "misconception": "Chưa phân biệt model nền LLM với sản phẩm chatbot.",
+      "expected_terms": ["LLM", "chatbot"]
+    },
+    {
+      "case_id": "EVAL-09",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 11,
+      "question": "Đầu ra của Transformer trước khi chọn token tiếp theo là gì?",
+      "correct_answer": "Một phân bố xác suất trên toàn bộ từ vựng.",
+      "student_answer": "Một câu trả lời đúng duy nhất đã được lưu sẵn.",
+      "misconception": "Chưa hiểu đầu ra xác suất của Transformer.",
+      "expected_terms": ["xác suất", "token"]
+    },
+    {
+      "case_id": "EVAL-10",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 12,
+      "question": "Model sinh văn bản theo vòng lặp nào?",
+      "correct_answer": "Dự đoán token, nối token vào ngữ cảnh rồi dự đoán tiếp.",
+      "student_answer": "Viết toàn bộ câu trả lời trong một bước duy nhất.",
+      "misconception": "Chưa hiểu quá trình sinh văn bản tuần tự theo token.",
+      "expected_terms": ["token", "dự đoán"]
+    },
+    {
+      "case_id": "EVAL-11",
+      "situation_type": "high_impact",
+      "source": "team_authored",
+      "source_page": 13,
+      "question": "Token là gì?",
+      "correct_answer": "Một mảnh văn bản có thể là từ, phần của từ, dấu câu hoặc khoảng trắng.",
+      "student_answer": "Một token luôn luôn bằng đúng một từ.",
+      "misconception": "Hiểu sai token luôn tương ứng một từ, dẫn đến ước lượng chi phí sai.",
+      "expected_terms": ["token", "mảnh"]
+    },
+    {
+      "case_id": "EVAL-12",
+      "situation_type": "high_impact",
+      "source": "team_authored",
+      "source_page": 14,
+      "question": "Context của model có đặc điểm gì?",
+      "correct_answer": "Context có giới hạn; context dài làm tăng chi phí và độ trễ.",
+      "student_answer": "Context là bộ nhớ vô hạn và không ảnh hưởng chi phí.",
+      "misconception": "Hiểu sai giới hạn và chi phí của context.",
+      "expected_terms": ["context", "giới hạn"]
+    },
+    {
+      "case_id": "EVAL-13",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 15,
+      "question": "Attention giúp model làm gì?",
+      "correct_answer": "Chấm mức liên quan giữa các token để khóa nghĩa theo ngữ cảnh.",
+      "student_answer": "Xóa toàn bộ các token xuất hiện trước token hiện tại.",
+      "misconception": "Chưa hiểu attention liên kết token với ngữ cảnh.",
+      "expected_terms": ["attention", "token"]
+    },
+    {
+      "case_id": "EVAL-14",
+      "situation_type": "out_of_scope",
+      "source": "team_authored",
+      "source_page": 16,
+      "question": "Với tài liệu dài, nên quản lý context như thế nào?",
+      "correct_answer": "Lấy phần liên quan bằng RAG và chỉ đưa context cần thiết.",
+      "student_answer": "Yêu cầu model tự nhớ tài liệu chưa từng được cung cấp.",
+      "misconception": "Kỳ vọng model tự biết tài liệu ngoài context thay vì dùng retrieval.",
+      "expected_terms": ["context", "RAG"]
+    },
+    {
+      "case_id": "EVAL-15",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 17,
+      "question": "Tham số của model có phải thứ người dùng chỉnh trong mỗi lần gọi không?",
+      "correct_answer": "Không, tham số đã được đóng gói trong weights của model.",
+      "student_answer": "Có, prompt trực tiếp thay đổi toàn bộ weights của model.",
+      "misconception": "Nhầm context trong prompt với tham số đã huấn luyện.",
+      "expected_terms": ["tham số", "context"]
+    },
+    {
+      "case_id": "EVAL-16",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 18,
+      "question": "SFT có vai trò gì trong quá trình tạo LLM?",
+      "correct_answer": "Dùng ví dụ mẫu để dạy model trả lời như một trợ lý.",
+      "student_answer": "SFT chỉ dùng để chia văn bản thành token.",
+      "misconception": "Chưa phân biệt SFT với tokenization và pre-training.",
+      "expected_terms": ["SFT", "trợ lý"]
+    },
+    {
+      "case_id": "EVAL-17",
+      "situation_type": "normal",
+      "source": "team_authored",
+      "source_page": 19,
+      "question": "Trong RLHF, dữ liệu xếp hạng của con người được dùng để làm gì?",
+      "correct_answer": "Tạo tín hiệu thưởng để ưu tiên câu trả lời tốt hơn.",
+      "student_answer": "Dùng để tăng kích thước cửa sổ context.",
+      "misconception": "Nhầm mục đích của RLHF với việc mở rộng context.",
+      "expected_terms": ["RLHF", "xếp hạng"]
+    },
+    {
+      "case_id": "EVAL-18",
+      "situation_type": "missing_information",
+      "source": "team_authored",
+      "source_page": 20,
+      "question": "Model xử lý dữ liệu mới sau knowledge cutoff bằng cách nào?",
+      "correct_answer": "Cần tools, retrieval hoặc workflow cung cấp dữ liệu mới.",
+      "student_answer": "Model tự động biết mọi sự kiện mới mà không cần nguồn nào.",
+      "misconception": "Tin rằng model tự biết dữ liệu mới sau knowledge cutoff.",
+      "expected_terms": ["knowledge cutoff", "retrieval"]
+    },
+    {
+      "case_id": "EVAL-19",
+      "situation_type": "high_impact",
+      "source": "team_authored",
+      "source_page": 21,
+      "question": "Benchmark cao có chứng minh model hiểu đúng điều ta kỳ vọng không?",
+      "correct_answer": "Không; model có thể học đường tắt và cần test trên dữ liệu thực tế.",
+      "student_answer": "Có; điểm benchmark cao bảo đảm model không bao giờ sai.",
+      "misconception": "Tin rằng benchmark cao loại bỏ nhu cầu kiểm thử thực tế.",
+      "expected_terms": ["benchmark", "đường tắt"]
+    },
+    {
+      "case_id": "EVAL-20",
+      "situation_type": "ambiguous_context",
+      "source": "team_authored",
+      "source_page": 22,
+      "question": "Chain-of-Thought hỗ trợ model như thế nào?",
+      "correct_answer": "Cho model không gian suy luận từng bước giống như giấy nháp.",
+      "student_answer": "Nó chỉ làm model dài dòng hơn.",
+      "misconception": "Chưa hiểu vai trò của suy luận từng bước.",
+      "expected_terms": ["Chain-of-Thought", "suy luận"]
+    }
+  ]
+}
