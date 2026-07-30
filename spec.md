@@ -5,8 +5,8 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 
 > Trạng thái sau CP3: prototype đã có golden set Day 1 gồm 20 case và đã chạy
 > Run 01 với cấu hình Gemini, đạt 13/20 (65%). Ba batch được Gemini tạo review;
-> một batch rơi vào fallback và bị tính FAIL. Những mục cần dữ liệu người dùng
-> nhưng repo chưa có bằng chứng vẫn được đánh dấu **CẦN ĐIỀN**.
+> một batch rơi vào fallback và bị tính FAIL. Nhóm đã có survey khám phá vấn đề
+> với 14 phản hồi; user validation trên prototype vẫn chưa thực hiện.
 
 ## §1. User & Job
 
@@ -32,10 +32,11 @@ Nguồn: `data/vlearn-pack/chatlog/chat_history_anonymized_for_hackathon.csv` v�
 - Tutor chỉ hỏi câu kiểm tra hiểu bài ở 3/1.261 lượt, nên flow chủ yếu giải thích
   chứ chưa khép kín vòng “kiểm tra → phát hiện sai → ôn lại”.
 - Mining từ 1.261 tin nhắn học viên bằng tìm kiếm không phân biệt hoa thường:
-  571 tin của 238 người có các cụm “giải thích”, “là gì”, “tại sao/tai sao”;
-  132 tin của 97 người có “tóm tắt”, “tóm gọn”, “summary”; 33 tin của 29 người
-  nhắc “quiz”, “bài tập”, “câu hỏi”, “kiểm tra”. Đây là chỉ báo nhu cầu, không
-  được diễn giải thành tỷ lệ xác nhận sản phẩm.
+  571 tin từ 238 `user_id` ẩn danh có “giải thích”, “là gì” hoặc “tại sao”;
+  132 tin từ 97 `user_id` ẩn danh có “tóm tắt”, “tóm gọn” hoặc “summary”; 33
+  tin từ 29 `user_id` ẩn danh nhắc “quiz”, “bài tập”, “câu hỏi” hoặc “kiểm tra”.
+  Đây là thống kê hành vi trong chatlog, không phải số người tham gia survey và
+  không được diễn giải thành tỷ lệ xác nhận sản phẩm.
 
 Ví dụ nguyên văn (giữ ngắn, tham chiếu bằng mã hội thoại/lượt):
 
@@ -49,18 +50,46 @@ Phương pháp kiểm lại: lọc `role=student`, tìm các nhóm từ khóa n�
 `content`, đếm số dòng và số `user_id` duy nhất. Các nhóm có thể giao nhau; không
 cộng chúng thành một tổng.
 
+### Bằng chứng — survey khám phá vấn đề
+
+Survey có 14 phản hồi. Ở câu multi-select “Nếu có tự kiểm tra, bạn thường làm
+bằng cách nào?”, 9/14 người (64,3%) chọn **“Hỏi AI Tutor trên VLearn”**, cao nhất
+trong 5 lựa chọn. Ba cách gồm tự đặt câu hỏi, làm lại quiz cũ và hỏi bạn bè/TA
+đều có 7/14 người chọn (50%). Cách tính là lọc câu trả lời của câu multi-select,
+đếm số người tick từng lựa chọn rồi chia cho tổng 14 phản hồi; vì được chọn nhiều
+đáp án nên các tỷ lệ không cộng thành 100%.
+
+Ở câu “mức độ khó xác định điểm yếu kiến thức”, điểm trung bình là **3,79/5**;
+9/14 người (64,3%) chọn mức 4/5. Hai kết quả cùng cho thấy AI Tutor đã là cách tự
+kiểm tra phổ biến trong mẫu khảo sát nhỏ này, nhưng người học vẫn gặp khó khăn
+trong việc xác định chính xác điểm yếu kiến thức. Đây là bằng chứng trực tiếp cho
+khoảng trống mà quiz chẩn đoán và gói ôn theo câu sai hướng tới.
+
+Giới hạn diễn giải: mẫu chỉ có 14 phản hồi nên không đại diện cho toàn bộ học
+viên; survey cho thấy nhu cầu và workflow hiện tại, chưa chứng minh prototype
+giải quyết được vấn đề. File hoặc link dữ liệu survey gốc cần được nhóm bổ sung
+vào repo để người chấm có thể kiểm lại phép đếm.
+
 ## §2. Impact & quyết định chọn
 
-| Ứng viên | Bằng chứng về người gặp | Tần suất quan sát | Tổn thất mỗi lần | Khả thi trong hackathon | Quyết định |
-|---|---:|---:|---|---|---|
-| Giải thích đoạn/khái niệm có citation | 238 người; 571 tin có cụm liên quan | Lặp nhiều nhất trong log | Phải hỏi tiếp hoặc tự dò lại nguồn | Cao | Không chọn: gần flow AI Tutor hiện tại |
-| Tóm tắt slide/bài học | 97 người; 132 tin có cụm liên quan | Thường xuyên | Có thể bỏ sót ý quan trọng và vẫn không biết mình hiểu sai đâu | Cao | Loại: tóm tắt chưa đo được mức hiểu |
-| Quiz chẩn đoán → ôn đúng câu sai | 29 người; 33 tin nhắc quiz/bài tập/kiểm tra; `misconceptions` = 0/1.261 và check question = 3/1.261 | Nhu cầu trực tiếp ít hơn nhưng khoảng trống hệ thống rõ | Học viên có thể mang hiểu sai sang bài tiếp theo; đọc lại toàn bộ tốn thời gian | Cao: có 2 deck, knowledge theo trang, API và UI | **Chọn** |
+Nhóm đã cân nhắc ba hướng chính:
 
-- **Ứng viên đã loại:** chatbot giải thích tự do, vì trùng với năng lực Tutor hiện
-  tại và khó phân biệt “đã nhận câu trả lời” với “đã hiểu”.
-- **Ứng viên chọn:** vòng quiz chẩn đoán có citation và gói ôn tập theo câu sai,
-  vì giải quyết khoảng trống đo mức hiểu thay vì tạo thêm một câu trả lời dài.
+| Hướng | Dữ liệu chính | Giá trị có thể tạo | Scope/rủi ro trong hackathon | Quyết định |
+|---|---|---|---|---|
+| Chỉ dùng transcript để tạo quiz | Transcript các buổi học | Bám lời giảng và ví dụ trên lớp | Transcript dài, khó gắn mỗi câu với citation theo đúng trang slide và cần thêm bước làm sạch/chia đoạn | Chưa chọn cho prototype đầu |
+| Dùng chatlog để làm chatbot hỗ trợ | 1.261 lượt hỏi–đáp VLearn; 571 tin từ 238 `user_id` có nhu cầu giải thích | Đáp ứng workflow hỏi–đáp vốn đã phổ biến | Gần trùng AI Tutor hiện tại; khó chứng minh người học đã hiểu chỉ từ một câu trả lời | Không chọn |
+| Dùng knowledge context chi tiết từ slide để tạo quiz chẩn đoán, gói ôn và quiz củng cố | Hai slide deck đã được chuẩn hóa theo trang; survey 9/14 dùng AI Tutor để tự kiểm tra nhưng mức khó xác định điểm yếu trung bình 3,79/5 | Tạo vòng khép kín “làm quiz → phát hiện câu sai → ôn đúng trang → làm quiz củng cố” | Scope rõ, citation kiểm tra được và khả thi trong thời gian ngắn; vẫn có rủi ro câu sai chưa chắc phản ánh đúng misconception | **Chọn** |
+
+Sau khi cân đối scope và deadline, nhóm chọn làm quiz từ nội dung slide trước,
+rồi dựa vào kết quả để tạo gói ôn tập cá nhân hóa và quiz củng cố. Hướng này có
+workflow rõ, làm được trong thời gian hackathon, thể hiện một quyết định AI cụ
+thể và tạo giá trị học tập có thể kiểm tra theo trang nguồn.
+
+Quyết định cũng phù hợp với bằng chứng vấn đề: 9/14 người khảo sát đã dùng AI
+Tutor để tự kiểm tra, nhưng mức khó xác định điểm yếu vẫn trung bình 3,79/5;
+chatlog đồng thời cho thấy `misconceptions` không được ghi nhận ở 1.261 lượt và
+câu hỏi kiểm tra hiểu bài chỉ xuất hiện ở 3/1.261 lượt.
+
 - **Giả thuyết nguy hiểm nhất:** trả lời sai quiz thực sự phản ánh lỗ hổng kiến
   thức, thay vì do câu hỏi/distractor kém. Golden set và validation với học viên
   phải kiểm tra giả thuyết này.
@@ -264,6 +293,8 @@ working end-to-end và grounding thay vì chia thời gian cho hai UI khác nhau
 
 | Thời điểm | Đổi gì | Vì sao / bằng chứng |
 |---|---|---|
+| 31/07/2026 — làm rõ quyết định | Ghi lại ba hướng đã cân nhắc: transcript tạo quiz, chatlog làm chatbot, và knowledge context theo slide | Chọn hướng slide → quiz chẩn đoán → gói ôn → quiz củng cố vì workflow rõ, citation kiểm tra được và vừa scope hackathon |
+| 31/07/2026 — bổ sung evidence | Thêm survey khám phá vấn đề gồm 14 phản hồi vào bằng chứng và ma trận impact | 9/14 dùng AI Tutor để tự kiểm tra; điểm khó xác định điểm yếu trung bình 3,79/5, trong đó 9/14 chọn mức 4/5 |
 | 30/07/2026 — chốt N1 | Chọn lát cắt quiz chẩn đoán → gói ôn tập theo câu sai | Chatlog cho thấy `misconceptions` chưa được dùng và tutor gần như không hỏi kiểm tra hiểu bài |
 | 30/07/2026 — chốt N1 | Chọn conditional automation; server validate evidence/citation | Sai kiến thức có cost-of-error khó tự phát hiện |
 | 30/07/2026 — chốt N1 | Chốt quality bar ≥80% + zero-tolerance với nội dung/citation không có trong đúng trang | Đây là lỗi làm người học tin sai; không được hạ bar sau khi đo |
