@@ -1,4 +1,4 @@
-# AI SPEC — No Name: Quiz chẩn đoán có 
+# AI SPEC — No Name: Quiz chẩn đoán
 
 Hướng: [x] A — VLearn  [ ] B — Trợ lý Học viên  [ ] C — Làn mở  
 Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
