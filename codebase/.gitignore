@@ -1,0 +1,10 @@
+backend/.env
+backend/app/__pycache__/
+backend/tests/__pycache__/
+backend/.pytest_cache/
+backend/data/*.sqlite3
+frontend/.env.local
+frontend/.next/
+frontend/.next-build/
+frontend/artifacts/
+frontend/tsconfig.tsbuildinfo
