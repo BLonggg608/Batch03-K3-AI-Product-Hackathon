@@ -3,9 +3,10 @@
 Hướng: [x] A — VLearn  [ ] B — Trợ lý Học viên  [ ] C — Làn mở  
 Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 
-> Trạng thái chốt N1: spec mô tả lát cắt đang có trong `codebase/`. Những mục cần
-> dữ liệu con người nhưng repo chưa có bằng chứng được đánh dấu **CẦN ĐIỀN**, không
-> thay bằng số hoặc tên giả.
+> Trạng thái sau CP3: prototype đã có golden set Day 1 gồm 20 case và đã chạy
+> Run 01 với cấu hình Gemini, đạt 13/20 (65%). Ba batch được Gemini tạo review;
+> một batch rơi vào fallback và bị tính FAIL. Những mục cần dữ liệu người dùng
+> nhưng repo chưa có bằng chứng vẫn được đánh dấu **CẦN ĐIỀN**.
 
 ## §1. User & Job
 
@@ -78,7 +79,7 @@ cộng chúng thành một tổng.
   các câu trả lời sai để quyết định phần kiến thức có thể bị hổng và tạo gói ôn
   tập có trích dẫn đúng trang, giúp học viên ôn đúng chỗ trước quiz củng cố.
 - **Quyết định AI trung tâm:** xác định `possible_gap` và các `key_points` cần ôn
-  từ câu sai; model dùng là **`gemini-2.5-flash`**.
+  từ câu sai; model dùng là **`gemini-3.1-flash-lite`**.
 - **Input:** `attempt_id`, các câu đúng/sai, misconception gắn với lựa chọn, nội
   dung knowledge theo trang của Day 01/Day 02.
 - **Output:** lỗ hổng có thể có, giải thích câu sai, các ý cần ôn kèm
@@ -99,8 +100,9 @@ cộng chúng thành một tổng.
   kiểm tra evidence và citation ở server.
 - **Phần phụ thuộc cấu hình:** Gemini thật chỉ chạy khi có `GEMINI_API_KEY` và
   `GEMINI_ENABLED=true`. Mặc định `ALLOW_FALLBACK=false`: lỗi AI được báo minh
-  bạch, không tráo quiz mẫu thành output AI. Fallback chỉ dùng khi test/demo
-  offline có chủ đích.
+  bạch ở luồng tạo quiz. Run 01 phát hiện riêng `review_service` vẫn âm thầm
+  chuyển sang fallback khi Gemini lỗi; đây là defect cần sửa trước demo, và mọi
+  output fallback bị tính FAIL trong evaluation.
 - **Automation:** [ ] augment  [x] conditional  [ ] automate.
 - **Lý do theo cost-of-error:** AI được tự tạo gói ôn khi output vượt validation;
   output thiếu căn cứ bị chặn. Nếu để lọt câu hỏi/đáp án sai, học viên khó phát
@@ -130,6 +132,7 @@ cộng chúng thành một tổng.
 | 6 | Người dùng muốn xem đáp án trước khi nộp | Ngoài thẩm quyền | API public không trả `correct_answer` trước khi chấm; chỉ hiện sau khi nộp đủ câu | G1, Feedback & Control |
 | 7 | Model tạo đáp án sai nhưng evidence có thật | Đặc thù domain | Kiểm tay trong golden set; nếu phát hiện thì đánh fail dù schema/citation hợp lệ và giữ hệ thống ở mức conditional | G2, G11 |
 | 8 | Gói ôn tập suy ra sai lỗ hổng khiến học viên ôn lệch | Đặc thù domain | Hiển thị “possible gap”, câu sai và căn cứ; cho học viên mở nguồn, không dùng kết quả để chấm điểm chính thức | G2, Explainability |
+| 9 | Gemini lỗi khi tạo review nhưng service âm thầm trả fallback | Hành vi khi lỗi — đã quan sát ở Run 01 | Không tính là output AI đạt; sửa service để trả lỗi minh bạch khi `ALLOW_FALLBACK=false` | G10, Graceful Failure |
 
 Failure đáng sợ nhất khi demo là **câu trả lời sai nhưng có citation đúng định
 dạng**, vì người học dễ tin hơn và backend không thể phát hiện chỉ bằng schema.
@@ -174,11 +177,12 @@ Một case chỉ **đạt tổng** khi đạt tất cả điều kiện bắt bu
 - **Quy mô cam kết:** 20 case trong `eval/`.
 - **Cơ cấu:** 8 case thường; 8 case khó (mỗi lớp ở §5 ít nhất 2 case); 4 case
   hiếm/kết hợp lỗi.
-- **Nguồn thực tế:** mục tiêu ít nhất 10/20 case được phát triển từ chatlog thật
-  bằng mã `conversation_id/turn_id` hoặc từ log tự dùng thử; không chép dài nội
-  dung nhạy cảm.
-- **Trạng thái tại lúc viết spec:** repo chưa có file golden set và chưa có bảng
-  chạy; phải tạo trước CP3. Không khai một lượt đo chưa xảy ra.
+- **Nguồn bộ thử:** 20/20 case do nhóm tự xây dựng từ nội dung slide Day 1.
+  Hiện chưa có artifact xác nhận case nào bắt nguồn từ quan sát người dùng hoặc
+  log tự dùng thử, nên chưa khai các case này là “quan sát thực tế”.
+- **Trạng thái:** `eval/golden-set.json` chứa 20 case cố định, không trùng ID
+  hoặc trang nguồn; runner chia thành 4 batch × 5 case để gọi review nhưng vẫn
+  chấm trên cùng một golden set qua mọi lần chạy.
 
 ### Quality bar — chốt tại thời điểm commit spec
 
@@ -193,7 +197,15 @@ case vi phạm điều kiện cứng, lượt chạy không đạt quality bar d
 
 | Lượt | Model/cấu hình | Đạt/tổng | Tỷ lệ | Điều kiện cứng | Kết luận |
 |---|---|---:|---:|---|---|
-| Chưa đo | `gemini-2.5-flash`; cấu hình thật cần API key | —/20 | — | Chưa đo | Không dựng số; cập nhật sau khi có đủ bảng 20 dòng trong `eval/` |
+| Run 01 — 30/07/2026 | `gemini-3.1-flash-lite`; `ALLOW_FALLBACK=false`; 4 batch × 5 case cố định | 13/20 | 65% | Đạt: không có evidence/citation sai trang trong output đã chấm | **Chưa đạt** quality bar ≥80% |
+
+Run 01 có 7 case fail. EVAL-02 và EVAL-18 không chứa đủ các thuật ngữ bắt buộc
+trong expected output. Năm case EVAL-11–15 thuộc cùng batch bị đánh fail vì
+review được tạo bởi nhánh `fallback` thay vì Gemini, dù cấu hình toàn cục đặt
+`ALLOW_FALLBACK=false`. Đây là dấu hiệu cần sửa `review_service` để không âm
+thầm dùng fallback khi Gemini lỗi. Bảng đầy đủ, bao gồm toàn bộ case fail, nằm
+trong `eval/run-01.md`; output và từng check chi tiết nằm trong
+`eval/run-01.json`.
 
 ## §8. Phân công & kế hoạch
 
@@ -201,37 +213,47 @@ case vi phạm điều kiện cứng, lượt chạy không đạt quality bar d
 
 | Phần | Người chịu trách nhiệm | Deliverable |
 |---|---|---|
-| Spec + quality bar | **[CẦN ĐIỀN TÊN]** | `spec.md` |
-| Evidence mining | **[CẦN ĐIỀN TÊN]** | truy vấn đếm + trích dẫn mã hội thoại |
-| Prompt + golden set | **[CẦN ĐIỀN TÊN]** | prompt Gemini + `eval/` |
-| Backend + validation | **[CẦN ĐIỀN TÊN]** | FastAPI, tool calling, grounded validation |
-| Frontend + demo | **[CẦN ĐIỀN TÊN]** | Next.js flow + demo script |
+| Spec + quality bar | Nguyễn Đức Trọng | `spec.md` |
+| Evidence mining | Nguyễn Quang Minh | truy vấn đếm + trích dẫn mã hội thoại |
+| Prompt + golden set | Đào Quốc Đại | prompt Gemini + `eval/` |
+| Backend + validation | Đặng Trần Trung Dũng | FastAPI, tool calling, grounded validation |
+| Frontend + demo | Trần Hà Bảo Long | Next.js flow + demo script |
 
-### Willing users và vòng validation CP5
+### Trạng thái validation
 
-- Người thử 1: **[CẦN ĐIỀN TÊN, vai/lớp]**
-- Người thử 2: **[CẦN ĐIỀN TÊN, vai/lớp]**
-- Người thử 3: **[CẦN ĐIỀN TÊN, vai/lớp]**
-- Người ghi log: **[CẦN ĐIỀN TÊN]**
+| Loại validation | Trạng thái hiện tại | Bằng chứng | Kết luận được phép |
+|---|---|---|---|
+| Technical validation | Đã triển khai | Backend kiểm tra schema, số lượng câu, trang instructional, `evidence_quote` có tồn tại trong đúng `source_page`, coverage và ID trùng | Có thể kết luận output qua được các kiểm tra kỹ thuật đã định nghĩa |
+| Evaluation với golden set | Đã chạy Run 01 | `eval/run-01.md` và `eval/run-01.json`: 13/20 PASS | Chất lượng AI hiện đạt 65%, chưa đạt quality bar 80% |
+| User validation | **Chưa thực hiện** | Chưa có người thử, quote, biên bản quan sát hoặc feedback log trong `validation/` | Chưa được kết luận sản phẩm dễ dùng, hữu ích hoặc tạo niềm tin đúng mức |
 
-Mỗi người làm một quiz ngắn và trả lời ba câu:
+Nhóm chưa khai trên willing user vì chưa có người tham gia được xác nhận. Kế
+hoạch CP5 là mời ít nhất 5 người ngoài nhóm làm một quiz ngắn, quan sát trực tiếp
+và hỏi ba câu:
 
 1. Sau khi xem kết quả, bạn có chỉ ra được chính xác phần nào cần ôn lại không?
 2. Citation có giúp bạn kiểm tra đáp án trong slide nhanh và tin đúng mức hơn không?
 3. Có câu hỏi, đáp án hoặc chẩn đoán nào sai/khó hiểu; nếu có, sai ở đâu?
 
-Log đầy đủ quote nguyên văn, quan sát và mức nghiêm trọng trong `validation/`.
+Nếu thực hiện được, nhóm sẽ lưu quote nguyên văn, quan sát, vấn đề, mức nghiêm
+trọng và thay đổi sau feedback trong `validation/`. Trước khi có các artifact
+này, mọi nhận định về trải nghiệm người dùng chỉ là giả thuyết, không phải kết
+quả validation.
 
-### Kế hoạch trước demo
+### Tiến độ và kế hoạch trước demo
 
-1. **Trước CP3:** tạo 20 case, chốt expected output, chạy đủ bộ bằng AI thật và
-   lưu cả PASS lẫn FAIL.
+1. **CP3 — đã hoàn thành:** tạo 20 case cố định từ Day 1, chốt expected output,
+   chạy đủ bộ với `gemini-3.1-flash-lite` được cấu hình; 3/4 batch có review từ
+   Gemini và 1/4 batch dùng fallback nên bị tính FAIL. Lưu đủ 13 PASS và 7 FAIL
+   trong `eval/run-01.md` và `eval/run-01.json`.
 2. **Trước CP4:** demo một happy path và failure “evidence không tồn tại”; kiểm
-   tra đủ 8 kịch bản §5.
-3. **Trước CP5:** cho ít nhất 5 người ngoài nhóm dùng thử, trong đó có ít nhất 2
-   willing user đã khai; cập nhật changelog từ feedback.
-4. **Trước CP6:** chạy lại toàn bộ golden set sau mỗi thay đổi prompt/validation,
-   chốt slide tỷ lệ thực tế so với bar 80% và một failure đáng kể nhất.
+   tra các kịch bản §5, bao gồm defect fallback đã thấy ở Run 01.
+3. **Trước CP5 — chưa thực hiện:** tuyển ít nhất 5 người ngoài nhóm dùng thử,
+   ghi nhận quote/quan sát thật và cập nhật changelog từ feedback; không khai
+   số người hoặc kết luận trải nghiệm trước khi có log.
+4. **Trước CP6:** sửa nhánh fallback của review, làm rõ expected terms cho
+   EVAL-02/EVAL-18 rồi chạy lại nguyên golden set; không thay đổi quality bar
+   80% và điều kiện zero-tolerance.
 
 ### Multi-prototype
 
@@ -245,5 +267,7 @@ working end-to-end và grounding thay vì chia thời gian cho hai UI khác nhau
 | 30/07/2026 — chốt N1 | Chọn lát cắt quiz chẩn đoán → gói ôn tập theo câu sai | Chatlog cho thấy `misconceptions` chưa được dùng và tutor gần như không hỏi kiểm tra hiểu bài |
 | 30/07/2026 — chốt N1 | Chọn conditional automation; server validate evidence/citation | Sai kiến thức có cost-of-error khó tự phát hiện |
 | 30/07/2026 — chốt N1 | Chốt quality bar ≥80% + zero-tolerance với nội dung/citation không có trong đúng trang | Đây là lỗi làm người học tin sai; không được hạ bar sau khi đo |
-| Sau CP3 | **[CẬP NHẬT kết quả lượt chạy và failure chính]** | Trỏ tới bảng đầy đủ trong `eval/` |
+| 30/07/2026 — CP3 Run 01 | Tạo golden set cố định 20 case từ các trang 3–22 của Day 1; chạy 4 batch × 5 | Đủ 20 input/expected output, không trùng ID hoặc trang; bảng đầy đủ trong `eval/run-01.md` |
+| 30/07/2026 — CP3 Run 01 | Ghi nhận 13/20 PASS (65%), chưa đạt bar 80%; grounding/citation không sai | EVAL-02 và EVAL-18 thiếu expected terms; EVAL-11–15 bị fallback thay vì Gemini |
+| 30/07/2026 — CP3 Run 01 | Đưa defect silent fallback của `review_service` vào backlog ưu tiên | Cấu hình `ALLOW_FALLBACK=false` nhưng một batch review vẫn trả `generated_by=fallback`; evaluation đã tính cả 5 case là FAIL |
 | Sau CP5 | **[CẬP NHẬT thay đổi từ feedback hoặc lý do giữ nguyên]** | Trỏ tới log trong `validation/` |
