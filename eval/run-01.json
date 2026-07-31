@@ -14,7 +14,6 @@
   "golden_set": "eval\\golden-set.json",
   "document_id": "day01",
   "total_cases": 20,
-  "batch_size": 5,
   "score": "14/20",
   "batches": [
     {

@@ -6,7 +6,6 @@
 - Fallback enabled: False
 - Golden set: `eval\golden-set.json`
 - Document: day01
-- Batch design: 4 x 5 fixed cases
 - Result: 14/20
 
 | Case | Type | Result | Page | Failed checks |
