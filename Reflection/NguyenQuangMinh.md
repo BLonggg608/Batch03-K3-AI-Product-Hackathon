@@ -8,7 +8,7 @@ VLearn). Phần việc của tôi là đi tìm bằng chứng định lượng t
 minh pain point trước khi nhóm chốt lát cắt, cụ thể là các số liệu và trích dẫn
 nguyên văn nằm trong `spec.md` §1.
 
-## Phần mình đã làm
+## Phần làm cá nhân
 
 - Lọc `role=student` trong 1.261 tin nhắn, đếm số dòng chứa các nhóm từ khóa
   ("giải thích"/"là gì"/"tại sao", "tóm tắt"/"tóm gọn"/"summary",
