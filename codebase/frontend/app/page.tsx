@@ -103,9 +103,9 @@ export default function HomePage() {
         <div className="section-heading">
           <div>
             <span className="eyebrow">Tài liệu chính thức</span>
-            <h2>2 lựa chọn</h2>
+            {/* <h2>2 lựa chọn</h2> */}
           </div>
-          <span className="muted">Mỗi lựa chọn là một file PDF hoàn chỉnh</span>
+          {/* <span className="muted">Mỗi lựa chọn là một file PDF hoàn chỉnh</span> */}
         </div>
 
         <div className="deck-grid">
