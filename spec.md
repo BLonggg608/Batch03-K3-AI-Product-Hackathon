@@ -7,7 +7,7 @@ Loại: [ ] Tối ưu tính năng có sẵn  [x] Tính năng mới
 > 13/20 (65%); sau khi bỏ silent fallback, lượt mới nhất đạt 14/20 (70%). Một
 > batch bị backend chặn vì Gemini trả evidence không tồn tại trong trang nguồn.
 > Nhóm đã có survey khám phá vấn đề với 14 phản hồi và đã user validation
-> prototype với 2 người; cần thử thêm để đạt mục tiêu 5 người.
+> prototype với 5 người.
 
 ## §1. User & Job
 
@@ -262,9 +262,9 @@ phát hành. Bảng và output chi tiết mới nhất nằm trong `eval/run-01.
 |---|---|---|---|
 | Technical validation | Đã triển khai | Backend kiểm tra schema, số lượng câu, trang instructional, `evidence_quote` có tồn tại trong đúng `source_page`, coverage và ID trùng | Có thể kết luận output qua được các kiểm tra kỹ thuật đã định nghĩa |
 | Evaluation với golden set | Đã chạy hai lượt; mới nhất là Run 02 | `eval/run-01.md` và `eval/run-01.json`: 14/20 PASS | Chất lượng AI hiện đạt 70%, chưa đạt quality bar 80%; zero-tolerance grounding vẫn đạt |
-| User validation | Đã thử với 2 người | Hai phản hồi nguyên văn về citation và câu hỏi bị trùng khi làm lại quiz | Có tín hiệu ban đầu rằng citation giúp tăng khả năng kiểm chứng; đã phát hiện một lỗi lặp câu. Mẫu 2 người chưa đủ để kết luận cho toàn bộ người học |
+| User validation | Đã thử với 5 người | `validation/feedback-log.md`: 2 phản hồi nguyên văn và 3 phản hồi do nhóm tóm tắt về UI, độ bám slide và phần tổng hợp kiến thức | Citation và phần ôn tập nhận phản hồi tích cực; đã phát hiện một lỗi lặp câu. Mẫu nhỏ nên chưa đại diện cho toàn bộ người học |
 
-Hai người đã dùng thử prototype:
+Năm người đã dùng thử prototype. Hai phản hồi nguyên văn:
 
 1. **Lê Minh Khiêm:** “Có trích dẫn số trang nguyên văn giúp mình mở PDF ra
    check lại ngay lập tức. Cảm giác rất yên tâm vì không sợ AI bịa kiến thức.”
@@ -279,8 +279,11 @@ trang chính và chọn bài mới, chuỗi cũ không còn ảnh hưởng. Thay
 việc học viên phải làm lại câu đã nắm vững nhưng vẫn giữ được mục tiêu củng cố
 phần kiến thức còn sai.
 
-Nhóm vẫn cần thử thêm ít nhất 3 người để đạt mục tiêu 5 người và kiểm tra xem
-thay đổi chống trùng có giải quyết đúng vấn đề trong sử dụng thực tế hay không.
+Ba phản hồi còn lại được nhóm tóm tắt: Lương Đăng Doanh đánh giá UI dễ nhìn và
+dễ thao tác; Đỗ Tuấn Kiệt nhận thấy câu hỏi bám đúng nội dung slide; Trần Công
+Chiến đánh giá phần tổng hợp kiến thức giúp xác định nội dung cần xem lại. Nhóm
+vẫn cần kiểm thử lại thay đổi chống trùng với người dùng để xác nhận vấn đề đã
+được giải quyết trong sử dụng thực tế.
 
 ### Tiến độ và kế hoạch trước demo
 
@@ -289,9 +292,9 @@ thay đổi chống trùng có giải quyết đúng vấn đề trong sử dụ
    6 FAIL; không dùng fallback và lưu đủ 20 dòng trong `eval/run-01.md/json`.
 2. **Trước CP4:** demo một happy path và failure “evidence không tồn tại”; kiểm
    tra các kịch bản §5, bao gồm defect fallback đã thấy ở Run 01.
-3. **CP5 — đang thực hiện:** đã có 2 người ngoài nhóm dùng thử và đã sửa lỗi lặp
-   câu từ feedback. Cần thử thêm ít nhất 3 người, ghi nhận quote/quan sát thật
-   và kiểm tra lại thay đổi chống trùng.
+3. **CP5 — đã đạt mục tiêu ban đầu:** đã có 5 người ngoài nhóm dùng thử. Nhóm giữ
+   UI, grounding và phần tổng hợp kiến thức từ phản hồi tích cực; đồng thời đã
+   sửa lỗi lặp câu và còn cần một lượt user retest để xác nhận thay đổi.
 4. **Trước CP6:** nhánh fallback của review đã được loại bỏ. Tiếp theo cần xử lý
    nguyên nhân evidence sai ở batch 3 và làm rõ expected terms cho EVAL-02 rồi
    chạy lại nguyên golden set; không thay đổi quality bar 80% và điều kiện
@@ -307,6 +310,7 @@ working end-to-end và grounding thay vì chia thời gian cho hai UI khác nhau
 | Thời điểm | Đổi gì | Vì sao / bằng chứng |
 |---|---|---|
 | 31/07/2026 — user validation | Thử prototype bổ sung rule không lặp câu/evidence đã trả lời đúng trong cùng chuỗi làm bài | Citation được đánh giá là giúp kiểm tra và tạo yên tâm; người thử phát hiện câu đã làm đúng vẫn bị lặp khi chọn làm lại quiz |
+| 31/07/2026 — user validation mở rộng | Bổ sung phản hồi từ Lương Đăng Doanh, Đỗ Tuấn Kiệt và Trần Công Chiến; giữ UI, grounding theo slide và phần tổng hợp kiến thức | Ba ý kiến được nhóm tóm tắt lần lượt ghi nhận UI dễ nhìn, câu hỏi bám slide và gói ôn giúp xác định nội dung cần xem lại |
 | 31/07/2026 — CP3 Run 02 — kết quả | Chạy lại nguyên golden set 20 case bằng `gemini-3.1-flash-lite`, không dùng fallback | **14/20 PASS (70%)**, tăng 1 case so với Run 01 nhưng vẫn thấp hơn quality bar 80%; điều kiện cứng đạt vì không có citation sai được phát hành |
 | 31/07/2026 — CP3 Run 02 — failure | Ghi nhận 6 case FAIL: EVAL-02 thiếu expected terms; EVAL-11–15 không có output hợp lệ vì batch 3 bị backend chặn | Gemini trả evidence không tồn tại trong trang nguồn; backend trả 502 và eval tiếp tục batch sau thay vì dùng fallback hoặc phát hành nội dung sai |
 | 31/07/2026 — CP3 Run 02 — thay đổi | Loại bỏ silent fallback trong review/eval và bỏ giới hạn cứng số vòng function calling; vẫn giữ timeout 180 giây | Bảo đảm kết quả đo chỉ tính output Gemini thật và báo cáo luôn đủ 20 case kể cả khi một batch lỗi |
