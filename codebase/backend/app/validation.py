@@ -19,6 +19,8 @@ def validate_quiz(
     questions: list[dict],
     expected_count: int,
     minimum_unique_pages: int,
+    excluded_questions: list[str] | None = None,
+    excluded_evidence: list[str] | None = None,
 ) -> dict:
     outline = get_document_outline(document_id)
     valid_pages = {page["page_number"] for page in outline["pages"]}
@@ -38,6 +40,8 @@ def validate_quiz(
     seen_evidence: set[str] = set()
     used_pages: set[int] = set()
     answer_distribution: list[str] = []
+    blocked_questions = {normalize(item) for item in excluded_questions or []}
+    blocked_evidence = {normalize(item) for item in excluded_evidence or []}
 
     for index, raw in enumerate(questions):
         try:
@@ -72,6 +76,14 @@ def validate_quiz(
                     }
                 )
             evidence = normalize(question.evidence_quote)
+            if evidence in blocked_evidence:
+                errors.append(
+                    {
+                        "code": "REUSED_CORRECT_EVIDENCE",
+                        "question_id": question.question_id,
+                        "source_page": question.source_page,
+                    }
+                )
             if len(evidence) < 12 or evidence not in normalize(source["content"]):
                 errors.append(
                     {
@@ -124,6 +136,13 @@ def validate_quiz(
             answer_distribution.append(question.correct_answer)
 
         normalized_question = normalize(question.question)
+        if normalized_question in blocked_questions:
+            errors.append(
+                {
+                    "code": "REUSED_CORRECT_QUESTION",
+                    "question_id": question.question_id,
+                }
+            )
         if any(
             phrase in normalized_question
             for phrase in (

@@ -7,7 +7,7 @@ import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { CitationLink } from "@/components/CitationLink";
 import { ErrorState, LoadingState } from "@/components/LoadingState";
 import { getJson, postJson } from "@/lib/api";
-import type { Attempt, Progress, Review } from "@/lib/types";
+import type { Attempt, Progress, Quiz, Review } from "@/lib/types";
 
 export default function ResultPage() {
   const params = useParams<{ attemptId: string }>();
@@ -52,7 +52,22 @@ export default function ResultPage() {
       });
       router.push(`/review/${attempt.attempt_id}`);
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Không tạo được gói ôn.");
+      setError(reason instanceof Error ? reason.message : "Không tạo được gói ôn tập.");
+      setCreating(false);
+    }
+  };
+
+  const retryQuiz = async () => {
+    if (!attempt) return;
+    setCreating(true);
+    setError("");
+    try {
+      const quiz = await postJson<Quiz>("/api/reinforcement/generate", {
+        attempt_id: attempt.attempt_id,
+      });
+      router.push(`/quiz/${quiz.quiz_id}?parent=${attempt.attempt_id}`);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "Không tạo được quiz mới.");
       setCreating(false);
     }
   };
@@ -63,6 +78,8 @@ export default function ResultPage() {
   }
   if (!attempt) return null;
 
+  const perfectScore = attempt.score === attempt.total;
+
   return (
     <div className="content-narrow stack-lg">
       <section className="score-card">
@@ -72,15 +89,17 @@ export default function ResultPage() {
         </div>
         <div>
           <span className="eyebrow">
-            {attempt.document_id === "day01" ? "Ngày 1" : "Ngày 2"} · Kết quả tổng hợp
+            {attempt.document_id === "day01" ? "Ngày 1" : "Ngày 2"} · Kết quả
           </span>
           <h1>
-            {attempt.mastery_status === "passed"
-              ? "Bạn đã đạt ngưỡng"
-              : "Bạn chưa đạt ngưỡng"}
+            {perfectScore
+              ? "Bạn đã trả lời đúng tất cả câu hỏi"
+              : attempt.mastery_status === "passed"
+                ? "Bạn đã đạt ngưỡng"
+                : "Bạn chưa đạt ngưỡng"}
           </h1>
           <p>
-            Đây là chẩn đoán từ các câu trả lời, không phải kết luận cố định về năng
+            Đây là chẩn đoán từ lượt làm bài, không phải kết luận cố định về năng
             lực của bạn.
           </p>
         </div>
@@ -89,12 +108,12 @@ export default function ResultPage() {
       {comparison && (
         <section className="comparison-card">
           <div>
-            <span>Trước ôn tập</span>
+            <span>Lượt trước</span>
             <strong>{comparison.before_percentage}%</strong>
           </div>
           <span className="comparison-arrow">→</span>
           <div>
-            <span>Sau ôn tập</span>
+            <span>Lượt này</span>
             <strong>{comparison.after_percentage}%</strong>
           </div>
           <p>{comparison.message}</p>
@@ -149,14 +168,13 @@ export default function ResultPage() {
 
       <div className="actions-row">
         <Link href="/" className="button secondary">
-          Chọn bộ slide khác
+          Về trang chính
         </Link>
-        {!shouldCompare && (
-          <button className="button" onClick={() => void openReview()} disabled={creating}>
-            {creating ? "Đang tạo..." : "Tạo gói ôn tập cá nhân"}
+        {perfectScore ? (
+          <button className="button" onClick={() => void retryQuiz()} disabled={creating}>
+            {creating ? "Đang tạo..." : "Làm lại quiz"}
           </button>
-        )}
-        {shouldCompare && (
+        ) : (
           <button className="button" onClick={() => void openReview()} disabled={creating}>
             {creating ? "Đang tạo..." : "Ôn lại phần còn sai"}
           </button>

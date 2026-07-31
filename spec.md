@@ -96,7 +96,7 @@ câu hỏi kiểm tra hiểu bài chỉ xuất hiện ở 3/1.261 lượt.
 
 ## §3. Giải pháp tương tự đã nghiên cứu
 
-| Giải pháp | Flow quan sát/đối chiếu | Đáng học | Đáng né | VLearn Focus khác gì |
+| Giải pháp | Flow quan sát/đối chiếu | Đáng học | Đáng né | No Name khác gì |
 |---|---|---|---|---|
 | NotebookLM | Người dùng thêm nguồn rồi hỏi/khai thác nội dung theo nguồn | Đặt căn cứ gần output để người dùng tự kiểm | Một câu trả lời có nguồn vẫn chưa chứng minh người học đã hiểu | Bắt người học trả lời quiz trước rồi mới xác định phần cần ôn |
 | Quizlet | Học bằng thẻ/câu hỏi và lặp lại nội dung | Vòng làm bài ngắn, phản hồi ngay | Nội dung sinh ra có thể không khớp đúng deck của khóa nếu nguồn/grounding yếu | Mỗi câu có `evidence_quote` và `source_page`, backend kiểm tra trước khi phát hành |
@@ -112,7 +112,12 @@ câu hỏi kiểm tra hiểu bài chỉ xuất hiện ở 3/1.261 lượt.
 - **Input:** `attempt_id`, các câu đúng/sai, misconception gắn với lựa chọn, nội
   dung knowledge theo trang của Day 01/Day 02.
 - **Output:** lỗ hổng có thể có, giải thích câu sai, các ý cần ôn kèm
-  `evidence_quote` và `source_page`, sau đó là quiz củng cố 4 câu.
+  `evidence_quote` và `source_page`, sau đó là quiz củng cố giữ cùng số câu
+  5 hoặc 10 như lượt trước.
+- **Lịch sử trong một chuỗi làm bài:** câu đã trả lời đúng bị loại khỏi các quiz
+  tiếp theo; câu trả lời sai được phép xuất hiện lại sau ôn tập. Chuỗi được nối
+  bằng `parent_attempt_id`; khi về trang chính và chọn bài mới, quiz không mang
+  parent nên lịch sử loại trừ cũ không còn được áp dụng.
 
 ### Non-goals
 
@@ -169,8 +174,9 @@ Case này bắt buộc có trong golden set và vòng chấm tay.
 
 ## §6. Bốn đường đi của trải nghiệm
 
-- **Happy path:** học viên chọn Day 01/Day 02 và 5/10/20 câu → quiz được validate
-  → học viên nộp đủ → xem câu sai và evidence → tạo gói ôn → làm 4 câu củng cố
+- **Happy path:** học viên chọn Day 01/Day 02 và 5/10 câu → quiz được validate
+  → học viên nộp đủ → xem câu sai và evidence → tạo gói ôn → làm quiz củng cố
+  cùng số câu
   → xem so sánh trước–sau.
 - **Low-confidence (⚠):** chỉ một đáp án sai hoặc tín hiệu có nhiều cách hiểu →
   dùng ngôn ngữ “có thể đang nhầm”, chỉ đưa key point bám nguồn và mời học viên

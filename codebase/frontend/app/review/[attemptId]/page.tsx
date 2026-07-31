@@ -23,7 +23,7 @@ export default function ReviewPage() {
     try {
       setReview(await getJson<Review>(`/api/reviews/${params.attemptId}`));
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : "Không tải được gói ôn.");
+      setError(reason instanceof Error ? reason.message : "Không tải được gói ôn tập.");
     } finally {
       setLoading(false);
     }
@@ -42,14 +42,12 @@ export default function ReviewPage() {
       });
       router.push(`/quiz/${quiz.quiz_id}?parent=${params.attemptId}`);
     } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : "Không tạo được quiz củng cố.",
-      );
+      setError(reason instanceof Error ? reason.message : "Không tạo được quiz củng cố.");
       setCreating(false);
     }
   };
 
-  if (loading) return <LoadingState label="Đang tạo gói ôn tập từ slide..." />;
+  if (loading) return <LoadingState label="Đang chuẩn bị gói ôn tập..." />;
   if (error && !review) {
     return <ErrorState message={error} retry={() => void load()} />;
   }
@@ -63,13 +61,14 @@ export default function ReviewPage() {
         </span>
         <h1>{review.document_title}</h1>
         <p>
-          Các điểm ôn tập được tổng hợp từ những trang liên quan đến câu trả lời sai.
+          Xem lại các ý liên quan đến những câu bạn trả lời chưa đúng trước khi
+          làm quiz củng cố.
         </p>
       </section>
 
       <section className="review-block diagnosis">
         <span className="block-number">01</span>
-        <div>
+        <div className="grow">
           <span className="eyebrow">Chẩn đoán thận trọng</span>
           <h2>Điểm có thể đang nhầm</h2>
           <p>{review.possible_gap}</p>
@@ -85,7 +84,7 @@ export default function ReviewPage() {
             {review.key_points.map((point, index) => (
               <article key={`${point.evidence_quote}-${index}`}>
                 <b>{index + 1}</b>
-                <div>
+                <div className="key-point-content">
                   <p>{point.text}</p>
                   <blockquote className="evidence-quote compact">
                     <strong>Evidence</strong>
@@ -104,7 +103,7 @@ export default function ReviewPage() {
 
       <section className="review-block">
         <span className="block-number">03</span>
-        <div>
+        <div className="grow">
           <span className="eyebrow">Giải thích đáp án sai</span>
           <h2>Vì sao cần xem lại?</h2>
           <p>{review.wrong_answer_explanation}</p>
@@ -120,7 +119,7 @@ export default function ReviewPage() {
               : "d2-slide-hackathon.pdf"}
           </span>
         </div>
-        <span>{review.key_points.length} evidence cần xem lại</span>
+        <span>{review.key_points.length} nội dung cần xem lại</span>
       </div>
 
       {error && <ErrorState message={error} />}

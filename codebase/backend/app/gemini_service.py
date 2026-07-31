@@ -107,6 +107,8 @@ class GeminiOrchestrator:
         question_count: int,
         minimum_unique_pages: int,
         previous_attempt_id: str | None = None,
+        excluded_questions: list[str] | None = None,
+        excluded_evidence: list[str] | None = None,
     ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
         preferred_pages: list[int] = []
         if previous_attempt_id:
@@ -117,12 +119,36 @@ class GeminiOrchestrator:
                     for answer in previous.answers
                     if not answer.is_correct
                 ]
-        context = select_quiz_context(
+        context_candidates = select_quiz_context(
             document_id,
-            question_count,
+            20 if excluded_evidence else question_count,
             preferred_pages,
         )
+        blocked_evidence = {
+            " ".join(item.split()).casefold() for item in excluded_evidence or []
+        }
+        context = []
+        for page in context_candidates:
+            allowed_evidence = [
+                item
+                for item in page["evidence"]
+                if " ".join(item.split()).casefold() not in blocked_evidence
+            ]
+            if not allowed_evidence:
+                continue
+            context.append({**page, "evidence": allowed_evidence})
+            if len(context) == question_count:
+                break
+        if len(context) < question_count:
+            raise ValueError("Không còn đủ nội dung mới để tạo quiz trong phiên này.")
         context_json = json.dumps(context, ensure_ascii=False)
+        exclusions_json = json.dumps(
+            {
+                "questions": excluded_questions or [],
+                "evidence_quotes": excluded_evidence or [],
+            },
+            ensure_ascii=False,
+        )
         personalization = (
             "Đây là quiz củng cố; context đã ưu tiên các trang của câu trả lời sai."
             if previous_attempt_id
@@ -140,6 +166,9 @@ Loại: {mode}. Số câu: {question_count}. Tối thiểu {minimum_unique_pages
 
 KNOWLEDGE CONTEXT — đây là nguồn duy nhất được phép sử dụng:
 {context_json}
+
+NỘI DUNG ĐÃ TRẢ LỜI ĐÚNG, TUYỆT ĐỐI KHÔNG ĐƯỢC LẶP LẠI:
+{exclusions_json}
 
 QUY TRÌNH BẮT BUỘC:
 1. Tạo đúng {question_count} câu, mỗi câu 4 lựa chọn A-D.

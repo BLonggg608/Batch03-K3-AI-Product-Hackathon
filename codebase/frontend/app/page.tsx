@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { CitationLink } from "@/components/CitationLink";
 import { ErrorState, LoadingState } from "@/components/LoadingState";
 import { getJson, postJson } from "@/lib/api";
 import type { DocumentSummary, Quiz } from "@/lib/types";
@@ -59,7 +58,7 @@ export default function HomePage() {
 
   const createQuiz = async (
     document: DocumentSummary,
-    questionCount: 5 | 10 | 20,
+    questionCount: 5 | 10,
   ) => {
     setCreating(document.document_id);
     setCreatingCount(questionCount);
@@ -85,12 +84,8 @@ export default function HomePage() {
     <div className="stack-lg">
       <section className="hero">
         <div>
-          <span className="eyebrow">Quiz bao quát toàn bộ nội dung buổi học</span>
+          <span className="eyebrow">Kiểm tra kiến thức theo ngày học</span>
           <h1>Chọn bộ slide muốn tạo quiz</h1>
-          <p>
-            Nội dung của toàn bộ 29 trang đã được chuẩn hóa sẵn theo chủ đề và
-            evidence. Gemini chỉ đọc các phần kiến thức được chọn để tạo quiz.
-          </p>
         </div>
         {health && (
           <div className="mode-note">
@@ -124,22 +119,7 @@ export default function HomePage() {
               </span>
               <h2>{document.title}</h2>
               <p>{document.description}</p>
-              <dl className="deck-stats">
-                <div>
-                  <dt>Số trang</dt>
-                  <dd>{document.page_count}</dd>
-                </div>
-                <div>
-                  <dt>Nội dung</dt>
-                  <dd>{document.word_count.toLocaleString("vi-VN")} từ</dd>
-                </div>
-                <div>
-                  <dt>Quiz</dt>
-                  <dd>5 / 10 / 20 câu</dd>
-                </div>
-              </dl>
               <div className="deck-actions">
-                <CitationLink documentId={document.document_id} page={1} />
                 <button
                   className="button"
                   disabled={Boolean(creating)}
@@ -159,9 +139,7 @@ export default function HomePage() {
                   <span className="spinner" />
                   <div>
                     <strong>Đang tạo quiz {creatingCount} câu</strong>
-                    <small>
-                      Gemini đang tạo câu hỏi từ knowledge context đã chuẩn hóa.
-                    </small>
+                    <small>Vui lòng chờ trong giây lát.</small>
                   </div>
                 </div>
               )}
@@ -171,12 +149,12 @@ export default function HomePage() {
                   aria-label="Chọn số lượng câu hỏi"
                 >
                   <span>Chọn số câu:</span>
-                  {[5, 10, 20].map((count) => (
+                  {[5, 10].map((count) => (
                     <button
                       className="count-option"
                       key={count}
                       onClick={() =>
-                        void createQuiz(document, count as 5 | 10 | 20)
+                        void createQuiz(document, count as 5 | 10)
                       }
                     >
                       {count} câu

@@ -35,6 +35,8 @@ export default function QuizPage() {
   }, [params.quizId]);
 
   const answeredCount = useMemo(() => Object.keys(answers).length, [answers]);
+  const totalQuestions = quiz?.questions.length ?? 0;
+  const progress = totalQuestions ? (answeredCount / totalQuestions) * 100 : 0;
 
   const submit = async () => {
     if (!quiz || answeredCount !== quiz.questions.length) {
@@ -74,61 +76,76 @@ export default function QuizPage() {
 
   return (
     <div className="content-narrow stack-lg">
-      <section className="page-title">
+      <section className="page-title quiz-title">
         <span className="eyebrow">
-          {quiz.mode === "diagnostic" ? "Quiz tổng hợp" : "Quiz củng cố"} ·{" "}
+          {quiz.mode === "diagnostic" ? "Quiz chẩn đoán" : "Quiz củng cố"} ·{" "}
           {quiz.document.document_id === "day01" ? "Ngày 1" : "Ngày 2"}
         </span>
         <h1>{quiz.document.title}</h1>
-        <p>{quiz.document.description}</p>
+        <p>Chọn một đáp án cho mỗi câu rồi nộp bài để xem kết quả.</p>
         <div className="quiz-meta">
-          <span>{quiz.questions.length} câu</span>
-          <span>{quiz.document.page_count} trang nguồn</span>
+          <span>{quiz.questions.length} câu hỏi</span>
           <span>
             Nguồn tạo: {quiz.generated_by === "gemini" ? "Gemini" : "Fallback"}
           </span>
         </div>
       </section>
 
-      <div className="progress-line">
-        <span style={{ width: `${(answeredCount / quiz.questions.length) * 100}%` }} />
-      </div>
-      <p className="progress-copy">
-        Đã trả lời {answeredCount}/{quiz.questions.length} câu
-      </p>
+      <section className="quiz-progress" aria-label="Tiến độ làm bài">
+        <div className="progress-heading">
+          <strong>Tiến độ</strong>
+          <span>
+            {answeredCount}/{quiz.questions.length} câu
+          </span>
+        </div>
+        <div className="progress-line">
+          <span style={{ width: `${progress}%` }} />
+        </div>
+      </section>
 
       <div className="question-list">
-        {quiz.questions.map((question, index) => (
-          <fieldset className="question-card" key={question.question_id}>
-            <legend>
-              <span>Câu {index + 1}</span>
-              {question.question}
-            </legend>
-            <div className="choice-list">
-              {question.choices.map((choice) => {
-                const checked = answers[question.question_id] === choice.id;
-                return (
-                  <label className={checked ? "choice selected" : "choice"} key={choice.id}>
-                    <input
-                      type="radio"
-                      name={question.question_id}
-                      value={choice.id}
-                      checked={checked}
-                      onChange={() =>
-                        setAnswers((current) => ({
-                          ...current,
-                          [question.question_id]: choice.id,
-                        }))
-                      }
-                    />
-                    <b>{choice.id}</b>
-                    <span>{choice.text}</span>
-                  </label>
-                );
-              })}
-            </div>
-          </fieldset>
-        ))}
+        {quiz.questions.map((question, index) => {
+          const titleId = `question-${question.question_id}`;
+          return (
+            <section
+              className="question-card"
+              role="group"
+              aria-labelledby={titleId}
+              key={question.question_id}
+            >
+              <div className="question-number">Câu {index + 1}</div>
+              <h2 className="question-title" id={titleId}>
+                {question.question}
+              </h2>
+              <div className="choice-list">
+                {question.choices.map((choice) => {
+                  const checked = answers[question.question_id] === choice.id;
+                  return (
+                    <label
+                      className={checked ? "choice selected" : "choice"}
+                      key={choice.id}
+                    >
+                      <input
+                        type="radio"
+                        name={question.question_id}
+                        value={choice.id}
+                        checked={checked}
+                        onChange={() =>
+                          setAnswers((current) => ({
+                            ...current,
+                            [question.question_id]: choice.id,
+                          }))
+                        }
+                      />
+                      <b aria-hidden="true">{choice.id}</b>
+                      <span>{choice.text}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </section>
+          );
+        })}
       </div>
 
       {error && <ErrorState message={error} />}
@@ -136,8 +153,8 @@ export default function QuizPage() {
       <div className="sticky-actions">
         <span>
           {answeredCount === quiz.questions.length
-            ? "Đã sẵn sàng chấm"
-            : "Hãy trả lời đủ các câu"}
+            ? "Bạn đã trả lời đủ và có thể nộp bài."
+            : `Còn ${quiz.questions.length - answeredCount} câu chưa trả lời.`}
         </span>
         <button
           className="button"

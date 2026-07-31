@@ -77,7 +77,7 @@ class QuizPublic(BaseModel):
 
 class GenerateQuizRequest(BaseModel):
     document_id: DocumentId
-    question_count: Literal[5, 10, 20] = 10
+    question_count: Literal[5, 10] = 10
 
 
 class AnswerSubmission(BaseModel):

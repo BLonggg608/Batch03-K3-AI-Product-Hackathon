@@ -36,23 +36,34 @@ def _fallback_questions(
     question_count: int,
     mode: str,
     preferred_pages: list[int] | None = None,
+    excluded_evidence: list[str] | None = None,
 ) -> list[dict]:
+    blocked_evidence = {
+        " ".join(item.split()).casefold() for item in excluded_evidence or []
+    }
     pages = list(dict.fromkeys(preferred_pages or []))
-    for page in _spread_pages(document_id, question_count):
+    for page in _spread_pages(document_id, 20):
         if page not in pages:
             pages.append(page)
-        if len(pages) == question_count:
-            break
-    pages = pages[:question_count]
 
     evidence_by_page: dict[int, str] = {}
     titles: dict[int, str] = {}
     for page_number in pages:
         page = get_page_source(document_id, page_number)
-        if not page["evidence"]:
+        evidence = next(
+            (
+                item
+                for item in page["evidence"]
+                if " ".join(item.split()).casefold() not in blocked_evidence
+            ),
+            None,
+        )
+        if not evidence:
             continue
-        evidence_by_page[page_number] = page["evidence"][0]
+        evidence_by_page[page_number] = evidence
         titles[page_number] = page["title"]
+        if len(evidence_by_page) == question_count:
+            break
 
     if len(evidence_by_page) < question_count:
         raise HTTPException(status_code=422, detail="Không đủ evidence trong tài liệu.")
@@ -66,6 +77,13 @@ def _fallback_questions(
         "Ý nào phản ánh đúng đặc điểm của “{title}”?",
         "Đâu là cách hiểu phù hợp về “{title}”?",
     ]
+    if mode == "reinforcement":
+        question_templates = [
+            "Trong lượt củng cố, phát biểu nào đúng về “{title}”?",
+            "Sau khi ôn tập, cách hiểu nào phù hợp nhất với “{title}”?",
+            "Kiến thức cốt lõi nào cần nhớ về “{title}”?",
+            "Chọn nhận định chính xác nhất liên quan đến “{title}”.",
+        ]
     prefix = "R" if mode == "reinforcement" else "Q"
     for index, (page_number, evidence) in enumerate(evidence_items):
         other_evidence = [
@@ -118,27 +136,43 @@ def create_quiz(
     get_document_summary(document_id)
     if mode == "diagnostic":
         question_count = question_count or 10
-        if question_count not in {5, 10, 20}:
+        if question_count not in {5, 10}:
             raise HTTPException(
                 status_code=422,
-                detail="Số câu quiz phải là 5, 10 hoặc 20.",
+                detail="Số câu quiz phải là 5 hoặc 10.",
             )
         minimum_unique_pages = math.ceil(question_count * 0.75)
     else:
-        question_count = 4
-        minimum_unique_pages = 2
+        previous = store.get_attempt(previous_attempt_id) if previous_attempt_id else None
+        question_count = previous.total if previous and previous.total in {5, 10} else 5
+        minimum_unique_pages = math.ceil(question_count * 0.75)
     generated_by = "fallback"
     trace: list[dict] = []
 
     preferred_pages: list[int] = []
+    excluded_questions: list[str] = []
+    excluded_evidence: list[str] = []
     if previous_attempt_id:
-        previous = store.get_attempt(previous_attempt_id)
-        if previous:
-            preferred_pages = [
-                answer.source_page
-                for answer in previous.answers
-                if not answer.is_correct
-            ]
+        current_id: str | None = previous_attempt_id
+        is_latest = True
+        visited: set[str] = set()
+        while current_id and current_id not in visited:
+            visited.add(current_id)
+            previous = store.get_attempt(current_id)
+            if previous is None:
+                break
+            if is_latest:
+                preferred_pages = [
+                    answer.source_page
+                    for answer in previous.answers
+                    if not answer.is_correct
+                ]
+                is_latest = False
+            for answer in previous.answers:
+                if answer.is_correct:
+                    excluded_questions.append(answer.question)
+                    excluded_evidence.append(answer.evidence_quote)
+            current_id = previous.parent_attempt_id
 
     if gemini.enabled:
         try:
@@ -148,6 +182,8 @@ def create_quiz(
                 question_count=question_count,
                 minimum_unique_pages=minimum_unique_pages,
                 previous_attempt_id=previous_attempt_id,
+                excluded_questions=excluded_questions,
+                excluded_evidence=excluded_evidence,
             )
             called = {item.get("tool") for item in trace if isinstance(item, dict)}
             required = {"validate_quiz"}
@@ -160,6 +196,8 @@ def create_quiz(
                 raw_questions,
                 question_count,
                 minimum_unique_pages,
+                excluded_questions,
+                excluded_evidence,
             )
             trace.append(
                 {
@@ -190,6 +228,7 @@ def create_quiz(
                 question_count,
                 mode,
                 preferred_pages,
+                excluded_evidence,
             )
             trace.append({"event": "gemini_fallback", "reason": str(exc)})
     else:
@@ -206,6 +245,7 @@ def create_quiz(
             question_count,
             mode,
             preferred_pages,
+            excluded_evidence,
         )
         trace.append(
             {
@@ -219,6 +259,8 @@ def create_quiz(
         raw_questions,
         question_count,
         minimum_unique_pages,
+        excluded_questions,
+        excluded_evidence,
     )
     if not final_validation["valid"]:
         raise HTTPException(

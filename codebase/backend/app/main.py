@@ -32,7 +32,7 @@ from .store import store
 
 
 app = FastAPI(
-    title="VLearn Deck Quiz API",
+    title="No Name Quiz API",
     version="3.0.0",
     description="Tạo quiz bao quát toàn bộ slide deck của một ngày.",
 )

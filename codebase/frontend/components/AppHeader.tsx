@@ -16,10 +16,10 @@ export function AppHeader() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link href="/" className="brand" aria-label="VLearn Focus">
-          <span className="brand-mark">VF</span>
+        <Link href="/" className="brand" aria-label="No Name">
+          <span className="brand-mark">NN</span>
           <span>
-            <strong>VLearn Focus</strong>
+            <strong>No Name</strong>
             <small>Quiz tổng hợp theo từng ngày học</small>
           </span>
         </Link>

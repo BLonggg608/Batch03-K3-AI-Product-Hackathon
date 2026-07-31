@@ -89,7 +89,7 @@ def test_curated_knowledge_base_is_complete_and_stratified(
 
 @pytest.mark.parametrize(
     ("question_count", "minimum_unique_pages"),
-    [(5, 4), (10, 8), (20, 15)],
+    [(5, 4), (10, 8)],
 )
 def test_public_quiz_supports_selected_count_and_does_not_leak(
     question_count: int,
@@ -118,6 +118,14 @@ def test_public_quiz_supports_selected_count_and_does_not_leak(
         assert "explanation" not in question
         assert "evidence_quote" not in question
         assert all("misconception" not in choice for choice in question["choices"])
+
+
+def test_public_quiz_rejects_twenty_questions() -> None:
+    response = client.post(
+        "/api/quizzes/generate",
+        json={"document_id": "day02", "question_count": 20},
+    )
+    assert response.status_code == 422
 
 
 def test_complete_document_learning_loop() -> None:
@@ -161,7 +169,7 @@ def test_complete_document_learning_loop() -> None:
         "/api/reinforcement/generate",
         json={"attempt_id": attempt["attempt_id"]},
     ).json()
-    assert len(reinforcement_public["questions"]) == 4
+    assert len(reinforcement_public["questions"]) == 10
     reinforcement = store.get_quiz(reinforcement_public["quiz_id"])
     assert reinforcement is not None
 
@@ -180,10 +188,93 @@ def test_complete_document_learning_loop() -> None:
             ],
         },
     ).json()
-    assert reinforced["score"] == 4
+    assert reinforced["score"] == 10
     progress = client.get(f"/api/progress/{reinforced['attempt_id']}")
     assert progress.status_code == 200
     assert progress.json()["after_percentage"] == 100
+
+
+def test_retry_excludes_correct_questions_and_keeps_wrong_topics_eligible() -> None:
+    public = client.post(
+        "/api/quizzes/generate",
+        json={"document_id": "day01", "question_count": 5},
+    ).json()
+    quiz = store.get_quiz(public["quiz_id"])
+    assert quiz is not None
+
+    answers = []
+    for index, question in enumerate(quiz.questions):
+        if index < 2:
+            selected = next(
+                choice.id
+                for choice in question.choices
+                if choice.id != question.correct_answer
+            )
+        else:
+            selected = question.correct_answer
+        answers.append(
+            {"question_id": question.question_id, "selected_answer": selected}
+        )
+
+    attempt = client.post(
+        "/api/attempts/grade",
+        json={
+            "quiz_id": quiz.quiz_id,
+            "learner_id": "history-test",
+            "answers": answers,
+        },
+    ).json()
+    correct_evidence = {
+        answer["evidence_quote"] for answer in attempt["answers"] if answer["is_correct"]
+    }
+    wrong_evidence = {
+        answer["evidence_quote"] for answer in attempt["answers"] if not answer["is_correct"]
+    }
+
+    retry_public = client.post(
+        "/api/reinforcement/generate",
+        json={"attempt_id": attempt["attempt_id"]},
+    )
+    assert retry_public.status_code == 200, retry_public.text
+    retry = store.get_quiz(retry_public.json()["quiz_id"])
+    assert retry is not None
+    retry_evidence = {question.evidence_quote for question in retry.questions}
+    assert retry_evidence.isdisjoint(correct_evidence)
+    assert retry_evidence & wrong_evidence
+
+
+def test_perfect_retry_does_not_repeat_any_answered_evidence() -> None:
+    public = client.post(
+        "/api/quizzes/generate",
+        json={"document_id": "day01", "question_count": 5},
+    ).json()
+    quiz = store.get_quiz(public["quiz_id"])
+    assert quiz is not None
+    attempt = client.post(
+        "/api/attempts/grade",
+        json={
+            "quiz_id": quiz.quiz_id,
+            "learner_id": "perfect-history-test",
+            "answers": [
+                {
+                    "question_id": question.question_id,
+                    "selected_answer": question.correct_answer,
+                }
+                for question in quiz.questions
+            ],
+        },
+    ).json()
+
+    retry_public = client.post(
+        "/api/reinforcement/generate",
+        json={"attempt_id": attempt["attempt_id"]},
+    )
+    assert retry_public.status_code == 200, retry_public.text
+    retry = store.get_quiz(retry_public.json()["quiz_id"])
+    assert retry is not None
+    original_evidence = {question.evidence_quote for question in quiz.questions}
+    retry_evidence = {question.evidence_quote for question in retry.questions}
+    assert retry_evidence.isdisjoint(original_evidence)
 
 
 def test_validator_rejects_fabricated_evidence_and_low_coverage() -> None:

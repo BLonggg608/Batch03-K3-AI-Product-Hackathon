@@ -5,7 +5,7 @@ import { AppHeader } from "@/components/AppHeader";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "VLearn Slide Quiz",
+  title: "No Name",
   description: "Chọn bộ slide ngày 1 hoặc ngày 2 và tạo quiz tổng hợp.",
 };
 
