@@ -63,7 +63,7 @@ class GeminiOrchestrator:
                 ),
             )
             response = chat.send_message(prompt)
-            for _ in range(6):
+            while True:
                 calls = response.function_calls or []
                 if not calls:
                     return parse_json_response(response.text or "{}"), trace
@@ -96,7 +96,6 @@ class GeminiOrchestrator:
                         "Gemini vượt quá 180 giây."
                     )
                 response = chat.send_message(function_responses)
-            raise RuntimeError("Gemini vượt quá số vòng function calling.")
         finally:
             client.close()
 

@@ -1,13 +1,13 @@
 # Eval run 01
 
-- Run at: 2026-07-30T23:35:52
+- Run at: 2026-07-31T09:31:58
 - Model: gemini-3.1-flash-lite
 - Gemini enabled: True
 - Fallback enabled: False
 - Golden set: `eval\golden-set.json`
 - Document: day01
 - Batch design: 4 x 5 fixed cases
-- Result: 13/20
+- Result: 14/20
 
 | Case | Type | Result | Page | Failed checks |
 |---|---|---|---:|---|
@@ -21,14 +21,14 @@
 | EVAL-08 | ambiguous_context | PASS | 10 | - |
 | EVAL-09 | normal | PASS | 11 | - |
 | EVAL-10 | normal | PASS | 12 | - |
-| EVAL-11 | high_impact | FAIL | 13 | review_generated_by_gemini |
-| EVAL-12 | high_impact | FAIL | 14 | review_generated_by_gemini |
-| EVAL-13 | normal | FAIL | 15 | review_generated_by_gemini |
-| EVAL-14 | out_of_scope | FAIL | 16 | review_generated_by_gemini |
-| EVAL-15 | normal | FAIL | 17 | review_generated_by_gemini |
+| EVAL-11 | high_impact | FAIL | 13 | provider_success, expected_terms_found, source_page_covered, review_evidence_grounded, review_generated_by_gemini |
+| EVAL-12 | high_impact | FAIL | 14 | provider_success, expected_terms_found, source_page_covered, review_evidence_grounded, review_generated_by_gemini |
+| EVAL-13 | normal | FAIL | 15 | provider_success, expected_terms_found, source_page_covered, review_evidence_grounded, review_generated_by_gemini |
+| EVAL-14 | out_of_scope | FAIL | 16 | provider_success, expected_terms_found, source_page_covered, review_evidence_grounded, review_generated_by_gemini |
+| EVAL-15 | normal | FAIL | 17 | provider_success, expected_terms_found, source_page_covered, review_evidence_grounded, review_generated_by_gemini |
 | EVAL-16 | normal | PASS | 18 | - |
 | EVAL-17 | normal | PASS | 19 | - |
-| EVAL-18 | missing_information | FAIL | 20 | expected_terms_found |
+| EVAL-18 | missing_information | PASS | 20 | - |
 | EVAL-19 | high_impact | PASS | 21 | - |
 | EVAL-20 | ambiguous_context | PASS | 22 | - |
 
