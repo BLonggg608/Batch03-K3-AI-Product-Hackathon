@@ -16,7 +16,7 @@ GOLDEN_SET_PATH = OUT_DIR / "golden-set.json"
 
 # Keep evaluation objects separate from the demo database.
 os.environ.setdefault("DATABASE_PATH", str(OUT_DIR / "eval.sqlite3"))
-os.environ.setdefault("ALLOW_FALLBACK", "false")
+os.environ["ALLOW_FALLBACK"] = "false"
 sys.path.insert(0, str(BACKEND))
 
 from fastapi.testclient import TestClient  # noqa: E402
@@ -167,6 +167,7 @@ def run_batch(
                 **case,
                 "pass": passed,
                 "checks": {
+                    "provider_success": True,
                     "expected_terms_found": terms_found,
                     "source_page_covered": page_covered,
                     "review_evidence_grounded": review_grounded,
@@ -190,6 +191,33 @@ def run_batch(
     }
 
 
+def failed_batch(cases: list[dict], batch_number: int, error: Exception) -> dict:
+    message = str(error)
+    return {
+        "batch_number": batch_number,
+        "review_generated_by": "error",
+        "error": message,
+        "rows": [
+            {
+                **case,
+                "pass": False,
+                "checks": {
+                    "provider_success": False,
+                    "expected_terms_found": False,
+                    "source_page_covered": False,
+                    "review_evidence_grounded": False,
+                    "review_generated_by_gemini": False,
+                },
+                "observed": {
+                    "generated_by": "error",
+                    "error": message,
+                },
+            }
+            for case in cases
+        ],
+    }
+
+
 def run_eval(batch_size: int = 5) -> dict:
     golden_set = load_golden_set()
     document_id = golden_set["document_id"]
@@ -200,12 +228,17 @@ def run_eval(batch_size: int = 5) -> dict:
     batches = []
     rows = []
     for offset in range(0, len(cases), batch_size):
-        batch = run_batch(
-            client,
-            document_id,
-            cases[offset : offset + batch_size],
-            batch_number=(offset // batch_size) + 1,
-        )
+        batch_cases = cases[offset : offset + batch_size]
+        batch_number = (offset // batch_size) + 1
+        try:
+            batch = run_batch(
+                client,
+                document_id,
+                batch_cases,
+                batch_number=batch_number,
+            )
+        except Exception as exc:
+            batch = failed_batch(batch_cases, batch_number, exc)
         rows.extend(batch.pop("rows"))
         batches.append(batch)
 

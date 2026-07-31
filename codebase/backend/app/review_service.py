@@ -3,7 +3,10 @@ from __future__ import annotations
 import re
 from uuid import uuid4
 
+from fastapi import HTTPException
+
 from .attempt_service import get_attempt_or_404
+from .config import ALLOW_FALLBACK
 from .data_service import get_document_summary, get_page_source
 from .gemini_service import gemini
 from .models import KeyPoint, ReviewPackage
@@ -83,6 +86,11 @@ def create_review(attempt_id: str) -> ReviewPackage:
             _validate_payload(payload, attempt.document_id)
             generated_by = "gemini"
         except Exception as exc:
+            if not ALLOW_FALLBACK:
+                raise HTTPException(
+                    status_code=502,
+                    detail=f"Gemini chưa tạo được gói ôn tập hợp lệ: {exc}",
+                ) from exc
             payload, trace = _fallback_review(attempt_id)
             trace.append({"event": "gemini_fallback", "reason": str(exc)})
     else:
